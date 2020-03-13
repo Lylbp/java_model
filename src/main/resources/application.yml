@@ -1,0 +1,62 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+#    url: jdbc:mysql://localhost:3306/ph869?characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/sweet?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai
+
+#  jackson:
+#    default-property-inclusion: non_null
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+    view:
+      prefix: /pages/
+      suffix: .html
+  jmx:
+    enabled: false
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/META-INF/resources/webjars/,file:${files.image_path},
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+pagehelper:
+  helperDialect: mysql
+  page-size-zero: true
+  params: count=countSql
+  supportMethodsArguments: true
+
+mapper:
+  mappers: com.dar.road.core.universal.Mapper
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      db-type: mysql
+
+
+root-dir: /Library/WebServer/upload/image/
+files:
+  image_path: ${root-dir}image/
+
+logging:
+  level:
+    com.dar.road.mapper: debug
+  path: ${root-dir}logs
+
+
+
+
+
+
