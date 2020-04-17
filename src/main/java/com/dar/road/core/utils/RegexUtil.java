@@ -36,6 +36,11 @@ public class RegexUtil {
     public static final String INTEGER = "^-?(([1-9]\\d*$)|0)";
 
     /**
+     * Integer正则表达式 ^[0-9]$
+     */
+    public static final String NUMBER_STR = "^0*\\d+";
+
+    /**
      * Double正则表达式 ^-?([1-9]\d*\.\d*|0\.\d*[1-9]\d*|0?\.0+|0)$
      */
     public static final String DOUBLE = "^-?([1-9]\\d*\\.\\d*|0\\.\\d*[1-9]\\d*|0?\\.0+|0)$";
@@ -105,6 +110,16 @@ public class RegexUtil {
      */
     public static boolean isInteger(String str) {
         return regular(str, INTEGER);
+    }
+
+    /**
+     * 判断字段是否为Email 符合返回ture
+     *
+     * @param str the str
+     * @return boolean boolean
+     */
+    public static boolean isNumberStr(String str) {
+        return regular(str, NUMBER_STR);
     }
 
     /**

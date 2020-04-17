@@ -32,5 +32,5 @@ public class ProjectConstant {
     /**
      * token过期时间，单位：秒
      */
-    public static final int TOKEN_EXPIRE_TIME = 24 * 60 * 60;
+    public static final int JWT_EXPIRE_TIME = 24 * 60 * 60;
 }

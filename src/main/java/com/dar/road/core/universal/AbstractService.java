@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @Description: 基于通用MyBatis Mapper插件的Service接口的实现
- * @author 蒋磊
+ * @author weiwenbin
  * @date 2019/8/28
  */
 public abstract class AbstractService<T> implements Service<T> {
@@ -87,6 +87,11 @@ public abstract class AbstractService<T> implements Service<T> {
     @Override
     public List<T> selectByCondition(Condition condition) {
         return mapper.selectByCondition(condition);
+    }
+
+    @Override
+    public int selectCountByCondition(Condition condition) {
+        return mapper.selectCountByCondition(condition);
     }
 
     @Override

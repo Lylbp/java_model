@@ -1,16 +1,15 @@
 package com.dar.road.core.aspect;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @Aspect
 @Component
 public class LogAspect {
-
-    private Logger logger = LoggerFactory.getLogger(LogAspect.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
     private long start;
 
     private long end;
@@ -46,12 +43,15 @@ public class LogAspect {
         logger.info("请求方法 : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
 
         // 获取参数, 只取自定义的参数, 自带的HttpServletRequest, HttpServletResponse不管
-        if (joinPoint.getArgs().length > 0) {
-            for (Object o : joinPoint.getArgs()) {
-                if (o instanceof HttpServletRequest || o instanceof HttpServletResponse) {
-                    continue;
+        Object[] args = joinPoint.getArgs();
+        if (ObjectUtil.isNotEmpty(args)){
+            if (args.length > 0) {
+                for (Object o : args) {
+                    if (o instanceof HttpServletRequest || o instanceof HttpServletResponse || o instanceof MultipartFile) {
+                        continue;
+                    }
+                    logger.info("请求参数 : " + JSON.toJSONString(o));
                 }
-                logger.info("请求参数 : " + JSON.toJSONString(o));
             }
         }
     }

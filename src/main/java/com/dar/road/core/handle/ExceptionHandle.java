@@ -30,8 +30,8 @@ public class ExceptionHandle {
             if (result.hasErrors()) {
                 FieldError fieldError = result.getFieldError();
                 if (fieldError != null) {
-                    return ResResultUtil.makeRsp(ResResultEnum.PARAM_VALIDATE_FAILED.getCode(),
-                            fieldError.getDefaultMessage());
+//                    return ResResultUtil.makeRsp(ResResultEnum.PARAM_VALIDATE_FAILED.getCode(), fieldError.getDefaultMessage());
+                    return ResResultUtil.makeRsp(ResResultEnum.PARAM_VALIDATE_FAILED);
                 } else {
                     return ResResultUtil.makeRsp(ResResultEnum.PARAM_VALIDATE_FAILED);
                 }

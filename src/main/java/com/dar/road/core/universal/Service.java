@@ -79,6 +79,13 @@ public interface Service<T> {
     List<T> selectByCondition(Condition condition);
 
     /**
+     *
+     * @param condition
+     * @return
+     */
+    int selectCountByCondition(Condition condition);
+
+    /**
      * @Description: 获取所有
      * @Reutrn List<T>
      */

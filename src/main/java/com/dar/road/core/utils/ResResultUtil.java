@@ -15,16 +15,16 @@ public class ResResultUtil {
         return new ResResult<T>().setCode(code).setMsg(msg);
     }
 
-    public static <T> ResResult makeRsp(int code, String msg, T data) {
+    public static <T> ResResult<T> makeRsp(int code, String msg, T data) {
         return new ResResult<T>().setCode(code).setMsg(msg).setData(data);
     }
 
 
-    public static <T> ResResult makeRsp(ResResultEnum responseEnum) {
+    public static <T> ResResult<T> makeRsp(ResResultEnum responseEnum) {
         return new ResResult<T>().setCode(responseEnum.getCode()).setMsg(responseEnum.getMsg());
     }
 
-    public static <T> ResResult makeRsp(ResResultEnum responseEnum, T data) {
+    public static <T> ResResult<T> makeRsp(ResResultEnum responseEnum, T data) {
         return new ResResult<T>().setCode(responseEnum.getCode()).setMsg(responseEnum.getMsg()).setData(data);
     }
 

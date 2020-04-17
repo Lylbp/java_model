@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dar.road.mapper.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.dar.road.entity.SysMenu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="menu_id" jdbcType="CHAR" property="menuId" />
+    <result column="parent_id" jdbcType="CHAR" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="create_user" jdbcType="CHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="CHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+</mapper>

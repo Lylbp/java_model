@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dar.road.mapper.TSTypeMapper">
+  <resultMap id="BaseResultMap" type="com.dar.road.entity.TSType">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="TYPE_ID" jdbcType="VARCHAR" property="typeId" />
+    <result column="TYPE_CODE" jdbcType="VARCHAR" property="typeCode" />
+    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+    <result column="TYPE_DESC" jdbcType="VARCHAR" property="typeDesc" />
+    <result column="TYPE_GROUP_ID" jdbcType="VARCHAR" property="typeGroupId" />
+    <result column="CREATE_DATE" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="CREATE_NAME" jdbcType="VARCHAR" property="createName" />
+    <result column="IS_ENABLED" jdbcType="VARCHAR" property="isEnabled" />
+    <result column="IS_VALID" jdbcType="NUMERIC" property="isValid" />
+  </resultMap>
+</mapper>
