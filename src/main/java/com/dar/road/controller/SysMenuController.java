@@ -60,7 +60,7 @@ public class SysMenuController {
     public ResResult<PageResResult<SysMenu>> selectAll(@RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        List<SysMenu> list = sysMenuService.selectAll();
+        List<SysMenu> list = sysMenuService.getList();
 
         return ResResultUtil.makePageRsp(list);
     }

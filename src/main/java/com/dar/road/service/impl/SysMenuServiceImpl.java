@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
 * @Description: SysMenuService接口实现类
@@ -20,4 +21,8 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
     @Resource
     private SysMenuMapper sysMenuMapper;
 
+    @Override
+    public List<SysMenu> getList() {
+        return sysMenuMapper.getList();
+    }
 }
