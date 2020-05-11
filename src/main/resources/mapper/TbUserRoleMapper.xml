@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dar.road.mapper.TbUserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.dar.road.entity.TbUserRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="user_role_id" jdbcType="VARCHAR" property="userRoleId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+    </resultMap>
+    <select id="queryListByUserId" resultType="com.dar.road.VO.Security.RoleVO">
+        SELECT
+        r.role_id,
+        r.role_name
+        FROM `tb_user_role` t
+        LEFT JOIN `tb_role` r ON r.role_id = t.role_id
+        where t.user_id = #{userId}
+  </select>
+</mapper>

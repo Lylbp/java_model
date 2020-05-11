@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dar.road.mapper.TbRolePermissionMapper">
+    <resultMap id="BaseResultMap" type="com.dar.road.entity.TbRolePermission">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
+    </resultMap>
+
+  <resultMap id="QueryResultMap" type="com.dar.road.VO.Security.RolePermissionVO" extends="BaseResultMap">
+    <result column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId"/>
+    <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+    <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
+
+    <association property="tbPermission" columnPrefix="p_"
+                 resultMap="com.dar.road.mapper.TbPermissionMapper.BaseResultMap">
+    </association>
+
+    <association property="tbRole" columnPrefix="r_"
+                 resultMap="com.dar.road.mapper.TbRoleMapper.BaseResultMap">
+    </association>
+  </resultMap>
+
+    <select id="queryByParams" resultMap="QueryResultMap" resultType="com.dar.road.VO.Security.RolePermissionVO">
+      SELECT
+        t.role_permission_id,
+        t.role_id,
+        t.permission_id,
+        r.role_id as r_role_id,
+        r.role_name as r_role_name,
+        p.permission_id as p_permission_id,
+        p.name as p_name,
+        p.url as p_url
+      FROM `tb_role_permission` t
+      LEFT JOIN `tb_role` r ON r.role_id = t.role_id
+      LEFT JOIN `tb_permission` p ON  p.permission_id = t.permission_id
+    </select>
+</mapper>

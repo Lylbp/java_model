@@ -21,16 +21,16 @@ import java.util.*;
 public class CodeGenerator {
 
     // JDBC配置，请修改为你项目的实际配置oracle配置
-    private static final String JDBC_URL = "jdbc:oracle:thin:@192.168.1.151:1521:cdb1";
-    private static final String JDBC_USERNAME = "C##dar";
-    private static final String JDBC_PASSWORD = "1qaz2wsx";
-    private static final String JDBC_DIVER_CLASS_NAME = "oracle.jdbc.driver.OracleDriver";
+//    private static final String JDBC_URL = "jdbc:oracle:thin:@192.168.1.151:1521:cdb1";
+//    private static final String JDBC_USERNAME = "C##dar";
+//    private static final String JDBC_PASSWORD = "1qaz2wsx";
+//    private static final String JDBC_DIVER_CLASS_NAME = "oracle.jdbc.driver.OracleDriver";
 
     // JDBC配置，请修改为你项目的实际配置
-//    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/ph869?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai";
-//    private static final String JDBC_USERNAME = "root";
-//    private static final String JDBC_PASSWORD = "root";
-//    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/javal_model?useSSL=false&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=Asia/Shanghai";
+    private static final String JDBC_USERNAME = "root";
+    private static final String JDBC_PASSWORD = "root";
+    private static final String JDBC_DIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
     // 模板位置
     private static final String TEMPLATE_FILE_PATH = "src/test/java/resources/template/generator";
@@ -53,7 +53,7 @@ public class CodeGenerator {
      * @param args
      */
     public static void main(String[] args) {
-        genCode("T_S_TYPE");
+//        genCode("tb_user");
     }
 
     /**
