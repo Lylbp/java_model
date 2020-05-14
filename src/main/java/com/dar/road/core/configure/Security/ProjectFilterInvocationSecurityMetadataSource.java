@@ -1,6 +1,6 @@
 package com.dar.road.core.configure.Security;
 
-import com.dar.road.VO.Security.RolePermissionVO;
+import com.dar.road.VO.Security.SecurityRolePermissionVO;
 import com.dar.road.entity.TbPermission;
 import com.dar.road.entity.TbRole;
 import com.dar.road.mapper.TbRolePermissionMapper;
@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
+ * 动态权限数据源，用于获取动态权限规则
+ *
  * @Author weiwenbin
  * @Date 2020/5/11 下午2:18
  */
@@ -32,12 +34,15 @@ public class ProjectFilterInvocationSecurityMetadataSource implements FilterInvo
 
     /**
      * 返回请求的资源需要的角色
+     * 如果api未配置可访问的角色代表所有人都可以访问
+     * @param o
+     * @return
+     * @throws IllegalArgumentException
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        if (null == map) {
-            loadResourceDefine();
-        }
+        //TODO 缓存中拿
+        loadResourceDefine();
         //object 中包含用户请求的request 信息
         HttpServletRequest request = ((FilterInvocation) o).getHttpRequest();
         for (Iterator<String> it = map.keySet().iterator(); it.hasNext(); ) {
@@ -66,11 +71,11 @@ public class ProjectFilterInvocationSecurityMetadataSource implements FilterInvo
     public void loadResourceDefine() {
         map = new HashMap<>(16);
         //权限资源 和 角色对应的表  也就是 角色权限 中间表
-        List<RolePermissionVO> rolePermissionVOS = tbRolePermissionMapper.queryByParams(new HashMap<String, Object>());
+        List<SecurityRolePermissionVO> securityRolePermissionVOS = tbRolePermissionMapper.queryByParams(new HashMap<String, Object>());
 
-        rolePermissionVOS.forEach(rolePermissionVO -> {
-            TbRole tbRole = rolePermissionVO.getTbRole();
-            TbPermission tbPermission = rolePermissionVO.getTbPermission();
+        securityRolePermissionVOS.forEach(securityRolePermissionVO -> {
+            TbRole tbRole = securityRolePermissionVO.getTbRole();
+            TbPermission tbPermission = securityRolePermissionVO.getTbPermission();
 
             String roleName = tbRole.getRoleName();
             String url = tbPermission.getUrl();

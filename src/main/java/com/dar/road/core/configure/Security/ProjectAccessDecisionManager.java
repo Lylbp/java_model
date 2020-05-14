@@ -1,5 +1,7 @@
 package com.dar.road.core.configure.Security;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.enums.ResResultEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
@@ -14,7 +16,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * 决策器
+ * 动态权限决策管理器，用于判断用户是否有访问权限
  * @Author weiwenbin
  * @Date 2020/5/11 下午2:47
  */
@@ -34,7 +36,7 @@ public class ProjectAccessDecisionManager implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
-        if (null == configAttributes || 0 >= configAttributes.size()) {
+        if (ObjectUtil.isEmpty(configAttributes)) {
             return;
         } else {
             String needRole;
@@ -47,8 +49,9 @@ public class ProjectAccessDecisionManager implements AccessDecisionManager {
                     }
                 }
             }
-            throw new AccessDeniedException("当前访问没有权限");
         }
+
+        throw new AccessDeniedException(ResResultEnum.NO_AUTHENTICATION.getMsg());
     }
 
     /**

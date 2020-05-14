@@ -1,6 +1,6 @@
 package com.dar.road.service;
 
-import com.dar.road.VO.Security.UserVO;
+import com.dar.road.VO.Security.SecurityUserVO;
 import com.dar.road.entity.TbUser;
 
 /**
@@ -10,10 +10,10 @@ import com.dar.road.entity.TbUser;
 public interface TokenService {
     /**
      * 通过登录信息创建token
-     * @param userVO
+     * @param securityUserVO
      * @return
      */
-    String createToken(UserVO userVO);
+    String createToken(SecurityUserVO securityUserVO);
 
     /**
      * 从请求头验证token
@@ -27,7 +27,7 @@ public interface TokenService {
      *
      * @return
      */
-    UserVO getTSysUserFromHeader();
+    SecurityUserVO getTSysUserFromHeader();
 
     /**
      * 从请求头获取TSysUser的id

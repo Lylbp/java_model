@@ -9,7 +9,7 @@
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
     </resultMap>
-    <select id="queryListByUserId" resultType="com.dar.road.VO.Security.RoleVO">
+    <select id="queryListByUserId" resultType="com.dar.road.VO.Security.SecurityRoleVO">
         SELECT
         r.role_id,
         r.role_name

@@ -10,7 +10,7 @@ import lombok.Data;
  * @Date 2020/5/11 下午2:22
  */
 @Data
-public class RolePermissionVO extends TbRolePermission {
+public class SecurityRolePermissionVO extends TbRolePermission {
     private TbRole tbRole;
 
     private TbPermission tbPermission;

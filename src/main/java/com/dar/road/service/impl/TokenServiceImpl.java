@@ -3,7 +3,7 @@ package com.dar.road.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.dar.road.VO.Security.UserVO;
+import com.dar.road.VO.Security.SecurityUserVO;
 import com.dar.road.core.constant.ProjectConstant;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.core.utils.JwtUtil;
@@ -25,8 +25,8 @@ public class TokenServiceImpl implements TokenService {
     private HttpServletRequest request;
 
     @Override
-    public String createToken(UserVO userVO) {
-        return JwtUtil.createToken(JSONUtil.toJsonStr(userVO));
+    public String createToken(SecurityUserVO securityUserVO) {
+        return JwtUtil.createToken(JSONUtil.toJsonStr(securityUserVO));
     }
 
     @Override
@@ -37,19 +37,19 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public UserVO getUserByToken(String token) {
-        return JwtUtil.getTokenClaimsObj(token, UserVO.class);
+    public SecurityUserVO getUserByToken(String token) {
+        return JwtUtil.getTokenClaimsObj(token, SecurityUserVO.class);
     }
 
     @Override
-    public UserVO getTSysUserFromHeader() {
+    public SecurityUserVO getTSysUserFromHeader() {
         String token = getTokenFromHeader();
-        UserVO userVO = getUserByToken(token);
-        if (ObjectUtil.isEmpty(userVO)) {
+        SecurityUserVO securityUserVO = getUserByToken(token);
+        if (ObjectUtil.isEmpty(securityUserVO)) {
             throw new ResResultException(ResResultEnum.NO_LOGIN);
         }
 
-        return userVO;
+        return securityUserVO;
     }
 
     @Override

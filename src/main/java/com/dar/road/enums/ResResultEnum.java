@@ -22,6 +22,7 @@ public enum ResResultEnum {
     UPLOAD_RESOURCE_SUFFIX_ERROR(1013, "不允许上传文件类型"),
     RESOURCE_NOT_EXIT(1014, "资源不存在"),
     NO_LOGIN(1015, "登录凭证已失效"),
+    NO_AUTHENTICATION(1016, "您没有权限进行此次操作,请联系管理员分配权限！"),
     ;
 
     private Integer code;

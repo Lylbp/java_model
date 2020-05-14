@@ -10,13 +10,13 @@
         <result column="pwd" jdbcType="VARCHAR" property="pwd"/>
     </resultMap>
 
-  <resultMap id="securityUserMap" extends="BaseResultMap" type="com.dar.road.VO.Security.UserVO">
-    <collection property="authorities" ofType="com.dar.road.VO.Security.RoleVO"
+  <resultMap id="securityUserMap" extends="BaseResultMap" type="com.dar.road.VO.Security.SecurityUserVO">
+    <collection property="authorities" ofType="com.dar.road.VO.Security.SecurityRoleVO"
                 select="com.dar.road.mapper.TbUserRoleMapper.queryListByUserId" column="user_id">
     </collection>
   </resultMap>
 
-    <select id="queryByUserName" resultType="com.dar.road.VO.Security.UserVO">
+    <select id="queryByUserName" resultType="com.dar.road.VO.Security.SecurityUserVO">
       SELECT t.user_id,t.user_name,t.pwd  FROM `tb_user` t where t.user_name = #{userName}
     </select>
 </mapper>

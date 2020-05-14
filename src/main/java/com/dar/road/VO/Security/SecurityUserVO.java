@@ -14,8 +14,8 @@ import java.util.List;
  * @Date 2020/5/11 上午10:43
  */
 @Data
-public class UserVO extends TbUser implements UserDetails, Serializable {
-    private List<RoleVO> authorities;
+public class SecurityUserVO extends TbUser implements UserDetails, Serializable {
+    private List<SecurityRoleVO> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

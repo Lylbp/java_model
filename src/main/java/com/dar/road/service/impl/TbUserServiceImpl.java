@@ -1,7 +1,9 @@
 package com.dar.road.service.impl;
 
-import com.dar.road.VO.Security.RoleVO;
-import com.dar.road.VO.Security.UserVO;
+import com.dar.road.VO.Security.SecurityRoleVO;
+import com.dar.road.VO.Security.SecurityUserVO;
+import com.dar.road.core.exception.ResResultException;
+import com.dar.road.enums.ResResultEnum;
 import com.dar.road.mapper.TbUserMapper;
 import com.dar.road.entity.TbUser;
 import com.dar.road.mapper.TbUserRoleMapper;
@@ -11,10 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,16 +30,30 @@ public class TbUserServiceImpl extends AbstractService<TbUser> implements TbUser
 
     @Resource
     private TbUserRoleMapper tbUserRoleMapper;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserVO userVO = tbUserMapper.queryByUserName(userName);
-        if (userVO == null) {
+        SecurityUserVO securityUserVO = tbUserMapper.queryByUserName(userName);
+        if (securityUserVO == null) {
             throw new UsernameNotFoundException(String.format("没有该用户 '%s'.", userName));
         }
 
-        List<RoleVO> roleVOS = tbUserRoleMapper.queryListByUserId(userVO.getUserId());
-        userVO.setAuthorities(roleVOS);
+        List<SecurityRoleVO> securityRoleVOS = tbUserRoleMapper.queryListByUserId(securityUserVO.getUserId());
+        securityUserVO.setAuthorities(securityRoleVOS);
 
-        return userVO;
+        return securityUserVO;
+    }
+
+    @Override
+    public SecurityUserVO getUserVOByUserName(String userName) {
+        SecurityUserVO securityUserVO = tbUserMapper.queryByUserName(userName);
+        if (securityUserVO == null) {
+            throw new ResResultException(ResResultEnum.ACCOUNT_ERR);
+        }
+
+        List<SecurityRoleVO> securityRoleVOS = tbUserRoleMapper.queryListByUserId(securityUserVO.getUserId());
+        securityUserVO.setAuthorities(securityRoleVOS);
+
+        return securityUserVO;
     }
 }

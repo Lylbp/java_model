@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @Author weiwenbin
  * @Date 2020/5/11 上午11:03
  */
-public class RoleVO extends TbRole implements GrantedAuthority {
+public class SecurityRoleVO extends TbRole implements GrantedAuthority {
     @Override
     public String getAuthority() {
         return getRoleName();

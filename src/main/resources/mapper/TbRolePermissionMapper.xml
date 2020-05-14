@@ -10,7 +10,7 @@
         <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
     </resultMap>
 
-  <resultMap id="QueryResultMap" type="com.dar.road.VO.Security.RolePermissionVO" extends="BaseResultMap">
+  <resultMap id="QueryResultMap" type="com.dar.road.VO.Security.SecurityRolePermissionVO" extends="BaseResultMap">
     <result column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId"/>
     <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
     <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
@@ -24,7 +24,7 @@
     </association>
   </resultMap>
 
-    <select id="queryByParams" resultMap="QueryResultMap" resultType="com.dar.road.VO.Security.RolePermissionVO">
+    <select id="queryByParams" resultMap="QueryResultMap" resultType="com.dar.road.VO.Security.SecurityRolePermissionVO">
       SELECT
         t.role_permission_id,
         t.role_id,
