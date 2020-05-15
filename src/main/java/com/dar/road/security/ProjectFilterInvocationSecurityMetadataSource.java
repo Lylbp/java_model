@@ -1,4 +1,4 @@
-package com.dar.road.core.configure.Security;
+package com.dar.road.security;
 
 import com.dar.road.VO.Security.SecurityRolePermissionVO;
 import com.dar.road.entity.TbPermission;

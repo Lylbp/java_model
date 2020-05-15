@@ -1,4 +1,4 @@
-package com.dar.road.core.configure.Security;
+package com.dar.road.security;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

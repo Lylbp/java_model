@@ -1,6 +1,5 @@
-package com.dar.road.core.configure.Security;
+package com.dar.road.security;
 
-import com.dar.road.service.impl.TbUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

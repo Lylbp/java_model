@@ -1,4 +1,4 @@
-package com.dar.road.core.configure.Security;
+package com.dar.road.security;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.enums.ResResultEnum;

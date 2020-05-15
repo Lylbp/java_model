@@ -39,27 +39,27 @@ public class ActionLogAspect {
      */
     @Before(value = "actionLogAspect() && @annotation(actionLog)")
     public void recordLog(JoinPoint joinPoint, ActionLog actionLog) throws Throwable {
-        DateTime date = DateUtil.date();
-        com.dar.road.core.entity.ActionLog log = new com.dar.road.core.entity.ActionLog();
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        assert attributes != null;
-        HttpServletRequest request = attributes.getRequest();
-        String descrption = actionLog.descrption();
-
-        String userId = "操作人id";
-        String userName = "操作人名称";
-        String remoteIp = StringUtil.getRemoteIp(request);
-        String requestURI = request.getRequestURI();
-        String format = DateUtil.format(date, "yyyy-MM-dd HH:mm:ss");
-
-        log.setUserId(userId);
-        log.setUserName(userName);
-        log.setRemoteAddr(remoteIp);
-        log.setDescrption(descrption);
-        log.setRequestURI(requestURI);
-        log.setCreateDate(format);
-
-        logger.info(JSON.toJSONString(log));
+//        DateTime date = DateUtil.date();
+//        com.dar.road.core.entity.ActionLog log = new com.dar.road.core.entity.ActionLog();
+//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        assert attributes != null;
+//        HttpServletRequest request = attributes.getRequest();
+//        String descrption = actionLog.descrption();
+//
+//        String userId = "操作人id";
+//        String userName = "操作人名称";
+//        String remoteIp = StringUtil.getRemoteIp(request);
+//        String requestURI = request.getRequestURI();
+//        String format = DateUtil.format(date, "yyyy-MM-dd HH:mm:ss");
+//
+//        log.setUserId(userId);
+//        log.setUserName(userName);
+//        log.setRemoteAddr(remoteIp);
+//        log.setDescrption(descrption);
+//        log.setRequestURI(requestURI);
+//        log.setCreateDate(format);
+//
+//        logger.info(JSON.toJSONString(log));
     }
 
     /**

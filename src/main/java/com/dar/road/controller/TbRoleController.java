@@ -1,5 +1,7 @@
 package com.dar.road.controller;
 
+import com.dar.road.core.annotation.ActionLog;
+import com.dar.road.core.utils.AnnotationUtil;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
@@ -26,6 +28,8 @@ public class TbRoleController {
     @Resource
     private TbRoleService tbRoleService;
 
+    @Resource
+    private AnnotationUtil annotationUtil;
     @PostMapping("/insert")
     public ResResult<Integer> insert(TbRole tbRole){
         Integer count = tbRoleService.insert(tbRole);
@@ -45,6 +49,7 @@ public class TbRoleController {
     }
 
     @PostMapping("/selectById")
+    @ActionLog(descrption = "更具id查询")
     public ResResult<TbRole> selectById(@RequestParam String id) {
         TbRole tbRole = tbRoleService.selectById(id);
         return ResResultUtil.success(tbRole);
@@ -57,8 +62,10 @@ public class TbRoleController {
     * @Reutrn ResResult<PageResResult<TbRole>>
     */
     @PostMapping("/list")
+    @ActionLog(descrption = "分页查询")
     public ResResult<PageResResult<TbRole>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) {
+            @RequestParam(defaultValue = "0") Integer size) throws Exception {
+        annotationUtil.getAllAddTagAnnotationUrl("classpath*:com/dar/road/controller/**/*.class", ActionLog.class);
         PageHelper.startPage(page, size);
         List<TbRole> list = tbRoleService.selectAll();
 
