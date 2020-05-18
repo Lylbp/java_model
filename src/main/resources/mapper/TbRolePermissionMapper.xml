@@ -65,6 +65,9 @@
       FROM `tb_role_permission` t
       LEFT JOIN `tb_role` r ON r.role_id = t.role_id
       LEFT JOIN `tb_permission` p ON  p.permission_id = t.permission_id
+        <where>
+            AND t.is_valid = 1
+        </where>
     </select>
 
     <select id="queryByParams" resultMap="QueryByParams">

@@ -1,6 +1,8 @@
 package com.dar.road.security;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.core.exception.ResResultException;
+import com.dar.road.enums.ResResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.SecurityMetadataSource;
@@ -64,8 +66,13 @@ public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor impl
 //            }
 //        }
 
-        //此处会调用AccessDecisionManager中的decide方法进行鉴权操作
+        //超级管理员直接放行
+
         if (ObjectUtil.isNotEmpty(fi)){
+            /**
+             * 调用FilterInvocationSecurityMetadataSource中getAttributes获取访问当前路由需要的权限
+             * 然后调用AccessDecisionManager中的decide方法进行鉴权操作
+             */
             InterceptorStatusToken token = super.beforeInvocation(fi);
             try {
                 fi.getChain().doFilter(fi.getRequest(), fi.getResponse());

@@ -52,6 +52,7 @@ public class ProjectFilterInvocationSecurityMetadataSource implements FilterInvo
             }
         }
 
+        //当前路由未做任何配置 直接放回null 不在向下运行
         return null;
     }
 
