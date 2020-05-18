@@ -1,6 +1,11 @@
 package com.dar.road.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.dar.road.DTO.RoleEditDTO;
+import com.dar.road.DTO.RoleQueryDTO;
+import com.dar.road.VO.RoleVO;
 import com.dar.road.core.annotation.ActionLog;
+import com.dar.road.core.annotation.CheckPermission;
 import com.dar.road.core.utils.AnnotationUtil;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.result.PageResResult;
@@ -8,10 +13,11 @@ import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbRole;
 import com.dar.road.service.TbRoleService;
 import com.github.pagehelper.PageHelper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,52 +29,38 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/tbRole")
+@Api(tags = "角色相关")
 public class TbRoleController {
 
     @Resource
     private TbRoleService tbRoleService;
+    
+    @PostMapping("/edit")
+    @ApiOperation(value = "角色-添加或编辑")
+    public ResResult<Integer> edit(@RequestBody RoleEditDTO roleEditDTO){
+        TbRole role = new TbRole();
+        BeanUtil.copyProperties(roleEditDTO, role);
+        tbRoleService.insertOrUpdate(role);
 
-    @Resource
-    private AnnotationUtil annotationUtil;
-    @PostMapping("/insert")
-    public ResResult<Integer> insert(TbRole tbRole){
-        Integer count = tbRoleService.insert(tbRole);
-        return ResResultUtil.success(count);
+        return ResResultUtil.success();
     }
 
-    @PostMapping("/deleteById")
-    public ResResult<Integer> deleteById(@RequestParam String id) {
-        Integer count = tbRoleService.deleteById(id);
-        return ResResultUtil.success(count);
+    @PostMapping("/deleteByRoleId")
+    @ApiOperation(value = "角色-根据id删除")
+    @CheckPermission(descrption = "角色-根据id删除")
+    public ResResult<Integer> deleteById(@RequestBody String roleId) {
+        tbRoleService.updateIsValidByRoleId(roleId, false);
+
+        return ResResultUtil.success();
     }
 
-    @PostMapping("/update")
-    public ResResult<Integer> update(TbRole tbRole) {
-        Integer count = tbRoleService.update(tbRole);
-        return ResResultUtil.success(count);
-    }
 
-    @PostMapping("/selectById")
-    @ActionLog(descrption = "更具id查询")
-    public ResResult<TbRole> selectById(@RequestParam String id) {
-        TbRole tbRole = tbRoleService.selectById(id);
-        return ResResultUtil.success(tbRole);
-    }
-
-    /**
-    * @Description: 分页查询
-    * @param page 页码
-    * @param size 每页条数
-    * @Reutrn ResResult<PageResResult<TbRole>>
-    */
     @PostMapping("/list")
-    @ActionLog(descrption = "分页查询")
-    public ResResult<PageResResult<TbRole>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) throws Exception {
-        annotationUtil.getAllAddTagAnnotationUrl("classpath*:com/dar/road/controller/**/*.class", ActionLog.class);
-        PageHelper.startPage(page, size);
-        List<TbRole> list = tbRoleService.selectAll();
+    @CheckPermission(descrption = "角色-角色列表")
+    @ApiOperation(value = "角色-角色列表")
+    public ResResult<List<RoleVO>> selectAll(@RequestBody RoleQueryDTO roleQueryDTO)  {
+        List<RoleVO> list = tbRoleService.getListByParams(BeanUtil.beanToMap(roleQueryDTO));
 
-        return ResResultUtil.makePageRsp(list);
+        return ResResultUtil.success(list);
     }
 }

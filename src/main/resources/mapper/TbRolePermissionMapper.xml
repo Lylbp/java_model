@@ -8,34 +8,82 @@
         <result column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
         <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
+        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
     </resultMap>
 
-  <resultMap id="QueryResultMap" type="com.dar.road.VO.Security.SecurityRolePermissionVO" extends="BaseResultMap">
-    <result column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId"/>
-    <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
-    <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
+    <resultMap id="SecurityQueryListMap" type="com.dar.road.VO.Security.SecurityRolePermissionVO"
+               extends="BaseResultMap">
+        <association property="tbPermission" columnPrefix="p_"
+                     resultMap="com.dar.road.mapper.TbPermissionMapper.BaseResultMap">
+        </association>
 
-    <association property="tbPermission" columnPrefix="p_"
-                 resultMap="com.dar.road.mapper.TbPermissionMapper.BaseResultMap">
-    </association>
+        <association property="tbRole" columnPrefix="r_"
+                     resultMap="com.dar.road.mapper.TbRoleMapper.BaseResultMap">
+        </association>
+    </resultMap>
 
-    <association property="tbRole" columnPrefix="r_"
-                 resultMap="com.dar.road.mapper.TbRoleMapper.BaseResultMap">
-    </association>
-  </resultMap>
+    <resultMap id="QueryByParams" type="com.dar.road.VO.RolePermissionVO" extends="BaseResultMap">
+        <association property="permissionVO" columnPrefix="p_"
+                     resultMap="com.dar.road.mapper.TbPermissionMapper.PermissionVOMap">
+        </association>
 
-    <select id="queryByParams" resultMap="QueryResultMap" resultType="com.dar.road.VO.Security.SecurityRolePermissionVO">
+        <association property="roleVO" columnPrefix="r_"
+                     resultMap="com.dar.road.mapper.TbRoleMapper.RoleVOMap">
+        </association>
+    </resultMap>
+
+    <select id="securityQueryByParams" resultMap="SecurityQueryListMap"
+            resultType="com.dar.road.VO.Security.SecurityRolePermissionVO">
       SELECT
         t.role_permission_id,
         t.role_id,
         t.permission_id,
+        t.is_valid,
         r.role_id as r_role_id,
         r.role_name as r_role_name,
+        r.is_valid as r_is_valid,
         p.permission_id as p_permission_id,
         p.name as p_name,
-        p.url as p_url
+        p.url as p_url,
+        p.is_valid as p_is_valid
       FROM `tb_role_permission` t
       LEFT JOIN `tb_role` r ON r.role_id = t.role_id
       LEFT JOIN `tb_permission` p ON  p.permission_id = t.permission_id
+    </select>
+
+    <select id="queryByParams" resultMap="QueryByParams">
+        SELECT
+        t.role_permission_id,
+        t.role_id,
+        t.permission_id,
+        t.is_valid,
+        r.role_id as r_role_id,
+        r.role_name as r_role_name,
+        r.is_valid as r_is_valid,
+        p.permission_id as p_permission_id,
+        p.name as p_name,
+        p.url as p_url,
+        p.is_valid as p_is_valid
+        FROM `tb_role_permission` t
+        LEFT JOIN `tb_role` r ON r.role_id = t.role_id
+        LEFT JOIN `tb_permission` p ON p.permission_id = t.permission_id
+        <where>
+            AND t.is_valid = 1
+            <if test="params.roleId != '' and params.roleId != null">
+                AND t.role_id = #{params.roleId}
+            </if>
+
+            <if test="params.permissionId != '' and params.permissionId != null">
+                AND t.permission_id = #{params.permissionId}
+            </if>
+
+            <if test="params.roleNameLike != '' and params.roleNameLike != null">
+                AND r.role_name LIKE CONCAT("%", #{params.roleNameLike},"%" )
+            </if>
+
+            <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
+                AND p.name LIKE CONCAT("%", #{params.permissionNameLike},"%" )
+            </if>
+        </where>
     </select>
 </mapper>

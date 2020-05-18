@@ -1,6 +1,7 @@
 package com.dar.road.controller;
 
 import com.dar.road.VO.Security.SecurityUserVO;
+import com.dar.road.core.annotation.ActionLog;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
@@ -8,6 +9,7 @@ import com.dar.road.entity.TbUser;
 import com.dar.road.service.TbUserService;
 import com.dar.road.service.TokenService;
 import com.github.pagehelper.PageHelper;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/tbUser")
+@Api(tags = "用户相关")
 public class TbUserController {
 
     @Resource
@@ -33,47 +36,8 @@ public class TbUserController {
 
     @PostMapping("/testAuth")
     public ResResult<String> testAuth(String userName){
-        SecurityUserVO userVOBySecurityUserName = tbUserService.getUserVOByUserName(userName);
+        SecurityUserVO userVOBySecurityUserName = (SecurityUserVO)tbUserService.loadUserByUsername(userName);
         String token = tokenService.createToken(userVOBySecurityUserName);
         return ResResultUtil.success(token);
-    }
-
-    @PostMapping("/insert")
-    public ResResult<Integer> insert(TbUser tbUser){
-        Integer count = tbUserService.insert(tbUser);
-        return ResResultUtil.success(count);
-    }
-
-    @PostMapping("/deleteById")
-    public ResResult<Integer> deleteById(@RequestParam String id) {
-        Integer count = tbUserService.deleteById(id);
-        return ResResultUtil.success(count);
-    }
-
-    @PostMapping("/update")
-    public ResResult<Integer> update(TbUser tbUser) {
-        Integer count = tbUserService.update(tbUser);
-        return ResResultUtil.success(count);
-    }
-
-    @PostMapping("/selectById")
-    public ResResult<TbUser> selectById(@RequestParam String id) {
-        TbUser tbUser = tbUserService.selectById(id);
-        return ResResultUtil.success(tbUser);
-    }
-
-    /**
-    * @Description: 分页查询
-    * @param page 页码
-    * @param size 每页条数
-    * @Reutrn ResResult<PageResResult<TbUser>>
-    */
-    @PostMapping("/list")
-    public ResResult<PageResResult<TbUser>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<TbUser> list = tbUserService.selectAll();
-
-        return ResResultUtil.makePageRsp(list);
     }
 }

@@ -43,17 +43,4 @@ public class TbUserServiceImpl extends AbstractService<TbUser> implements TbUser
 
         return securityUserVO;
     }
-
-    @Override
-    public SecurityUserVO getUserVOByUserName(String userName) {
-        SecurityUserVO securityUserVO = tbUserMapper.queryByUserName(userName);
-        if (securityUserVO == null) {
-            throw new ResResultException(ResResultEnum.ACCOUNT_ERR);
-        }
-
-        List<SecurityRoleVO> securityRoleVOS = tbUserRoleMapper.queryListByUserId(securityUserVO.getUserId());
-        securityUserVO.setAuthorities(securityRoleVOS);
-
-        return securityUserVO;
-    }
 }

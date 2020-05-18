@@ -1,67 +1,77 @@
 package com.dar.road.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.DTO.RolePermissionEditDTO;
+import com.dar.road.DTO.RolePermissionQueryDTO;
+import com.dar.road.VO.RolePermissionVO;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbRolePermission;
+import com.dar.road.enums.ResResultEnum;
+import com.dar.road.service.TbPermissionService;
 import com.dar.road.service.TbRolePermissionService;
+import com.dar.road.service.TbRoleService;
 import com.github.pagehelper.PageHelper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
-* @Description: TbRolePermissionController类
-* @author weiwenbin
-* @date 2020/05/11 09:13
-*/
+ * @author weiwenbin
+ * @Description: TbRolePermissionController类
+ * @date 2020/05/11 09:13
+ */
 @RestController
 @RequestMapping("/tbRolePermission")
+@Api(tags = "角色权限相关")
 public class TbRolePermissionController {
+    @Resource
+    private TbRolePermissionService rolePermissionService;
 
     @Resource
-    private TbRolePermissionService tbRolePermissionService;
+    private TbPermissionService permissionService;
 
-    @PostMapping("/insert")
-    public ResResult<Integer> insert(TbRolePermission tbRolePermission){
-        Integer count = tbRolePermissionService.insert(tbRolePermission);
+    @Resource
+    private TbRoleService tbRoleService;
+
+    @PostMapping("/edit")
+    @ApiOperation("角色权限-添加或编辑")
+    public ResResult insert(@RequestBody RolePermissionEditDTO rolePermissionEditDTO) {
+        TbRolePermission tbRolePermission = new TbRolePermission();
+        BeanUtil.copyProperties(rolePermissionEditDTO, tbRolePermission);
+
+        //数据验证---权限是否存在
+        String permissionId = tbRolePermission.getPermissionId();
+        if (ObjectUtil.isEmpty(permissionService.isExitByPermissionId(permissionId)))
+            return ResResultUtil.makeRsp(ResResultEnum.NO_ROLE_EXIT);
+        //数据验证---角色是否存在
+        String roleId = tbRolePermission.getRoleId();
+        if (ObjectUtil.isEmpty(tbRoleService.isExistByRoleId(roleId))) return ResResultUtil.makeRsp(ResResultEnum.NO_PERMISSION_EXIT);
+
+        rolePermissionService.insertOrUpdate(tbRolePermission);
+
+        return ResResultUtil.success();
+    }
+
+    @PostMapping("/deleteByRolePermissionId")
+    @ApiOperation("角色权限-删除")
+    public ResResult deleteByRolePermissionId(@RequestBody String rolePermissionId) {
+        Integer count = rolePermissionService.updateIsValidByRolePermissionId(rolePermissionId, false);
         return ResResultUtil.success(count);
     }
 
-    @PostMapping("/deleteById")
-    public ResResult<Integer> deleteById(@RequestParam String id) {
-        Integer count = tbRolePermissionService.deleteById(id);
-        return ResResultUtil.success(count);
-    }
+    @PostMapping("/getList")
+    @ApiOperation("角色权限-列表")
+    public ResResult<List<RolePermissionVO>> getList(@RequestBody RolePermissionQueryDTO rolePermissionQueryDTO) {
+        Map<String, Object> params = BeanUtil.beanToMap(rolePermissionQueryDTO);
+        List<RolePermissionVO> list = rolePermissionService.getListByParams(params);
 
-    @PostMapping("/update")
-    public ResResult<Integer> update(TbRolePermission tbRolePermission) {
-        Integer count = tbRolePermissionService.update(tbRolePermission);
-        return ResResultUtil.success(count);
-    }
-
-    @PostMapping("/selectById")
-    public ResResult<TbRolePermission> selectById(@RequestParam String id) {
-        TbRolePermission tbRolePermission = tbRolePermissionService.selectById(id);
-        return ResResultUtil.success(tbRolePermission);
-    }
-
-    /**
-    * @Description: 分页查询
-    * @param page 页码
-    * @param size 每页条数
-    * @Reutrn ResResult<PageResResult<TbRolePermission>>
-    */
-    @PostMapping("/list")
-    public ResResult<PageResResult<TbRolePermission>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<TbRolePermission> list = tbRolePermissionService.selectAll();
-
-        return ResResultUtil.makePageRsp(list);
+        return ResResultUtil.success(list);
     }
 }

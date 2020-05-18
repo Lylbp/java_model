@@ -33,7 +33,7 @@ public class AnnotationUtil {
      * @return
      * @throws Exception
      */
-    public <T> Map<String, Map<String, Object>> getAllAddTagAnnotationUrl(String classPath, Class<T> tagAnnotationClass) throws Exception {
+    public  <T> Map<String, Map<String, Object>> getAllAddTagAnnotationUrl(String classPath, Class<T> tagAnnotationClass) throws Exception {
         Map<String, Map<String, Object>> resMap = new HashMap<>();
         ResourcePatternResolver resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
         MetadataReaderFactory metaReader = new CachingMetadataReaderFactory(resourceLoader);

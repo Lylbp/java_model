@@ -71,7 +71,7 @@ public class ProjectFilterInvocationSecurityMetadataSource implements FilterInvo
     public void loadResourceDefine() {
         map = new HashMap<>(16);
         //权限资源 和 角色对应的表  也就是 角色权限 中间表
-        List<SecurityRolePermissionVO> securityRolePermissionVOS = tbRolePermissionMapper.queryByParams(new HashMap<String, Object>());
+        List<SecurityRolePermissionVO> securityRolePermissionVOS = tbRolePermissionMapper.securityQueryByParams(new HashMap<String, Object>());
 
         securityRolePermissionVOS.forEach(securityRolePermissionVO -> {
             TbRole tbRole = securityRolePermissionVO.getTbRole();

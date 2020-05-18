@@ -1,67 +1,62 @@
 package com.dar.road.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.date.DateUtil;
+import com.dar.road.DTO.PermissionQueryDTO;
+import com.dar.road.VO.PermissionVO;
+import com.dar.road.core.annotation.ActionLog;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbPermission;
 import com.dar.road.service.TbPermissionService;
 import com.github.pagehelper.PageHelper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
-* @Description: TbPermissionController类
-* @author weiwenbin
-* @date 2020/05/11 09:13
-*/
+ * @author weiwenbin
+ * @Description: TbPermissionController类
+ * @date 2020/05/11 09:13
+ */
 @RestController
 @RequestMapping("/tbPermission")
+@Api(tags = "权限相关")
 public class TbPermissionController {
 
     @Resource
     private TbPermissionService tbPermissionService;
 
-    @PostMapping("/insert")
-    public ResResult<Integer> insert(TbPermission tbPermission){
-        Integer count = tbPermissionService.insert(tbPermission);
-        return ResResultUtil.success(count);
+    @PostMapping("/initPermissionData")
+    @ApiOperation("权限-更新权限源数据")
+    public ResResult initPermissionData() {
+        List<TbPermission> permissions = tbPermissionService.getAllAllPermissionByAnnotation();
+        tbPermissionService.installPermissionList(permissions);
+
+        return ResResultUtil.success();
     }
 
-    @PostMapping("/deleteById")
-    public ResResult<Integer> deleteById(@RequestParam String id) {
-        Integer count = tbPermissionService.deleteById(id);
-        return ResResultUtil.success(count);
+
+    @PostMapping("/getAll")
+    @ApiOperation("权限-所有权限列表")
+    public ResResult<List<PermissionVO>> getAll(@RequestBody PermissionQueryDTO permissionQueryDTO) {
+        Map<String, Object> params = BeanUtil.beanToMap(permissionQueryDTO);
+        List<PermissionVO> list = tbPermissionService.getPermissionByParams(params);
+
+        return ResResultUtil.success(list);
     }
 
-    @PostMapping("/update")
-    public ResResult<Integer> update(TbPermission tbPermission) {
-        Integer count = tbPermissionService.update(tbPermission);
-        return ResResultUtil.success(count);
-    }
+    @PostMapping("/deleteByPermissionId")
+    @ApiOperation("权限-删除")
+    public ResResult deleteByPermissionId(@RequestBody String permissionId) {
+        tbPermissionService.updateIsValidByPermissionId(permissionId, false);
 
-    @PostMapping("/selectById")
-    public ResResult<TbPermission> selectById(@RequestParam String id) {
-        TbPermission tbPermission = tbPermissionService.selectById(id);
-        return ResResultUtil.success(tbPermission);
-    }
-
-    /**
-    * @Description: 分页查询
-    * @param page 页码
-    * @param size 每页条数
-    * @Reutrn ResResult<PageResResult<TbPermission>>
-    */
-    @PostMapping("/list")
-    public ResResult<PageResResult<TbPermission>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<TbPermission> list = tbPermissionService.selectAll();
-
-        return ResResultUtil.makePageRsp(list);
+        return ResResultUtil.success();
     }
 }

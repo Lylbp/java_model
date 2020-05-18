@@ -8,7 +8,15 @@
         <result column="user_role_id" jdbcType="VARCHAR" property="userRoleId"/>
         <result column="user_id" jdbcType="VARCHAR" property="userId"/>
         <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
     </resultMap>
+
+    <resultMap id="QueryByParams" type="com.dar.road.VO.UserRoleVO" extends="BaseResultMap">
+        <association property="roleVO" columnPrefix="r_"
+                     resultMap="com.dar.road.mapper.TbRoleMapper.RoleVOMap"
+        ></association>
+    </resultMap>
+
     <select id="queryListByUserId" resultType="com.dar.road.VO.Security.SecurityRoleVO">
         SELECT
         r.role_id,
@@ -16,5 +24,31 @@
         FROM `tb_user_role` t
         LEFT JOIN `tb_role` r ON r.role_id = t.role_id
         where t.user_id = #{userId}
-  </select>
+    </select>
+
+    <select id="queryByParams" resultMap="QueryByParams">
+        SELECT
+        t.user_role_id,
+        t.user_id,
+        t.role_id,
+        t.is_valid,
+        r.role_id as r_role_id,
+        r.role_name as r_role_name,
+        r.is_valid as r_is_valid
+        FROM `tb_user_role` t
+        LEFT JOIN `tb_role` r ON r.role_id = t.role_id
+        <where>
+            <if test="params.userId != '' and params.userId != null">
+                AND t.user_id = #{params.userId}
+            </if>
+
+            <if test="params.roleId != '' and params.roleId != null">
+                AND t.role_id = #{params.roleId}
+            </if>
+
+            <if test="params.roleNameLike != '' and params.roleNameLike != null">
+                AND r.role_name LIKE CONCAT("%",#{params.userId},"%")
+            </if>
+        </where>
+    </select>
 </mapper>

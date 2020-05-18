@@ -1,8 +1,11 @@
 package com.dar.road.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Table(name = "tb_role_permission")
+@Data
 public class TbRolePermission {
     /**
      * id
@@ -24,56 +27,8 @@ public class TbRolePermission {
     private String permissionId;
 
     /**
-     * 获取id
-     *
-     * @return role_permission_id - id
+     * 是否有效
      */
-    public String getRolePermissionId() {
-        return rolePermissionId;
-    }
-
-    /**
-     * 设置id
-     *
-     * @param rolePermissionId id
-     */
-    public void setRolePermissionId(String rolePermissionId) {
-        this.rolePermissionId = rolePermissionId == null ? null : rolePermissionId.trim();
-    }
-
-    /**
-     * 获取角色id
-     *
-     * @return role_id - 角色id
-     */
-    public String getRoleId() {
-        return roleId;
-    }
-
-    /**
-     * 设置角色id
-     *
-     * @param roleId 角色id
-     */
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
-    }
-
-    /**
-     * 获取权限id
-     *
-     * @return permission_id - 权限id
-     */
-    public String getPermissionId() {
-        return permissionId;
-    }
-
-    /**
-     * 设置权限id
-     *
-     * @param permissionId 权限id
-     */
-    public void setPermissionId(String permissionId) {
-        this.permissionId = permissionId == null ? null : permissionId.trim();
-    }
+    @Column(name = "is_valid")
+    private Boolean isValid;
 }

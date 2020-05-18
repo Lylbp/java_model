@@ -1,8 +1,11 @@
 package com.dar.road.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Table(name = "tb_role")
+@Data
 public class TbRole {
     /**
      * 角色id
@@ -17,39 +20,10 @@ public class TbRole {
     @Column(name = "role_name")
     private String roleName;
 
-    /**
-     * 获取角色id
-     *
-     * @return role_id - 角色id
-     */
-    public String getRoleId() {
-        return roleId;
-    }
 
     /**
-     * 设置角色id
-     *
-     * @param roleId 角色id
+     * 是否有效
      */
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
-    }
-
-    /**
-     * 获取角色名称
-     *
-     * @return role_name - 角色名称
-     */
-    public String getRoleName() {
-        return roleName;
-    }
-
-    /**
-     * 设置角色名称
-     *
-     * @param roleName 角色名称
-     */
-    public void setRoleName(String roleName) {
-        this.roleName = roleName == null ? null : roleName.trim();
-    }
+    @Column(name = "is_valid")
+    private Boolean isValid;
 }

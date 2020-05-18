@@ -1,5 +1,6 @@
 package com.dar.road.mapper;
 
+import com.dar.road.VO.RolePermissionVO;
 import com.dar.road.VO.Security.SecurityRolePermissionVO;
 import com.dar.road.core.universal.Mapper;
 import com.dar.road.entity.TbRolePermission;
@@ -9,5 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TbRolePermissionMapper extends Mapper<TbRolePermission> {
-    List<SecurityRolePermissionVO> queryByParams(@Param("params") Map<String,Object> params);
+    List<SecurityRolePermissionVO> securityQueryByParams(@Param("params") Map<String,Object> params);
+
+    List<RolePermissionVO> queryByParams(@Param("params") Map<String,Object> params);
 }

@@ -1,18 +1,24 @@
 package com.dar.road.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.DTO.UserRoleEditDTO;
+import com.dar.road.DTO.UserRoleQueryDTO;
+import com.dar.road.VO.UserRoleVO;
 import com.dar.road.core.result.ResResult;
-import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
+import com.dar.road.entity.TbRole;
 import com.dar.road.entity.TbUserRole;
+import com.dar.road.enums.ResResultEnum;
+import com.dar.road.service.TbRoleService;
 import com.dar.road.service.TbUserRoleService;
-import com.github.pagehelper.PageHelper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @Description: TbUserRoleController类
@@ -21,47 +27,42 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/tbUserRole")
+@Api(tags = "用户角色相关")
 public class TbUserRoleController {
-
     @Resource
     private TbUserRoleService tbUserRoleService;
 
-    @PostMapping("/insert")
-    public ResResult<Integer> insert(TbUserRole tbUserRole){
-        Integer count = tbUserRoleService.insert(tbUserRole);
-        return ResResultUtil.success(count);
+    @Resource
+    private TbRoleService roleService;
+
+    @ApiOperation("用户角色-添加或编辑")
+    @PostMapping("/edit")
+    public ResResult edit(@RequestBody UserRoleEditDTO userRoleEditDTO){
+        TbUserRole userRole = new TbUserRole();
+        BeanUtil.copyProperties(userRoleEditDTO, userRole);
+
+        //数据验证---判断角色是否存在
+        TbRole role = roleService.isExistByRoleId(userRole.getRoleId());
+        if (ObjectUtil.isEmpty(role)) return ResResultUtil.makeRsp(ResResultEnum.NO_ROLE_EXIT);
+
+        tbUserRoleService.insertOrUpdate(userRole);
+        return ResResultUtil.success();
     }
 
-    @PostMapping("/deleteById")
-    public ResResult<Integer> deleteById(@RequestParam String id) {
-        Integer count = tbUserRoleService.deleteById(id);
-        return ResResultUtil.success(count);
+    @ApiOperation("用户角色-列表")
+    @PostMapping("/getList")
+    public ResResult<List<UserRoleVO>> getList(@RequestBody UserRoleQueryDTO userRoleQueryDTO){
+        Map<String, Object> params = BeanUtil.beanToMap(userRoleQueryDTO);
+        List<UserRoleVO> list = tbUserRoleService.getListByParams(params);
+
+        return ResResultUtil.success(list);
     }
 
-    @PostMapping("/update")
-    public ResResult<Integer> update(TbUserRole tbUserRole) {
-        Integer count = tbUserRoleService.update(tbUserRole);
-        return ResResultUtil.success(count);
-    }
+    @ApiOperation("用户角色-删除")
+    @PostMapping("/deleteByUserRoleId")
+    public ResResult deleteByUserRoleId(@RequestBody String userRoleId){
+        tbUserRoleService.updateIsValidByUserRoleId(userRoleId, false);
 
-    @PostMapping("/selectById")
-    public ResResult<TbUserRole> selectById(@RequestParam String id) {
-        TbUserRole tbUserRole = tbUserRoleService.selectById(id);
-        return ResResultUtil.success(tbUserRole);
-    }
-
-    /**
-    * @Description: 分页查询
-    * @param page 页码
-    * @param size 每页条数
-    * @Reutrn ResResult<PageResResult<TbUserRole>>
-    */
-    @PostMapping("/list")
-    public ResResult<PageResResult<TbUserRole>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<TbUserRole> list = tbUserRoleService.selectAll();
-
-        return ResResultUtil.makePageRsp(list);
+        return ResResultUtil.success();
     }
 }
