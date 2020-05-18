@@ -1,10 +1,13 @@
 package com.dar.road.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.DTO.UserRoleBatchEditDTO;
 import com.dar.road.DTO.UserRoleEditDTO;
 import com.dar.road.DTO.UserRoleQueryDTO;
 import com.dar.road.VO.UserRoleVO;
+import com.dar.road.core.exception.ResResultException;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbRole;
@@ -17,6 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +50,36 @@ public class TbUserRoleController {
         if (ObjectUtil.isEmpty(role)) return ResResultUtil.makeRsp(ResResultEnum.NO_ROLE_EXIT);
 
         tbUserRoleService.insertOrUpdate(userRole);
+        return ResResultUtil.success();
+    }
+
+    @ApiOperation("用户角色-批量添加")
+    @PostMapping("/batchInsert")
+    public ResResult batchInsert(@RequestBody UserRoleBatchEditDTO userRoleBatchEditDTO){
+        List<String> roleIds = userRoleBatchEditDTO.getRoleIds();
+        String userId = userRoleBatchEditDTO.getUserId();
+
+        //原有数据is_valid全部变更为0
+        tbUserRoleService.updateIsValidByUserId(userId, false);
+
+        //批量新增
+        List<Object> userRoles = new ArrayList<>();
+        roleIds.forEach(roleId -> {
+            if (ObjectUtil.isEmpty(roleService.isExistByRoleId(roleId))) {
+                throw new ResResultException(ResResultEnum.NO_ROLE_EXIT);
+            }
+
+            TbUserRole userRole = new TbUserRole();
+            userRole.setIsValid(true);
+            userRole.setUserRoleId(IdUtil.simpleUUID());
+            userRole.setRoleId(roleId);
+            userRole.setUserId(userId);
+
+            userRoles.add(userRole);
+        });
+
+        tbUserRoleService.batchInsert(userRoles);
+
         return ResResultUtil.success();
     }
 

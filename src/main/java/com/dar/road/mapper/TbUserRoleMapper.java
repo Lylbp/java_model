@@ -13,4 +13,8 @@ public interface TbUserRoleMapper extends Mapper<TbUserRole> {
     List<SecurityRoleVO> queryListByUserId(@Param("userId") String userId);
 
     List<UserRoleVO> queryByParams(@Param("params") Map<String, Object> params);
+
+    Integer updateIsValidByUserId(@Param("userId") String userId, @Param("isValid") Boolean isValid);
+
+    Integer batchInsert(@Param("userRoles") List<Object> userRoles);
 }

@@ -65,11 +65,21 @@ public class TbUserRoleServiceImpl extends AbstractService<TbUserRole> implement
     }
 
     @Override
+    public Integer batchInsert(List<Object> userRoles) {
+        return tbUserRoleMapper.batchInsert(userRoles);
+    }
+
+    @Override
     public Integer updateIsValidByUserRoleId(String userRoleId, Boolean isValid) {
         TbUserRole userRole = selectById(userRoleId);
         if (ObjectUtil.isEmpty(userRole)) return 0;
 
         userRole.setIsValid(isValid);
         return update(userRole);
+    }
+
+    @Override
+    public Integer updateIsValidByUserId(String userId, Boolean isValid) {
+        return tbUserRoleMapper.updateIsValidByUserId(userId, isValid);
     }
 }

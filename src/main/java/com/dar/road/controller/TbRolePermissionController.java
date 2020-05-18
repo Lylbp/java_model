@@ -1,10 +1,13 @@
 package com.dar.road.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.DTO.RolePermissionBatchEditDTO;
 import com.dar.road.DTO.RolePermissionEditDTO;
 import com.dar.road.DTO.RolePermissionQueryDTO;
 import com.dar.road.VO.RolePermissionVO;
+import com.dar.road.core.exception.ResResultException;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
@@ -19,8 +22,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * @author weiwenbin
@@ -49,15 +54,49 @@ public class TbRolePermissionController {
         //数据验证---权限是否存在
         String permissionId = tbRolePermission.getPermissionId();
         if (ObjectUtil.isEmpty(permissionService.isExitByPermissionId(permissionId)))
-            return ResResultUtil.makeRsp(ResResultEnum.NO_ROLE_EXIT);
+            return ResResultUtil.makeRsp(ResResultEnum.NO_PERMISSION_EXIT);
         //数据验证---角色是否存在
         String roleId = tbRolePermission.getRoleId();
-        if (ObjectUtil.isEmpty(tbRoleService.isExistByRoleId(roleId))) return ResResultUtil.makeRsp(ResResultEnum.NO_PERMISSION_EXIT);
+        if (ObjectUtil.isEmpty(tbRoleService.isExistByRoleId(roleId)))
+            return ResResultUtil.makeRsp(ResResultEnum.NO_ROLE_EXIT);
 
         rolePermissionService.insertOrUpdate(tbRolePermission);
 
         return ResResultUtil.success();
     }
+
+    @PostMapping("/batchInsert")
+    @ApiOperation("角色权限-批量添加")
+    public ResResult batchInsert(@RequestBody RolePermissionBatchEditDTO rolePermissionEditDTO) {
+        String roleId = rolePermissionEditDTO.getRoleId();
+        List<String> permissionIdList = rolePermissionEditDTO.getPermissionIdList();
+        //验证角色是否存在
+        if (ObjectUtil.isEmpty(tbRoleService.isExistByRoleId(roleId)))
+            return ResResultUtil.makeRsp(ResResultEnum.NO_ROLE_EXIT);
+        //原有数据is_valid全部变更为0
+        rolePermissionService.updateIsValidByRoleId(rolePermissionEditDTO.getRoleId(), false);
+
+        //批量新增
+        List<TbRolePermission> rolePermissions = new ArrayList<>();
+        permissionIdList.forEach(permissionId -> {
+            if (ObjectUtil.isEmpty(permissionService.isExitByPermissionId(permissionId))) {
+                throw new ResResultException(ResResultEnum.NO_PERMISSION_EXIT.getCode(),
+                        "权限id为["+permissionId+ "]的" + ResResultEnum.NO_PERMISSION_EXIT.getMsg());
+            }
+
+            TbRolePermission tbRolePermission = new TbRolePermission();
+            tbRolePermission.setIsValid(true);
+            tbRolePermission.setRolePermissionId(IdUtil.simpleUUID());
+            tbRolePermission.setPermissionId(permissionId);
+            tbRolePermission.setRoleId(roleId);
+
+            rolePermissions.add(tbRolePermission);
+        });
+        rolePermissionService.batchInsert(rolePermissions);
+
+        return ResResultUtil.success();
+    }
+
 
     @PostMapping("/deleteByRolePermissionId")
     @ApiOperation("角色权限-删除")

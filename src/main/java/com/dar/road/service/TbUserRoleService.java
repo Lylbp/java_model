@@ -31,6 +31,15 @@ public interface TbUserRoleService extends Service<TbUserRole> {
     Integer updateIsValidByUserRoleId(String userRoleId, Boolean isValid);
 
     /**
+     * 通过用户id修改是否可用
+     *
+     * @param userId
+     * @param isValid
+     * @return
+     */
+    Integer updateIsValidByUserId(String userId, Boolean isValid);
+
+    /**
      * 通过参数查询列表
      *
      * @param params
@@ -46,4 +55,11 @@ public interface TbUserRoleService extends Service<TbUserRole> {
      * @return
      */
     List<UserRoleVO> getListByUserIdAndRoleId(String userId, String roleId);
+
+    /**
+     * 批量插入
+     * @param userRoles
+     * @return
+     */
+    Integer batchInsert(List<Object> userRoles);
 }

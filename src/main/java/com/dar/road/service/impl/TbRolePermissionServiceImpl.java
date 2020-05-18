@@ -54,12 +54,22 @@ public class TbRolePermissionServiceImpl extends AbstractService<TbRolePermissio
     }
 
     @Override
+    public Integer batchInsert(List<TbRolePermission> tbRolePermissions) {
+        return tbRolePermissionMapper.batchInsert(tbRolePermissions);
+    }
+
+    @Override
     public Integer updateIsValidByRolePermissionId(String rolePermissionId, Boolean isValid) {
         TbRolePermission rolePermission = selectById(rolePermissionId);
         if (ObjectUtil.isEmpty(rolePermission)) return 0;
         rolePermission.setIsValid(isValid);
 
         return update(rolePermission);
+    }
+
+    @Override
+    public Integer updateIsValidByRoleId(String roleId, Boolean isValid) {
+        return tbRolePermissionMapper.updateIsValidByRoleId(roleId, isValid);
     }
 
     @Override

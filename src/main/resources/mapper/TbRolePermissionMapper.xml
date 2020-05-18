@@ -31,6 +31,22 @@
                      resultMap="com.dar.road.mapper.TbRoleMapper.RoleVOMap">
         </association>
     </resultMap>
+    <insert id="batchInsert">
+        insert into `tb_role_permission` (role_permission_id, role_id, permission_id, is_valid)
+        values
+        <foreach collection="rolePermissions" item="item" index="index" separator=",">
+            <trim prefix=" (" suffix=")" suffixOverrides=",">
+                #{item.rolePermissionId},
+                #{item.roleId},
+                #{item.permissionId},
+                #{item.isValid}
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="updateIsValidByRoleId">
+        UPDATE `tb_role_permission` set `is_valid` = #{isValid} WHERE `role_id` = #{roleId}
+    </update>
 
     <select id="securityQueryByParams" resultMap="SecurityQueryListMap"
             resultType="com.dar.road.VO.Security.SecurityRolePermissionVO">

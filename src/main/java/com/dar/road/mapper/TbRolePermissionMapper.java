@@ -13,4 +13,8 @@ public interface TbRolePermissionMapper extends Mapper<TbRolePermission> {
     List<SecurityRolePermissionVO> securityQueryByParams(@Param("params") Map<String,Object> params);
 
     List<RolePermissionVO> queryByParams(@Param("params") Map<String,Object> params);
+
+    Integer updateIsValidByRoleId(@Param("roleId") String roleId, @Param("isValid") Boolean isValid);
+
+    Integer batchInsert(@Param("rolePermissions") List<TbRolePermission> rolePermissions);
 }
