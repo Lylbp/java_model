@@ -46,11 +46,11 @@ public class TbPermissionController {
         return ResResultUtil.success(list);
     }
 
-    @PostMapping("/deleteByPermissionId")
-    @ApiOperation("权限-删除")
-    public ResResult deleteByPermissionId(@RequestBody String permissionId) {
-        tbPermissionService.updateIsValidByPermissionId(permissionId, false);
-
-        return ResResultUtil.success();
-    }
+//    @PostMapping("/deleteByPermissionId")
+//    @ApiOperation("权限-删除")
+//    public ResResult deleteByPermissionId(@RequestBody String permissionId) {
+//        tbPermissionService.updateIsValidByPermissionId(permissionId, false);
+//
+//        return ResResultUtil.success();
+//    }
 }

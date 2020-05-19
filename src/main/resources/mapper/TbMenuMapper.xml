@@ -31,6 +31,7 @@
             </if>
         </where>
     </select>
+
     <select id="getSecurityMenuByUserId" resultType="com.dar.road.VO.MenuVO">
         SELECT
             tm.menu_id, tm.name, tm.pid, tm.is_valid, tm.url

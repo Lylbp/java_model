@@ -9,7 +9,9 @@
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
         <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
     </resultMap>
+
     <resultMap id="RoleVOMap" type="com.dar.road.VO.RoleVO" extends="BaseResultMap"></resultMap>
+
     <select id="queryByParams" resultType="com.dar.road.VO.RoleVO">
         SELECT
         t.role_id,
