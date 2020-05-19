@@ -73,7 +73,7 @@ public interface TbUserRoleService extends Service<TbUserRole> {
      * @param params
      * @return
      */
-    List<RoleVO> getUserHasAssignList(String userId, Map<String, Object> params);
+    List<RoleVO> getUserHasAssignRoleList(String userId, Map<String, Object> params);
 
     /**
      * 根据用户id获取未分配角色
@@ -82,5 +82,5 @@ public interface TbUserRoleService extends Service<TbUserRole> {
      * @param params
      * @return
      */
-    List<RoleVO> getUserNoAssignList(String userId, Map<String, Object> params);
+    List<RoleVO> getUserNoAssignRoleList(String userId, Map<String, Object> params);
 }

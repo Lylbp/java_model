@@ -93,22 +93,22 @@ public class TbUserRoleController {
 //        return ResResultUtil.success(list);
 //    }
 
-    @ApiOperation("用户角色-用户已获得角色列表")
+    @ApiOperation("用户角色-根据用户id获得已分配角色列表")
     @PostMapping("/getRoleAssignData")
-    public ResResult<List<RoleVO>> getUserHasAssignList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
+    public ResResult<List<RoleVO>> getUserHasAssignRoleList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
         Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQueryDTO);
         params.remove("userId");
-        List<RoleVO> list = tbUserRoleService.getUserHasAssignList(userAssignRoleQueryDTO.getUserId(), params);
+        List<RoleVO> list = tbUserRoleService.getUserHasAssignRoleList(userAssignRoleQueryDTO.getUserId(), params);
 
         return ResResultUtil.success(list);
     }
 
-    @ApiOperation("用户角色-用户未获得角色列表")
-    @PostMapping("/getUserNoAssignList")
-    public ResResult<List<RoleVO>> getUserNoAssignList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
+    @ApiOperation("用户角色-根据用户id获得未分配角色列表")
+    @PostMapping("/getUserNoAssignRoleList")
+    public ResResult<List<RoleVO>> getUserNoAssignRoleList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
         Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQueryDTO);
         params.remove("userId");
-        List<RoleVO> list = tbUserRoleService.getUserNoAssignList(userAssignRoleQueryDTO.getUserId(), params);
+        List<RoleVO> list = tbUserRoleService.getUserNoAssignRoleList(userAssignRoleQueryDTO.getUserId(), params);
 
         return ResResultUtil.success(list);
     }

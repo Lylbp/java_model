@@ -116,7 +116,7 @@ public class TbRolePermissionController {
     }
 
     @PostMapping("/getRoleNoAssignPermissionList")
-    @ApiOperation("角色权限-根据角色id获取未分配权限")
+    @ApiOperation("角色权限-根据角色id获取未分配权限列表")
     public ResResult<List<PermissionVO>> getRoleNoAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQueryDTO query) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
         params.remove("roleId");
@@ -127,7 +127,7 @@ public class TbRolePermissionController {
 
 
     @PostMapping("/getRoleHasAssignPermissionList")
-    @ApiOperation("角色权限-根据角色id获取已分配权限")
+    @ApiOperation("角色权限-根据角色id获取已分配权限列表")
     public ResResult<List<PermissionVO>> getRoleHasAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQueryDTO query) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
         params.remove("roleId");

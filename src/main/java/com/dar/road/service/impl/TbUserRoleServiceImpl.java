@@ -72,13 +72,13 @@ public class TbUserRoleServiceImpl extends AbstractService<TbUserRole> implement
     }
 
     @Override
-    public List<RoleVO> getUserHasAssignList(String userId, Map<String, Object> params) {
-        return tbUserRoleMapper.getUserHasAssignList(userId, params);
+    public List<RoleVO> getUserHasAssignRoleList(String userId, Map<String, Object> params) {
+        return tbUserRoleMapper.getUserHasAssignRoleList(userId, params);
     }
 
     @Override
-    public List<RoleVO> getUserNoAssignList(String userId, Map<String, Object> params) {
-        return tbUserRoleMapper.getUserNoAssignList(userId, params);
+    public List<RoleVO> getUserNoAssignRoleList(String userId, Map<String, Object> params) {
+        return tbUserRoleMapper.getUserNoAssignRoleList(userId, params);
     }
 
     @Override

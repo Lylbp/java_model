@@ -78,7 +78,7 @@
         </where>
     </select>
 
-    <select id="getUserNoAssignList" resultType="com.dar.road.VO.RoleVO">
+    <select id="getUserNoAssignRoleList" resultType="com.dar.road.VO.RoleVO">
         SELECT
         t.role_id, t.role_name, t.is_valid
         FROM tb_role t
@@ -91,7 +91,7 @@
         </where>
     </select>
 
-    <select id="getUserHasAssignList" resultType="com.dar.road.VO.RoleVO">
+    <select id="getUserHasAssignRoleList" resultType="com.dar.road.VO.RoleVO">
         SELECT
         t.role_id, t.role_name, t.is_valid
         FROM tb_role t

@@ -20,9 +20,9 @@ public interface TbUserRoleMapper extends Mapper<TbUserRole> {
 
     Integer batchInsert(@Param("userRoles") List<Object> userRoles);
 
-    List<RoleVO> getUserNoAssignList(@Param("userId") String userId, @Param("params") Map<String, Object> params);
+    List<RoleVO> getUserNoAssignRoleList(@Param("userId") String userId, @Param("params") Map<String, Object> params);
 
-    List<RoleVO> getUserHasAssignList(@Param("userId") String userId, @Param("params") Map<String, Object> params);
+    List<RoleVO> getUserHasAssignRoleList(@Param("userId") String userId, @Param("params") Map<String, Object> params);
 
     Integer updateIsValidByUserIdAndRoleIdList(@Param("userId") String userId, @Param("roleIdList") List<String> roleIdList,
                                        @Param("isValid") Boolean isValid);
