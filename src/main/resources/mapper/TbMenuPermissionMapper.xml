@@ -8,5 +8,6 @@
     <result column="menu_permission_id" jdbcType="VARCHAR" property="menuPermissionId" />
     <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
     <result column="permission_id" jdbcType="VARCHAR" property="permissionId" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
   </resultMap>
 </mapper>
