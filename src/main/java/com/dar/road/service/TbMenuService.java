@@ -1,5 +1,6 @@
 package com.dar.road.service;
 
+import com.dar.road.VO.MenuNodeVO;
 import com.dar.road.VO.MenuVO;
 import com.dar.road.entity.TbMenu;
 import com.dar.road.core.universal.Service;
@@ -70,4 +71,12 @@ public interface TbMenuService extends Service<TbMenu> {
      * @return
      */
     List<MenuVO> getSecurityMenuByUserId(String userId);
+
+    /**
+     * 递归处理菜单
+     *
+     * @param menuVOS
+     * @return
+     */
+    List<MenuNodeVO> recursionHandleMenuVOList(List<MenuVO> menuVOS, String pid);
 }

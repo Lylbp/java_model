@@ -1,7 +1,9 @@
 package com.dar.road.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.VO.MenuNodeVO;
 import com.dar.road.VO.MenuVO;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.enums.ResResultEnum;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,5 +113,26 @@ public class TbMenuServiceImpl extends AbstractService<TbMenu> implements TbMenu
     @Override
     public List<MenuVO> getSecurityMenuByUserId(String userId) {
         return tbMenuMapper.getSecurityMenuByUserId(userId);
+    }
+
+    @Override
+    public List<MenuNodeVO> recursionHandleMenuVOList(List<MenuVO> menuVOS, String pid) {
+        List<MenuNodeVO> menuNodeVOS = new ArrayList<>();
+
+        for (MenuVO menuVO : menuVOS) {
+            String currentPid = menuVO.getPid();
+            String currentId = menuVO.getMenuId();
+            if (pid.equals(currentPid)) {
+                MenuNodeVO menuNodeVO = new MenuNodeVO();
+                BeanUtil.copyProperties(menuVO, menuNodeVO);
+
+                List<MenuNodeVO> sonMenuVOS = recursionHandleMenuVOList(menuVOS, currentId);
+                menuNodeVO.setSonMenuVOS(sonMenuVOS);
+
+                menuNodeVOS.add(menuNodeVO);
+            }
+        }
+
+        return menuNodeVOS;
     }
 }

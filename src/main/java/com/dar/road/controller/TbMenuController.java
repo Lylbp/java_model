@@ -3,6 +3,7 @@ package com.dar.road.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.DTO.MenuEditDTO;
+import com.dar.road.VO.MenuNodeVO;
 import com.dar.road.VO.MenuVO;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
@@ -74,11 +75,13 @@ public class TbMenuController {
 
     @PostMapping("/getSecurityMenuByUserId")
     @ApiOperation("菜单-获取当前用户可见菜单")
-    public ResResult<List<MenuVO>> getSecurityMenuByUserId(){
+    public ResResult<List<MenuNodeVO>> getSecurityMenuByUserId(){
         String userId = tokenService.getUserIdFromHeader();
         List<MenuVO> list = tbMenuService.getSecurityMenuByUserId(userId);
 
-        return ResResultUtil.success(list);
+        List<MenuNodeVO> menuNodeVOS = tbMenuService.recursionHandleMenuVOList(list, "0");
+
+        return ResResultUtil.success(menuNodeVOS);
     }
 
 }
