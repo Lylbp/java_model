@@ -48,9 +48,20 @@
         UPDATE `tb_role_permission` set `is_valid` = #{isValid} WHERE `role_id` = #{roleId}
     </update>
 
+    <update id="batchDeleteByRoleIdAndPermissionIds">
+        UPDATE `tb_role_permission` set `is_valid` = #{isValid}
+        WHERE permission_id IN
+        <if test="permissionIdList != null">
+            <foreach collection="permissionIdList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND role_id = #{roleId}
+    </update>
+
     <select id="securityQueryByParams" resultMap="SecurityQueryListMap"
             resultType="com.dar.road.VO.Security.SecurityRolePermissionVO">
-      SELECT
+        SELECT
         t.role_permission_id,
         t.role_id,
         t.permission_id,
@@ -62,9 +73,9 @@
         p.name as p_name,
         p.url as p_url,
         p.is_valid as p_is_valid
-      FROM `tb_role_permission` t
-      LEFT JOIN `tb_role` r ON r.role_id = t.role_id
-      LEFT JOIN `tb_permission` p ON  p.permission_id = t.permission_id
+        FROM `tb_role_permission` t
+        LEFT JOIN `tb_role` r ON r.role_id = t.role_id
+        LEFT JOIN `tb_permission` p ON p.permission_id = t.permission_id
         <where>
             AND t.is_valid = 1
         </where>
@@ -102,6 +113,39 @@
 
             <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
                 AND t.name LIKE CONCAT('%',#{params.permissionNameLike},'%' )
+            </if>
+        </where>
+    </select>
+    <select id="getRoleHasAssignPermissionList" resultType="com.dar.road.VO.PermissionVO">
+        SELECT
+        t.permission_id,
+        t.name,
+        t.url,
+        t.is_valid
+        FROM `tb_permission` t
+        <where>
+            AND t.is_valid = 1
+            AND EXISTS (SELECT 1 FROM `tb_role_permission` rp WHERE rp.permission_id = t.permission_id AND rp.is_valid =
+            1 AND role_id = #{roleId})
+            <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
+                AND t.name LIKE CONCAT('%', #{params.permissionNameLike}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getRoleNoAssignPermissionList" resultType="com.dar.road.VO.PermissionVO">
+        SELECT
+        t.permission_id,
+        t.name,
+        t.url,
+        t.is_valid
+        FROM `tb_permission` t
+        <where>
+            AND t.is_valid = 1
+            AND NOt EXISTS (SELECT 1 FROM `tb_role_permission` rp WHERE rp.permission_id = t.permission_id AND rp.is_valid =
+            1 AND role_id = #{roleId})
+            <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
+                AND t.name LIKE CONCAT('%', #{params.permissionNameLike}, '%')
             </if>
         </where>
     </select>

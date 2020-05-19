@@ -2,6 +2,7 @@ package com.dar.road.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.VO.PermissionVO;
 import com.dar.road.VO.RolePermissionVO;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.enums.ResResultEnum;
@@ -84,5 +85,20 @@ public class TbRolePermissionServiceImpl extends AbstractService<TbRolePermissio
         params.put("roleId", roleId);
 
         return getListByParams(params);
+    }
+
+    @Override
+    public Integer batchDeleteByRoleIdAndPermissionIds(String roleId, List<String> permissionIdList, boolean isValid) {
+        return tbRolePermissionMapper.batchDeleteByRoleIdAndPermissionIds(roleId, permissionIdList, isValid);
+    }
+
+    @Override
+    public List<PermissionVO> getRoleNoAssignPermissionList(String roleId, Map<String, Object> params) {
+        return tbRolePermissionMapper.getRoleNoAssignPermissionList(roleId, params);
+    }
+
+    @Override
+    public List<PermissionVO> getRoleHasAssignPermissionList(String roleId, Map<String, Object> params) {
+        return tbRolePermissionMapper.getRoleHasAssignPermissionList(roleId, params);
     }
 }

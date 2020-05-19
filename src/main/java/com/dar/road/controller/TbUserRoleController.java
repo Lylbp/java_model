@@ -114,9 +114,9 @@ public class TbUserRoleController {
     }
 
 
-    @ApiOperation("用户角色-批量删除")
-    @PostMapping("/batchDelete")
-    public ResResult deleteByUserRoleId(@RequestBody @Validated UserRoleBatchDeleteDTO userRoleBatchDeleteDTO) {
+    @ApiOperation("用户角色-根据用户id以及角色ids批量删除")
+    @PostMapping("/batchDeleteByUserIdAndRoleIds")
+    public ResResult batchDeleteByUserIdAndRoleIds(@RequestBody @Validated UserRoleBatchDeleteDTO userRoleBatchDeleteDTO) {
         List<String> roleIds = userRoleBatchDeleteDTO.getRoleIds();
         String userId = userRoleBatchDeleteDTO.getUserId();
         tbUserRoleService.updateIsValidByUserIdAndRoleIdList(userId, roleIds, false);
