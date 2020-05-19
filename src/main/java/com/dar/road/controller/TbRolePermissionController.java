@@ -5,27 +5,22 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.DTO.*;
 import com.dar.road.VO.PermissionVO;
-import com.dar.road.VO.RolePermissionVO;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.core.result.ResResult;
-import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbRolePermission;
 import com.dar.road.enums.ResResultEnum;
 import com.dar.road.service.TbPermissionService;
 import com.dar.road.service.TbRolePermissionService;
 import com.dar.road.service.TbRoleService;
-import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 /**
  * @author weiwenbin

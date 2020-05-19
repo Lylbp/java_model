@@ -1,22 +1,15 @@
 package com.dar.road.controller;
 
 import com.dar.road.VO.Security.SecurityUserVO;
-import com.dar.road.core.annotation.ActionLog;
 import com.dar.road.core.result.ResResult;
-import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
-import com.dar.road.entity.TbUser;
 import com.dar.road.service.TbUserService;
 import com.dar.road.service.TokenService;
-import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
 * @Description: TbUserController类
