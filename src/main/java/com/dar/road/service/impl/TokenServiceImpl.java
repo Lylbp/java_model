@@ -25,42 +25,8 @@ public class TokenServiceImpl implements TokenService {
     private HttpServletRequest request;
 
     @Override
-    public String createToken(SecurityUserVO securityUserVO) {
-        return JwtUtil.createToken(JSONUtil.toJsonStr(securityUserVO));
-    }
-
-    @Override
-    public Boolean verifyTokenFromHeader() {
-        String token = getTokenFromHeader();
-        return verifyToken(token);
-    }
-
-    @Override
-    public Boolean verifyToken(String token) {
-        DecodedJWT decodedJWT = JwtUtil.verifyToken(token);
-        return !ObjectUtil.isEmpty(decodedJWT);
-    }
-
-    @Override
-    public SecurityUserVO getUserByToken(String token) {
-        return JwtUtil.getTokenClaimsObj(token, SecurityUserVO.class);
-    }
-
-    @Override
-    public SecurityUserVO getUserFromHeader() {
-        String token = getTokenFromHeader();
-        SecurityUserVO securityUserVO = getUserByToken(token);
-        if (ObjectUtil.isEmpty(securityUserVO)) {
-            throw new ResResultException(ResResultEnum.NO_LOGIN);
-        }
-
-        return securityUserVO;
-    }
-
-    @Override
-    public String getUserIdFromHeader() {
-        TbUser tbUserFromHeader = getUserFromHeader();
-        return tbUserFromHeader.getUserId();
+    public String createToken(TbUser user) {
+        return JwtUtil.createToken(JSONUtil.toJsonStr(user));
     }
 
     @Override
@@ -70,5 +36,31 @@ public class TokenServiceImpl implements TokenService {
             throw new ResResultException(ResResultEnum.NO_LOGIN);
         }
         return token;
+    }
+
+    @Override
+    public Boolean verifyTokenFromHeader() {
+        return verifyToken(getTokenFromHeader());
+    }
+
+    @Override
+    public Boolean verifyToken(String token) {
+        return !ObjectUtil.isEmpty(JwtUtil.verifyToken(token));
+    }
+
+    @Override
+    public <T>T getUserByToken(String token, Class<T> clazz) {
+        return JwtUtil.getTokenClaimsObj(token, clazz);
+    }
+
+    @Override
+    public <T>T getUserFromHeader(Class<T> clazz) {
+        String token = getTokenFromHeader();
+        T t = getUserByToken(token, clazz);
+        if (ObjectUtil.isEmpty(t)) {
+            throw new ResResultException(ResResultEnum.NO_LOGIN);
+        }
+
+        return t;
     }
 }

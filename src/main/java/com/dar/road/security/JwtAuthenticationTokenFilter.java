@@ -37,7 +37,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (!verifyTokenFromHeader){
                 throw new ResResultException(ResResultEnum.NO_LOGIN);
             }
-            SecurityUserVO securityUserVO = tokenService.getUserByToken(token);
+            SecurityUserVO securityUserVO = tokenService.getUserByToken(token, SecurityUserVO.class);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     securityUserVO,
                     null,

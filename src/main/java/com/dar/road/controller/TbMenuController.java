@@ -86,7 +86,7 @@ public class TbMenuController {
     @ApiOperation("菜单-获取当前用户可见菜单")
     @CheckPermission(descrption = "菜单-获取当前用户可见菜单")
     public ResResult<List<MenuNodeVO>> getSecurityMenuByUserId(){
-        TbUser user = tokenService.getUserFromHeader();
+        TbUser user = tokenService.getUserFromHeader(TbUser.class);
         String userId = user.getUserId();
         //超级管理员查全部
         if (superAdminUserId.equals(user.getUserId())){

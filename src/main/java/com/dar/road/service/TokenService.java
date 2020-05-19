@@ -10,10 +10,17 @@ import com.dar.road.entity.TbUser;
 public interface TokenService {
     /**
      * 通过登录信息创建token
-     * @param securityUserVO
+     * @param user
      * @return
      */
-    String createToken(SecurityUserVO securityUserVO);
+    String createToken(TbUser user);
+
+    /**
+     * 获取从头信息token
+     *
+     * @return
+     */
+    String getTokenFromHeader();
 
     /**
      * 从请求头验证token
@@ -30,30 +37,16 @@ public interface TokenService {
     Boolean verifyToken(String token);
 
     /**
-     * 从请求头获取TSysUser
+     * 从请求头获取信息
      *
      * @return
      */
-    SecurityUserVO getUserFromHeader();
+    <T>T getUserFromHeader(Class<T> clazz);
 
     /**
-     * 从请求头获取TSysUser的id
+     * 从Token获取信息
      *
      * @return
      */
-    String getUserIdFromHeader();
-
-    /**
-     * 从Token获取TSysUser
-     *
-     * @return
-     */
-    SecurityUserVO getUserByToken(String token);
-
-    /**
-     * 获取从头信息token
-     *
-     * @return
-     */
-    String getTokenFromHeader();
+    <T>T getUserByToken(String token, Class<T> clazz);
 }
