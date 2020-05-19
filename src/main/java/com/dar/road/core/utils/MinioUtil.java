@@ -1,10 +1,5 @@
 package com.dar.road.core.utils;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.IORuntimeException;
-import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.enums.ResResultEnum;
 import io.minio.MinioClient;
@@ -12,17 +7,12 @@ import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
-import sun.nio.ch.IOUtil;
-
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 /**
  * @Author weiwenbin

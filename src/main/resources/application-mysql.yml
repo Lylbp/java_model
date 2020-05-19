@@ -40,3 +40,11 @@ minio:
   accessKey: BCIAIOSFODNN7EXAMPLE
   secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
   endpoint: http://192.168.1.155:9000/
+
+#权限管理配置（无则不配）
+#超级管理员默认信息
+super-admin-id: 1
+super-admin-default-pwd: 123456
+super-admin-default-user-name: admin
+
+
