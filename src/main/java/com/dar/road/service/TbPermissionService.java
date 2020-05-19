@@ -9,25 +9,28 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* @Description: TbPermissionService接口
-* @author weiwenbin
-* @date 2020/05/11 09:13
-*/
+ * @author weiwenbin
+ * @Description: TbPermissionService接口
+ * @date 2020/05/11 09:13
+ */
 public interface TbPermissionService extends Service<TbPermission> {
     /**
      * 获取所有加了注解的函数列表
+     *
      * @return
      */
     List<TbPermission> getAllAllPermissionByAnnotation();
 
     /**
      * 权限数据添加
+     *
      * @param permissions
      */
     void installPermissionList(List<TbPermission> permissions);
 
     /**
      * 获取权限数据列表
+     *
      * @param params
      * @return
      */
@@ -43,6 +46,7 @@ public interface TbPermissionService extends Service<TbPermission> {
 
     /**
      * 根据权限id判断数据是否存在
+     *
      * @param permissionId
      * @return
      */

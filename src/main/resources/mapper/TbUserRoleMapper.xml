@@ -16,6 +16,7 @@
                      resultMap="com.dar.road.mapper.TbRoleMapper.RoleVOMap"
         ></association>
     </resultMap>
+
     <insert id="batchInsert">
         insert into tb_user_role (user_role_id, user_id, role_id, is_valid)
         values
@@ -28,6 +29,7 @@
             </trim>
         </foreach>
     </insert>
+
     <update id="updateIsValidByUserId">
         UPDATE `tb_user_role` set `is_valid` = #{isValid} WHERE `user_id` = #{userId}
     </update>

@@ -11,6 +11,9 @@ public class TbMenu {
     @Id
     private String menuId;
 
+    @Column(name = "name")
+    private String name;
+
     /**
      * 前端url
      */

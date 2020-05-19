@@ -25,11 +25,13 @@ public enum ResResultEnum {
 
     NO_LOGIN(1015, "登录凭证已失效"),
     NO_AUTHENTICATION(1016, "您没有权限进行此次操作,请联系管理员分配权限!"),
-    NO_ROLE_EXIT(1017, "角色不存在"),
+    NO_ROLE_EXIT(1017, "角色不存在或已被删除,请刷新页面"),
     ROLE_NAME_EXIT(1018, "角色名称已存在"),
-    NO_PERMISSION_EXIT(1019, "权限不存在"),
+    NO_PERMISSION_EXIT(1019, "权限不存在或已被删除,请刷新页面"),
     ROLE_PERMISSION_EXIT(1019, "该角色已添加该权限,请勿重复添加"),
     USER_ROLE_EXIT(1019, "该用户已添加该角色,请勿重复添加"),
+    MENU_HAS_SON_CAN_NOT_DELETE(1019, "菜单下含有子级菜单,请先删除子级菜单"),
+    PARENT_MENU_NOT_EXIT(1019, "父级菜单不存在或已被删除,请刷新页面"),
     ;
 
     private Integer code;

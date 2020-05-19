@@ -1,16 +1,20 @@
 package com.dar.road.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.DTO.MenuEditDTO;
 import com.dar.road.core.result.ResResult;
-import com.dar.road.core.result.PageResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbMenu;
+import com.dar.road.enums.ResResultEnum;
+import com.dar.road.service.TbMenuPermissionService;
 import com.dar.road.service.TbMenuService;
-import com.github.pagehelper.PageHelper;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -20,47 +24,46 @@ import java.util.List;
 */
 @RestController
 @RequestMapping("/tbMenu")
+@Api(tags = "菜单相关")
 public class TbMenuController {
 
     @Resource
     private TbMenuService tbMenuService;
 
-    @PostMapping("/insert")
-    public ResResult<Integer> insert(TbMenu tbMenu){
-        Integer count = tbMenuService.insert(tbMenu);
-        return ResResultUtil.success(count);
+    @Resource
+    private TbMenuPermissionService menuPermissionService;
+
+    @PostMapping("/edit")
+    @ApiOperation("菜单-添加或编辑")
+    @Transactional
+    public ResResult edit(@RequestBody MenuEditDTO menuEditDTO){
+        //菜单对应权限id移动不能为空
+        List<String> permissionIds = menuEditDTO.getPermissionIds();
+        if (ObjectUtil.isEmpty(permissionIds)) return ResResultUtil.makeRsp(ResResultEnum.PARAM_VALIDATE_FAILED);
+        //添加菜单
+        TbMenu menu = new TbMenu();
+        BeanUtil.copyProperties(menuEditDTO, menu);
+        tbMenuService.insertOrUpdate(menu, permissionIds);
+
+        return ResResultUtil.success();
     }
 
-    @PostMapping("/deleteById")
-    public ResResult<Integer> deleteById(@RequestParam String id) {
-        Integer count = tbMenuService.deleteById(id);
-        return ResResultUtil.success(count);
+    @PostMapping("/deleteByMenuId")
+    @ApiOperation("菜单-根据菜单id删除")
+    @Transactional
+    public ResResult<Integer> deleteByMenuId(@RequestBody @NotBlank String menuId) {
+        //设置菜单is_valid
+        tbMenuService.updateIsValidByMenuId(menuId, false);
+        //设置菜单权限is_valid
+        menuPermissionService.updateIsValidByMenuId(menuId, false);
+
+        return ResResultUtil.success();
     }
 
-    @PostMapping("/update")
-    public ResResult<Integer> update(TbMenu tbMenu) {
-        Integer count = tbMenuService.update(tbMenu);
-        return ResResultUtil.success(count);
-    }
-
-    @PostMapping("/selectById")
-    public ResResult<TbMenu> selectById(@RequestParam String id) {
-        TbMenu tbMenu = tbMenuService.selectById(id);
+    @PostMapping("/selectByMenuId")
+    @ApiOperation("菜单-根据菜单id查询信息")
+    public ResResult<TbMenu> selectById(@RequestParam @NotBlank String menuId) {
+        TbMenu tbMenu = tbMenuService.selectById(menuId);
         return ResResultUtil.success(tbMenu);
-    }
-
-    /**
-    * @Description: 分页查询
-    * @param page 页码
-    * @param size 每页条数
-    * @Reutrn ResResult<PageResResult<TbMenu>>
-    */
-    @PostMapping("/list")
-    public ResResult<PageResResult<TbMenu>> selectAll(@RequestParam(defaultValue = "0") Integer page,
-            @RequestParam(defaultValue = "0") Integer size) {
-        PageHelper.startPage(page, size);
-        List<TbMenu> list = tbMenuService.selectAll();
-
-        return ResResultUtil.makePageRsp(list);
     }
 }
