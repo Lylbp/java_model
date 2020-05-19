@@ -1,13 +1,17 @@
 package com.dar.road.security;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.VO.Security.SecurityUserVO;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.enums.ResResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +26,9 @@ import java.io.IOException;
  */
 @Component
 public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
+    @Value("${super-admin-id}")
+    private String superAdminUserId;
+
     @Resource
     private ProjectFilterInvocationSecurityMetadataSource projectFilterInvocationSecurityMetadataSource;
 
@@ -67,10 +74,16 @@ public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor impl
 //        }
 
         //超级管理员直接放行
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        SecurityUserVO securityUserVO = (SecurityUserVO)authentication.getPrincipal();
+        if (null != securityUserVO && superAdminUserId.equals(securityUserVO.getUserId())){
+            fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
+            return;
+        }
 
         if (ObjectUtil.isNotEmpty(fi)){
             /**
-             * 调用FilterInvocationSecurityMetadataSource中getAttributes获取访问当前路由需要的权限
+             * beforeInvocation内部会调用FilterInvocationSecurityMetadataSource中getAttributes获取访问当前路由需要的权限
              * 然后调用AccessDecisionManager中的decide方法进行鉴权操作
              */
             InterceptorStatusToken token = super.beforeInvocation(fi);

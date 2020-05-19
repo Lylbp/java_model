@@ -2,6 +2,8 @@ package com.dar.road.security;
 
 import com.dar.road.VO.Security.SecurityUserVO;
 import com.dar.road.core.constant.ProjectConstant;
+import com.dar.road.core.exception.ResResultException;
+import com.dar.road.enums.ResResultEnum;
 import com.dar.road.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +33,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = request.getHeader(ProjectConstant.AUTHENTICATION);
         if (null != token && "" != token){
-            SecurityUserVO securityUserVO = tokenService.getUserFromHeader();
+            Boolean verifyTokenFromHeader = tokenService.verifyTokenFromHeader();
+            if (!verifyTokenFromHeader){
+                throw new ResResultException(ResResultEnum.NO_LOGIN);
+            }
+            SecurityUserVO securityUserVO = tokenService.getUserByToken(token);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     securityUserVO,
                     null,

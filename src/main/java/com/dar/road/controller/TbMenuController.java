@@ -9,12 +9,14 @@ import com.dar.road.core.annotation.CheckPermission;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbMenu;
+import com.dar.road.entity.TbUser;
 import com.dar.road.enums.ResResultEnum;
 import com.dar.road.service.TbMenuPermissionService;
 import com.dar.road.service.TbMenuService;
 import com.dar.road.service.TokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
@@ -39,6 +41,9 @@ public class TbMenuController {
 
     @Resource
     private TokenService tokenService;
+
+    @Value("${super-admin-id}")
+    private String superAdminUserId;
 
     @PostMapping("/edit")
     @ApiOperation("菜单-添加或编辑")
@@ -81,7 +86,12 @@ public class TbMenuController {
     @ApiOperation("菜单-获取当前用户可见菜单")
     @CheckPermission(descrption = "菜单-获取当前用户可见菜单")
     public ResResult<List<MenuNodeVO>> getSecurityMenuByUserId(){
-        String userId = tokenService.getUserIdFromHeader();
+        TbUser user = tokenService.getUserFromHeader();
+        String userId = user.getUserId();
+        //超级管理员查全部
+        if (superAdminUserId.equals(user.getUserId())){
+            userId = "";
+        }
         List<MenuVO> list = tbMenuService.getSecurityMenuByUserId(userId);
 
         List<MenuNodeVO> menuNodeVOS = tbMenuService.recursionHandleMenuVOList(list, "0");

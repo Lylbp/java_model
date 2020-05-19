@@ -32,6 +32,11 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public Boolean verifyTokenFromHeader() {
         String token = getTokenFromHeader();
+        return verifyToken(token);
+    }
+
+    @Override
+    public Boolean verifyToken(String token) {
         DecodedJWT decodedJWT = JwtUtil.verifyToken(token);
         return !ObjectUtil.isEmpty(decodedJWT);
     }

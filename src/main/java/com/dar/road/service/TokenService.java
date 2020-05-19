@@ -23,6 +23,13 @@ public interface TokenService {
     Boolean verifyTokenFromHeader();
 
     /**
+     * 验证token
+     *
+     * @return
+     */
+    Boolean verifyToken(String token);
+
+    /**
      * 从请求头获取TSysUser
      *
      * @return
@@ -41,7 +48,7 @@ public interface TokenService {
      *
      * @return
      */
-    TbUser getUserByToken(String token);
+    SecurityUserVO getUserByToken(String token);
 
     /**
      * 获取从头信息token
