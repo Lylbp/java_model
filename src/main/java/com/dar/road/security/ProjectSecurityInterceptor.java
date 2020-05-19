@@ -29,6 +29,9 @@ public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor impl
     @Value("${super-admin-id}")
     private String superAdminUserId;
 
+    @Value("${security-open}")
+    private Boolean securityOpen;
+
     @Resource
     private ProjectFilterInvocationSecurityMetadataSource projectFilterInvocationSecurityMetadataSource;
 
@@ -72,13 +75,20 @@ public class ProjectSecurityInterceptor extends AbstractSecurityInterceptor impl
 //                return;
 //            }
 //        }
+        //security未开启直接放行
+        if (!securityOpen){
+            fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
+            return;
+        }
 
         //超级管理员直接放行
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        SecurityUserVO securityUserVO = (SecurityUserVO)authentication.getPrincipal();
-        if (null != securityUserVO && superAdminUserId.equals(securityUserVO.getUserId())){
-            fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
-            return;
+        if (null != authentication){
+            SecurityUserVO securityUserVO = (SecurityUserVO)authentication.getPrincipal();
+            if (superAdminUserId.equals(securityUserVO.getUserId())){
+                fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
+                return;
+            }
         }
 
         if (ObjectUtil.isNotEmpty(fi)){

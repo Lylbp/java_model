@@ -45,6 +45,9 @@ public class TbMenuController {
     @Value("${super-admin-id}")
     private String superAdminUserId;
 
+    @Value("${security-open}")
+    private Boolean securityOpen;
+
     @PostMapping("/edit")
     @ApiOperation("菜单-添加或编辑")
     @CheckPermission(descrption = "菜单-添加或编辑")
@@ -89,7 +92,7 @@ public class TbMenuController {
         TbUser user = tokenService.getUserFromHeader(TbUser.class);
         String userId = user.getUserId();
         //超级管理员查全部
-        if (superAdminUserId.equals(user.getUserId())){
+        if (superAdminUserId.equals(user.getUserId()) || securityOpen){
             userId = "";
         }
         List<MenuVO> list = tbMenuService.getSecurityMenuByUserId(userId);

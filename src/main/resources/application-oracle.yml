@@ -45,6 +45,8 @@ minio:
   endpoint: http://192.168.1.155:9000/
 
 #权限管理配置（无则不配）
+#security权限验证
+security-open: true
 #超级管理员默认信息
 super-admin-id: 1
 super-admin-default-pwd: 123456
