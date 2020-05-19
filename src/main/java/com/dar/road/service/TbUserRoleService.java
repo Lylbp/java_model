@@ -1,6 +1,8 @@
 package com.dar.road.service;
 
+import com.dar.road.VO.RoleVO;
 import com.dar.road.VO.UserRoleVO;
+import com.dar.road.entity.TbRole;
 import com.dar.road.entity.TbUserRole;
 import com.dar.road.core.universal.Service;
 
@@ -22,13 +24,14 @@ public interface TbUserRoleService extends Service<TbUserRole> {
     Integer insertOrUpdate(TbUserRole userRole);
 
     /**
-     * 通过用户角色id修改是否可用
+     * 通过用户id以及角色id批量修改is_valid字段
      *
-     * @param userRoleId
+     * @param userId
+     * @param roleIdList
      * @param isValid
      * @return
      */
-    Integer updateIsValidByUserRoleId(String userRoleId, Boolean isValid);
+    Integer updateIsValidByUserIdAndRoleIdList(String userId, List<String> roleIdList, Boolean isValid);
 
     /**
      * 通过用户id修改是否可用
@@ -62,4 +65,22 @@ public interface TbUserRoleService extends Service<TbUserRole> {
      * @return
      */
     Integer batchInsert(List<Object> userRoles);
+
+    /**
+     * 根据用户id获取已分配角色
+     *
+     * @param userId
+     * @param params
+     * @return
+     */
+    List<RoleVO> getUserHasAssignList(String userId, Map<String, Object> params);
+
+    /**
+     * 根据用户id获取未分配角色
+     *
+     * @param userId
+     * @param params
+     * @return
+     */
+    List<RoleVO> getUserNoAssignList(String userId, Map<String, Object> params);
 }

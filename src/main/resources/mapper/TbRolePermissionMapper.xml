@@ -97,11 +97,11 @@
             </if>
 
             <if test="params.roleNameLike != '' and params.roleNameLike != null">
-                AND r.role_name LIKE CONCAT("%", #{params.roleNameLike},"%" )
+                AND t.role_name LIKE CONCAT('%',#{params.roleNameLike},'%' )
             </if>
 
             <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
-                AND p.name LIKE CONCAT("%", #{params.permissionNameLike},"%" )
+                AND t.name LIKE CONCAT('%',#{params.permissionNameLike},'%' )
             </if>
         </where>
     </select>

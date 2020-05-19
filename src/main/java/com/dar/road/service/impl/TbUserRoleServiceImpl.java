@@ -2,8 +2,10 @@ package com.dar.road.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.dar.road.VO.RoleVO;
 import com.dar.road.VO.UserRoleVO;
 import com.dar.road.core.exception.ResResultException;
+import com.dar.road.entity.TbRole;
 import com.dar.road.enums.ResResultEnum;
 import com.dar.road.mapper.TbUserRoleMapper;
 import com.dar.road.entity.TbUserRole;
@@ -70,12 +72,18 @@ public class TbUserRoleServiceImpl extends AbstractService<TbUserRole> implement
     }
 
     @Override
-    public Integer updateIsValidByUserRoleId(String userRoleId, Boolean isValid) {
-        TbUserRole userRole = selectById(userRoleId);
-        if (ObjectUtil.isEmpty(userRole)) return 0;
+    public List<RoleVO> getUserHasAssignList(String userId, Map<String, Object> params) {
+        return tbUserRoleMapper.getUserHasAssignList(userId, params);
+    }
 
-        userRole.setIsValid(isValid);
-        return update(userRole);
+    @Override
+    public List<RoleVO> getUserNoAssignList(String userId, Map<String, Object> params) {
+        return tbUserRoleMapper.getUserNoAssignList(userId, params);
+    }
+
+    @Override
+    public Integer updateIsValidByUserIdAndRoleIdList(String userId, List<String> roleIdList, Boolean isValid) {
+        return tbUserRoleMapper.updateIsValidByUserIdAndRoleIdList(userId, roleIdList,  isValid);
     }
 
     @Override

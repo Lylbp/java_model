@@ -32,6 +32,17 @@
         UPDATE `tb_user_role` set `is_valid` = #{isValid} WHERE `user_id` = #{userId}
     </update>
 
+    <update id="updateIsValidByUserIdAndRoleIdList">
+        UPDATE `tb_user_role` set `is_valid` = #{isValid}
+        WHERE role_id IN
+        <if test="roleIdList != null">
+            <foreach collection="roleIdList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND user_id = #{userId}
+    </update>
+
     <select id="queryListByUserId" resultType="com.dar.road.VO.Security.SecurityRoleVO">
         SELECT
         r.role_id,
@@ -62,7 +73,33 @@
             </if>
 
             <if test="params.roleNameLike != '' and params.roleNameLike != null">
-                AND r.role_name LIKE CONCAT("%",#{params.userId},"%")
+                AND r.role_name LIKE CONCAT('%',#{params.roleNameLike},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserNoAssignList" resultType="com.dar.road.VO.RoleVO">
+        SELECT
+        t.role_id, t.role_name, t.is_valid
+        FROM tb_role t
+        <where>
+            AND t.is_valid = 1
+            AND NOT EXISTS (SELECT 1 FROM tb_user_role ur WHERE ur.role_id = t.role_id AND ur.user_id = #{userId} AND ur.is_valid = 1)
+            <if test="params.roleNameLike != '' and params.roleNameLike != null">
+                AND t.role_name LIKE CONCAT('%',#{params.roleNameLike},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserHasAssignList" resultType="com.dar.road.VO.RoleVO">
+        SELECT
+        t.role_id, t.role_name, t.is_valid
+        FROM tb_role t
+        <where>
+            AND t.is_valid = 1
+            AND EXISTS (SELECT 1 FROM tb_user_role ur WHERE ur.role_id = t.role_id AND ur.user_id = #{userId} AND ur.is_valid = 1)
+            <if test="params.roleNameLike != '' and params.roleNameLike != null">
+                AND t.role_name LIKE CONCAT('%',#{params.roleNameLike},'%')
             </if>
         </where>
     </select>
