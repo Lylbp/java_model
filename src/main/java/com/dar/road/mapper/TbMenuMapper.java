@@ -10,4 +10,6 @@ import java.util.Map;
 
 public interface TbMenuMapper extends Mapper<TbMenu> {
     List<MenuVO> queryByParams(@Param("params") Map<String, Object> params);
+
+    List<MenuVO> getSecurityMenuByUserId(@Param("userId") String userId);
 }

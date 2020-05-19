@@ -3,12 +3,14 @@ package com.dar.road.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.DTO.MenuEditDTO;
+import com.dar.road.VO.MenuVO;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbMenu;
 import com.dar.road.enums.ResResultEnum;
 import com.dar.road.service.TbMenuPermissionService;
 import com.dar.road.service.TbMenuService;
+import com.dar.road.service.TokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,9 @@ public class TbMenuController {
 
     @Resource
     private TbMenuPermissionService menuPermissionService;
+
+    @Resource
+    private TokenService tokenService;
 
     @PostMapping("/edit")
     @ApiOperation("菜单-添加或编辑")
@@ -66,4 +71,14 @@ public class TbMenuController {
         TbMenu tbMenu = tbMenuService.selectById(menuId);
         return ResResultUtil.success(tbMenu);
     }
+
+    @PostMapping("/getSecurityMenuByUserId")
+    @ApiOperation("菜单-获取当前用户可见菜单")
+    public ResResult<List<MenuVO>> getSecurityMenuByUserId(){
+        String userId = tokenService.getUserIdFromHeader();
+        List<MenuVO> list = tbMenuService.getSecurityMenuByUserId(userId);
+
+        return ResResultUtil.success(list);
+    }
+
 }

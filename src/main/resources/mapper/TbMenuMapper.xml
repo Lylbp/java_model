@@ -31,4 +31,18 @@
             </if>
         </where>
     </select>
+    <select id="getSecurityMenuByUserId" resultType="com.dar.road.VO.MenuVO">
+        SELECT
+            tm.menu_id, tm.name, tm.pid, tm.is_valid, tm.url
+        FROM tb_user_role ur
+        LEFT JOIN tb_role_permission rp on ur.role_id = rp.role_id AND rp.is_valid = 1
+        LEFT JOIN tb_menu_permission mp on rp.permission_id = mp.permission_id AND mp.is_valid = 1
+        LEFT JOIN tb_menu tm on tm.menu_id = mp.menu_id AND tm.is_valid = 1
+        <where>
+            ur.is_valid = 1
+            <if test="userId != null and userId != ''">
+                AND ur.user_id = #{userId}
+            </if>
+        </where>
+    </select>
 </mapper>

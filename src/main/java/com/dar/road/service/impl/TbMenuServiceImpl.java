@@ -106,4 +106,9 @@ public class TbMenuServiceImpl extends AbstractService<TbMenu> implements TbMenu
 
         return null;
     }
+
+    @Override
+    public List<MenuVO> getSecurityMenuByUserId(String userId) {
+        return tbMenuMapper.getSecurityMenuByUserId(userId);
+    }
 }

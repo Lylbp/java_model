@@ -42,7 +42,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public SecurityUserVO getTSysUserFromHeader() {
+    public SecurityUserVO getUserFromHeader() {
         String token = getTokenFromHeader();
         SecurityUserVO securityUserVO = getUserByToken(token);
         if (ObjectUtil.isEmpty(securityUserVO)) {
@@ -54,7 +54,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public String getUserIdFromHeader() {
-        TbUser tbUserFromHeader = getTSysUserFromHeader();
+        TbUser tbUserFromHeader = getUserFromHeader();
         return tbUserFromHeader.getUserId();
     }
 

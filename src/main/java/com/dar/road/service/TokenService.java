@@ -27,7 +27,7 @@ public interface TokenService {
      *
      * @return
      */
-    SecurityUserVO getTSysUserFromHeader();
+    SecurityUserVO getUserFromHeader();
 
     /**
      * 从请求头获取TSysUser的id

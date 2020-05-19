@@ -62,4 +62,12 @@ public interface TbMenuService extends Service<TbMenu> {
      * @return
      */
     TbMenu checkIsExitByMenuId(String menuId);
+
+    /**
+     * 通过用户id获取拥有权限的菜单
+     *
+     * @param userId
+     * @return
+     */
+    List<MenuVO> getSecurityMenuByUserId(String userId);
 }

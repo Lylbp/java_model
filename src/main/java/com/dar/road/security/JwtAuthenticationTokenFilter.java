@@ -31,7 +31,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = request.getHeader(ProjectConstant.AUTHENTICATION);
         if (null != token && "" != token){
-            SecurityUserVO securityUserVO = tokenService.getTSysUserFromHeader();
+            SecurityUserVO securityUserVO = tokenService.getUserFromHeader();
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     securityUserVO,
                     null,
