@@ -3,6 +3,7 @@ package com.dar.road.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.dar.road.DTO.PermissionQueryDTO;
 import com.dar.road.VO.PermissionVO;
+import com.dar.road.core.annotation.CheckPermission;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbPermission;
@@ -29,6 +30,7 @@ public class TbPermissionController {
 
     @PostMapping("/initPermissionData")
     @ApiOperation("权限-更新权限源数据")
+    @CheckPermission(descrption = "权限-更新权限源数据")
     public ResResult initPermissionData() {
         List<TbPermission> permissions = tbPermissionService.getAllAllPermissionByAnnotation();
         tbPermissionService.installPermissionList(permissions);
@@ -39,6 +41,7 @@ public class TbPermissionController {
 
     @PostMapping("/getAll")
     @ApiOperation("权限-所有权限列表")
+    @CheckPermission(descrption = "权限-所有权限列表")
     public ResResult<List<PermissionVO>> getAll(@RequestBody PermissionQueryDTO permissionQueryDTO) {
         Map<String, Object> params = BeanUtil.beanToMap(permissionQueryDTO);
         List<PermissionVO> list = tbPermissionService.getPermissionByParams(params);

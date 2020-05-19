@@ -5,6 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.DTO.*;
 import com.dar.road.VO.PermissionVO;
+import com.dar.road.core.annotation.CheckPermission;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
@@ -70,6 +71,7 @@ public class TbRolePermissionController {
 //    }
     @PostMapping("/batchInsert")
     @ApiOperation("角色权限-批量添加")
+    @CheckPermission(descrption = "角色权限-批量添加")
     public ResResult batchInsert(@RequestBody RolePermissionBatchEditDTO rolePermissionEditDTO) {
         String roleId = rolePermissionEditDTO.getRoleId();
         List<String> permissionIdList = rolePermissionEditDTO.getPermissionIdList();
@@ -103,6 +105,7 @@ public class TbRolePermissionController {
 
     @PostMapping("/batchDeleteByRoleIdAndPermissionIds")
     @ApiOperation("角色权限-根据角色id以及权限ids删除")
+    @CheckPermission(descrption = "角色权限-根据角色id以及权限ids删除")
     public ResResult batchDeleteByRoleIdAndPermissionIds(@RequestBody @Validated RolePermissionBatchDeleteDTO rolePermissionBatchDeleteDTO) {
         rolePermissionService.batchDeleteByRoleIdAndPermissionIds(rolePermissionBatchDeleteDTO.getRoleId(),
                 rolePermissionBatchDeleteDTO.getPermissionIds(), false);
@@ -112,6 +115,7 @@ public class TbRolePermissionController {
 
     @PostMapping("/getRoleNoAssignPermissionList")
     @ApiOperation("角色权限-根据角色id获取未分配权限列表")
+    @CheckPermission(descrption = "角色权限-根据角色id获取未分配权限列表")
     public ResResult<List<PermissionVO>> getRoleNoAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQueryDTO query) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
         params.remove("roleId");
@@ -123,6 +127,7 @@ public class TbRolePermissionController {
 
     @PostMapping("/getRoleHasAssignPermissionList")
     @ApiOperation("角色权限-根据角色id获取已分配权限列表")
+    @CheckPermission(descrption = "角色权限-根据角色id获取已分配权限列表")
     public ResResult<List<PermissionVO>> getRoleHasAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQueryDTO query) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
         params.remove("roleId");

@@ -30,6 +30,7 @@ public class TbRoleController {
     
     @PostMapping("/edit")
     @ApiOperation(value = "角色-添加或编辑")
+    @CheckPermission(descrption = "角色-添加或编辑")
     public ResResult<Integer> edit(@RequestBody RoleEditDTO roleEditDTO){
         TbRole role = new TbRole();
         BeanUtil.copyProperties(roleEditDTO, role);
@@ -49,8 +50,8 @@ public class TbRoleController {
 
 
     @PostMapping("/list")
-    @CheckPermission(descrption = "角色-角色列表")
     @ApiOperation(value = "角色-角色列表")
+    @CheckPermission(descrption = "角色-角色列表")
     public ResResult<List<RoleVO>> selectAll(@RequestBody RoleQueryDTO roleQueryDTO)  {
         List<RoleVO> list = tbRoleService.getListByParams(BeanUtil.beanToMap(roleQueryDTO));
 

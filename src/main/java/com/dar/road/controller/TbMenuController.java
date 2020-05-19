@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.DTO.MenuEditDTO;
 import com.dar.road.VO.MenuNodeVO;
 import com.dar.road.VO.MenuVO;
+import com.dar.road.core.annotation.CheckPermission;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
 import com.dar.road.entity.TbMenu;
@@ -41,6 +42,7 @@ public class TbMenuController {
 
     @PostMapping("/edit")
     @ApiOperation("菜单-添加或编辑")
+    @CheckPermission(descrption = "菜单-添加或编辑")
     @Transactional
     public ResResult edit(@RequestBody MenuEditDTO menuEditDTO){
         //菜单对应权限id移动不能为空
@@ -56,6 +58,7 @@ public class TbMenuController {
 
     @PostMapping("/deleteByMenuId")
     @ApiOperation("菜单-根据菜单id删除")
+    @CheckPermission(descrption = "菜单-根据菜单id删除")
     @Transactional
     public ResResult<Integer> deleteByMenuId(@RequestBody @NotBlank String menuId) {
         //设置菜单is_valid
@@ -68,6 +71,7 @@ public class TbMenuController {
 
     @PostMapping("/selectByMenuId")
     @ApiOperation("菜单-根据菜单id查询信息")
+    @CheckPermission(descrption = "菜单-根据菜单id查询信息")
     public ResResult<TbMenu> selectById(@RequestParam @NotBlank String menuId) {
         TbMenu tbMenu = tbMenuService.selectById(menuId);
         return ResResultUtil.success(tbMenu);
@@ -75,6 +79,7 @@ public class TbMenuController {
 
     @PostMapping("/getSecurityMenuByUserId")
     @ApiOperation("菜单-获取当前用户可见菜单")
+    @CheckPermission(descrption = "菜单-获取当前用户可见菜单")
     public ResResult<List<MenuNodeVO>> getSecurityMenuByUserId(){
         String userId = tokenService.getUserIdFromHeader();
         List<MenuVO> list = tbMenuService.getSecurityMenuByUserId(userId);

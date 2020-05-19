@@ -5,6 +5,7 @@ import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.dar.road.DTO.*;
 import com.dar.road.VO.RoleVO;
+import com.dar.road.core.annotation.CheckPermission;
 import com.dar.road.core.exception.ResResultException;
 import com.dar.road.core.result.ResResult;
 import com.dar.road.core.utils.ResResultUtil;
@@ -61,6 +62,7 @@ public class TbUserRoleController {
 
     @ApiOperation("用户角色-批量添加")
     @PostMapping("/batchInsert")
+    @CheckPermission(descrption = "用户角色-批量添加")
     public ResResult batchInsert(@RequestBody UserRoleBatchEditDTO userRoleBatchEditDTO) {
         List<String> roleIds = userRoleBatchEditDTO.getRoleIds();
         String userId = userRoleBatchEditDTO.getUserId();
@@ -89,8 +91,9 @@ public class TbUserRoleController {
         return ResResultUtil.success();
     }
 
-    @ApiOperation("用户角色-根据用户id获得已分配角色列表")
     @PostMapping("/getRoleAssignData")
+    @ApiOperation("用户角色-根据用户id获得已分配角色列表")
+    @CheckPermission(descrption = "用户角色-根据用户id获得已分配角色列表")
     public ResResult<List<RoleVO>> getUserHasAssignRoleList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
         Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQueryDTO);
         params.remove("userId");
@@ -101,6 +104,7 @@ public class TbUserRoleController {
 
     @ApiOperation("用户角色-根据用户id获得未分配角色列表")
     @PostMapping("/getUserNoAssignRoleList")
+    @CheckPermission(descrption = "用户角色-根据用户id获得未分配角色列表")
     public ResResult<List<RoleVO>> getUserNoAssignRoleList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
         Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQueryDTO);
         params.remove("userId");
@@ -112,6 +116,7 @@ public class TbUserRoleController {
 
     @ApiOperation("用户角色-根据用户id以及角色ids批量删除")
     @PostMapping("/batchDeleteByUserIdAndRoleIds")
+    @CheckPermission(descrption = "用户角色-根据用户id以及角色ids批量删除")
     public ResResult batchDeleteByUserIdAndRoleIds(@RequestBody @Validated UserRoleBatchDeleteDTO userRoleBatchDeleteDTO) {
         List<String> roleIds = userRoleBatchDeleteDTO.getRoleIds();
         String userId = userRoleBatchDeleteDTO.getUserId();
