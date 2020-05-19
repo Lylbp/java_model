@@ -50,6 +50,15 @@ public class TbUserRoleController {
 //        return ResResultUtil.success();
 //    }
 
+//    @ApiOperation("用户角色-列表")
+//    @PostMapping("/getList")
+//    public ResResult<List<UserRoleVO>> getList(@RequestBody UserRoleQueryDTO userRoleQueryDTO){
+//        Map<String, Object> params = BeanUtil.beanToMap(userRoleQueryDTO);
+//        List<UserRoleVO> list = tbUserRoleService.getListByParams(params);
+//
+//        return ResResultUtil.success(list);
+//    }
+
     @ApiOperation("用户角色-批量添加")
     @PostMapping("/batchInsert")
     public ResResult batchInsert(@RequestBody UserRoleBatchEditDTO userRoleBatchEditDTO) {
@@ -79,15 +88,6 @@ public class TbUserRoleController {
 
         return ResResultUtil.success();
     }
-
-//    @ApiOperation("用户角色-列表")
-//    @PostMapping("/getList")
-//    public ResResult<List<UserRoleVO>> getList(@RequestBody UserRoleQueryDTO userRoleQueryDTO){
-//        Map<String, Object> params = BeanUtil.beanToMap(userRoleQueryDTO);
-//        List<UserRoleVO> list = tbUserRoleService.getListByParams(params);
-//
-//        return ResResultUtil.success(list);
-//    }
 
     @ApiOperation("用户角色-根据用户id获得已分配角色列表")
     @PostMapping("/getRoleAssignData")

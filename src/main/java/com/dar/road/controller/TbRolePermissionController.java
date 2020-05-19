@@ -60,7 +60,7 @@ public class TbRolePermissionController {
 //        return ResResultUtil.success();
 //    }
 
-    //    @PostMapping("/getList")
+//    @PostMapping("/getList")
 //    @ApiOperation("角色权限-列表")
 //    public ResResult<List<RolePermissionVO>> getList(@RequestBody RolePermissionQueryDTO rolePermissionQueryDTO) {
 //        Map<String, Object> params = BeanUtil.beanToMap(rolePermissionQueryDTO);
