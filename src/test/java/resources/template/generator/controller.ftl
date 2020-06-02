@@ -1,7 +1,7 @@
 package ${basePackageController};
 
-import ${basePackage}.core.result.ResResult;
-import ${basePackage}.core.result.PageResResult;
+import ${basePackage}.core.entity.ResResult;
+import ${basePackage}.core.entity.PageResResult;
 import ${basePackage}.core.utils.ResResultUtil;
 import ${basePackageModel}.${modelNameUpperCamel};
 import ${basePackageService}.${modelNameUpperCamel}Service;

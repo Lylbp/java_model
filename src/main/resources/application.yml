@@ -34,7 +34,7 @@ logging.config:
 
 #mapper配置
 mapper:
-  mappers: com.dar.road.core.universal.Mapper
+  mappers: com.lylbp.college.core.universal.Mapper
 
 #mybatis配置
 mybatis:

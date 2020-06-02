@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lylbp.college.mapper.MenuRoleMapper">
+    <resultMap id="BaseResultMap" type="com.lylbp.college.entity.MenuRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="menu_permission_id" jdbcType="VARCHAR" property="menuPermissionId"/>
+        <result column="menu_id" jdbcType="VARCHAR" property="menuId"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
+    </resultMap>
+
+    <insert id="batchInsert">
+        INSERT INTO menu_role (menu_permission_id,menu_id, role_id, is_valid)
+        VALUES
+        <foreach collection="menuRoleList" separator="," item="item" index="index">
+            <trim prefix="(" suffix=")">
+                #{item.menuPermissionId},
+                #{item.menuId},
+                #{item.roleId},
+                #{item.isValid}
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="updateIsValidByMenuId">
+        UPDATE menu_role set is_valid = #{isValid}
+        <where>
+            AND menu_id = #{menuId}
+        </where>
+    </update>
+
+    <select id="queryRoleListByMenuId" resultType="com.lylbp.college.VO.RoleVO">
+        SELECT
+            r.role_id,
+            r.role_name,
+            r.role_description,
+            r.is_valid
+        FROM menu_role t
+        LEFT JOIN role r ON r.role_id = t.role_id AND r.is_valid = 1
+        <where>
+            AND t.is_valid = 1
+            AND r.role_id is not null
+            AND t.menu_id = #{menuId}
+        </where>
+    </select>
+</mapper>

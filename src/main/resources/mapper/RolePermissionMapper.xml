@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lylbp.college.mapper.RolePermissionMapper">
+    <resultMap id="BaseResultMap" type="com.lylbp.college.entity.RolePermission">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
+        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
+    </resultMap>
+
+    <resultMap id="SecurityQueryListMap" type="com.lylbp.college.VO.Security.SecurityRolePermissionVO"
+               extends="BaseResultMap">
+        <association property="permission" columnPrefix="p_"
+                     resultMap="com.lylbp.college.mapper.PermissionMapper.BaseResultMap">
+        </association>
+
+        <association property="role" columnPrefix="r_"
+                     resultMap="com.lylbp.college.mapper.RoleMapper.BaseResultMap">
+        </association>
+    </resultMap>
+
+    <resultMap id="QueryByParams" type="com.lylbp.college.VO.RolePermissionVO" extends="BaseResultMap">
+        <association property="permissionVO" columnPrefix="p_"
+                     resultMap="com.lylbp.college.mapper.PermissionMapper.PermissionVOMap">
+        </association>
+
+        <association property="roleVO" columnPrefix="r_"
+                     resultMap="com.lylbp.college.mapper.RoleMapper.RoleVOMap">
+        </association>
+    </resultMap>
+
+    <insert id="batchInsert">
+        insert into `role_permission` (role_permission_id, role_id, permission_id, is_valid)
+        values
+        <foreach collection="rolePermissions" item="item" index="index" separator=",">
+            <trim prefix=" (" suffix=")" suffixOverrides=",">
+                #{item.rolePermissionId},
+                #{item.roleId},
+                #{item.permissionId},
+                #{item.isValid}
+            </trim>
+        </foreach>
+    </insert>
+
+    <update id="updateIsValidByRoleId">
+        UPDATE `role_permission` set `is_valid` = #{isValid} WHERE `role_id` = #{roleId}
+    </update>
+
+    <update id="batchDeleteByRoleIdAndPermissionIds">
+        UPDATE `role_permission` set `is_valid` = #{isValid}
+        WHERE permission_id IN
+        <if test="permissionIdList != null">
+            <foreach collection="permissionIdList" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        AND role_id = #{roleId}
+    </update>
+
+    <select id="securityQueryByParams" resultMap="SecurityQueryListMap"
+            resultType="com.lylbp.college.VO.Security.SecurityRolePermissionVO">
+        SELECT
+        t.role_permission_id,
+        t.role_id,
+        t.permission_id,
+        t.is_valid,
+        r.role_id as r_role_id,
+        r.role_name as r_role_name,
+        r.is_valid as r_is_valid,
+        p.permission_id as p_permission_id,
+        p.permission_name as p_permission_name,
+        p.permission_url as p_permission_url,
+        p.is_valid as p_is_valid
+        FROM role_permission t
+        LEFT JOIN role r ON r.role_id = t.role_id AND r.is_valid = 1
+        LEFT JOIN permission p ON p.permission_id = t.permission_id AND p.is_valid = 1
+        <where>
+            AND t.is_valid = 1
+        </where>
+    </select>
+
+    <select id="queryByParams" resultMap="QueryByParams">
+        SELECT
+        t.role_permission_id,
+        t.role_id,
+        t.permission_id,
+        t.is_valid,
+        r.role_id as r_role_id,
+        r.role_name as r_role_name,
+        r.is_valid as r_is_valid,
+        p.permission_id as p_permission_id,
+        p.permission_name as p_permission_name,
+        p.permission_url as p_permission_url,
+        p.is_valid as p_is_valid
+        FROM role_permission t
+        LEFT JOIN role r ON r.role_id = t.role_id
+        LEFT JOIN permission p ON p.permission_id = t.permission_id
+        <where>
+            AND t.is_valid = 1
+            <if test="params.roleId != '' and params.roleId != null">
+                AND t.role_id = #{params.roleId}
+            </if>
+
+            <if test="params.permissionId != '' and params.permissionId != null">
+                AND t.permission_id = #{params.permissionId}
+            </if>
+
+            <if test="params.roleNameLike != '' and params.roleNameLike != null">
+                AND t.role_name LIKE CONCAT('%',#{params.roleNameLike},'%' )
+            </if>
+
+            <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
+                AND p.permission_name LIKE CONCAT('%',#{params.permissionNameLike},'%' )
+            </if>
+        </where>
+    </select>
+
+    <select id="getRoleHasAssignPermissionList" resultType="com.lylbp.college.VO.PermissionVO">
+        SELECT
+        t.permission_id,
+        t.permission_name,
+        t.permission_url,
+        t.is_valid
+        FROM `permission` t
+        <where>
+            AND t.is_valid = 1
+            AND EXISTS (SELECT 1 FROM `role_permission` rp WHERE rp.permission_id = t.permission_id AND rp.is_valid =
+            1 AND role_id = #{roleId})
+            <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
+                AND t.permission_name LIKE CONCAT('%', #{params.permissionNameLike}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getRoleNoAssignPermissionList" resultType="com.lylbp.college.VO.PermissionVO">
+        SELECT
+        t.permission_id,
+        t.permission_name,
+        t.permission_url,
+        t.is_valid
+        FROM `permission` t
+        <where>
+            AND t.is_valid = 1
+            AND NOt EXISTS (SELECT 1 FROM `role_permission` rp WHERE rp.permission_id = t.permission_id AND rp.is_valid =
+            1 AND role_id = #{roleId})
+            <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
+                AND t.permission_name LIKE CONCAT('%', #{params.permissionNameLike}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

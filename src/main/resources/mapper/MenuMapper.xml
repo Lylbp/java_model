@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lylbp.college.mapper.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.lylbp.college.entity.Menu">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="menu_id" jdbcType="VARCHAR" property="menuId"/>
+        <result column="menu_name" jdbcType="VARCHAR" property="menuName"/>
+        <result column="menu_url" jdbcType="VARCHAR" property="menuUrl"/>
+        <result column="menu_pid" jdbcType="VARCHAR" property="menuPid"/>
+        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
+    </resultMap>
+
+    <resultMap id="MenuAndRolesVO" type="com.lylbp.college.VO.MenuAndRolesVO" extends="BaseResultMap">
+        <collection property="roleVOS" ofType="com.lylbp.college.VO.RoleVO" select="com.lylbp.college.mapper.MenuRoleMapper.queryRoleListByMenuId" column="menu_id">
+        </collection>
+    </resultMap>
+
+    <select id="queryByParams" resultType="com.lylbp.college.VO.MenuVO">
+        SELECT
+        t.menu_id,
+        t.menu_name,
+        t.menu_url,
+        t.menu_pid,
+        t.is_valid
+        FROM menu t
+        <where>
+            AND t.is_valid = 1
+            <if test="params.menuPid != '' and params.menuPid != null">
+                AND t.menu_pid = #{params.menuPid}
+            </if>
+
+            <if test="params.menuNameLike != '' and params.menuNameLike != null">
+                AND t.menu_name LIKE CONCAT('%', #{params.menuNameLike}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getSecurityMenuByUserId" resultType="com.lylbp.college.VO.MenuVO">
+        SELECT
+            m.menu_id, m.menu_name, m.menu_pid, m.is_valid, m.menu_url
+        FROM user_role ur
+        LEFT JOIN menu_role mr on mr.role_id = ur.role_id AND mr.is_valid = 1
+        LEFT JOIN menu m on m.menu_id = mr.menu_id AND m.is_valid = 1
+        <where>
+            ur.is_valid = 1 AND m.menu_id is not null
+            <if test="userId != null and userId != ''">
+                AND ur.user_id = #{userId}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="queryMenuAndRolesVOByParams" resultType="com.lylbp.college.VO.MenuAndRolesVO" resultMap="MenuAndRolesVO">
+        SELECT
+            t.menu_id,
+            t.menu_name,
+            t.menu_pid,
+            t.menu_url,
+            t.is_valid
+        FROM menu t
+        <where>
+            t.is_valid = 1
+            <if test="params.containsKey('menuId')">
+                AND t.menu_id = #{params.menuId}
+            </if>
+
+            <if test="params.menuNameLike != null and params.menuNameLike != ''">
+                AND t.menu_name LIKE CONCAT('%', #{params.menuNameLike}, '%')
+            </if>
+
+            <if test="params.menuUrlLike != null and params.menuUrlLike != ''">
+                AND t.menu_url LIKE CONCAT('%', #{params.menuUrlLike}, '%')
+            </if>
+
+            <if test="params.menuPid != null and params.menuPid != ''">
+                AND t.menu_pid =  #{params.menuPid}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -169,12 +169,12 @@
         </triggeringPolicy>
     </appender>
 
-    <logger name="com.dar.road.core.aspect.ActionLogAspect" level="debug">
+    <logger name="com.lylbp.college.core.aspect.ActionLogAspect" level="debug">
         <appender-ref ref="ACTION_LOG"/>
     </logger>
 
     <!--开发环境:打印控制台-->
-    <logger name="com.dar.road.mapper" level="debug">
+    <logger name="com.lylbp.college.mapper" level="debug">
     </logger>
 
     <root level="info">
