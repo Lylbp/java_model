@@ -108,7 +108,6 @@ public class UserRoleController {
             ;
             UserRole userRole = new UserRole();
             userRole.setIsValid(true);
-            userRole.setUserRoleId(IdUtil.simpleUUID());
             userRole.setRoleId(roleId);
             userRole.setUserId(userId);
 

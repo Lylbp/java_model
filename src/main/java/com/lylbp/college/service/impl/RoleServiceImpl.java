@@ -37,7 +37,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         if (ObjectUtil.isEmpty(dbRole)) {
             //role不能重复
             if (ObjectUtil.isNotEmpty(roleVOS)) throw new ResResultException(ResResultEnum.ROLE_NAME_EXIT);
-            role.setRoleId(IdUtil.simpleUUID());
             return save(role);
         } else {
             //role不能重复

@@ -45,7 +45,6 @@ public class MenuRoleServiceImpl extends ServiceImpl<MenuRoleMapper, MenuRole> i
             }
 
             MenuRole menuRole = new MenuRole();
-            menuRole.setMenuPermissionId(IdUtil.simpleUUID());
             menuRole.setMenuId(menuId);
             menuRole.setRoleId(roleId);
             menuRole.setIsValid(true);

@@ -110,7 +110,6 @@ public class RolePermissionController {
 
             RolePermission rolePermission = new RolePermission();
             rolePermission.setIsValid(true);
-            rolePermission.setRolePermissionId(IdUtil.simpleUUID());
             rolePermission.setPermissionId(permissionId);
             rolePermission.setRoleId(roleId);
 

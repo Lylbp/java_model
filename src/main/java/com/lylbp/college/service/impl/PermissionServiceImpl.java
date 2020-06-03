@@ -58,7 +58,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             Permission dbPermission = getOne(new LambdaQueryWrapper<Permission>().eq(Permission::getPermissionUrl, permissionUrl));
             permission.setIsValid(true);
             if (ObjectUtil.isEmpty(dbPermission)) {
-                permission.setPermissionId(IdUtil.simpleUUID());
                 save(permission);
             } else {
                 updateById(permission);

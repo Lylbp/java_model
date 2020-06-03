@@ -62,7 +62,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
         Menu dbMenu = getById(menuId);
         if (ObjectUtil.isEmpty(dbMenu)) {
-            menuId = IdUtil.simpleUUID();
             menu.setMenuId(menuId);
             menu.setIsValid(true);
             save(menu);

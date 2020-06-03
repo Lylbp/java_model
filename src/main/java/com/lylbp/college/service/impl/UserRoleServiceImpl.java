@@ -36,7 +36,6 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
         if (ObjectUtil.isEmpty(dbUserRole)) {
             //数据验证---同一用户下不能有重复的角色
             if (ObjectUtil.isNotEmpty(list)) throw new ResResultException(ResResultEnum.USER_ROLE_EXIT);
-            userRole.setUserRoleId(IdUtil.simpleUUID());
             return save(userRole);
         } else {
             //数据验证---同一用户下不能有重复的角色

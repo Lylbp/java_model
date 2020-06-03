@@ -50,7 +50,6 @@ public class RolePermissionServiceImpl extends ServiceImpl<RolePermissionMapper,
         if (ObjectUtil.isEmpty(dbRolePermission)) {
             //数据验证---同一角色下不能有重复的权限
             if (ObjectUtil.isNotEmpty(list)) throw new ResResultException(ResResultEnum.ROLE_PERMISSION_EXIT);
-            rolePermission.setRolePermissionId(IdUtil.simpleUUID());
             return save(rolePermission);
         } else {
             //数据验证---同一角色下不能有重复的权限

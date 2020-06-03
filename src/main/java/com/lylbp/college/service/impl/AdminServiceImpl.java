@@ -41,7 +41,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             if (ObjectUtil.isNotEmpty(getOneByPhone(phone))){
                 throw new ResResultException(ResResultEnum.ACTION_ADMIN_PHONE_EXIT);
             }
-            admin.setUserId(IdUtil.simpleUUID());
             admin.setCreateTime(DateUtil.date());
             admin.setIsValid(true);
             admin.setAccountStatus(true);
