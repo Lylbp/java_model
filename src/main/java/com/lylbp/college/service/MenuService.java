@@ -4,17 +4,20 @@ import com.lylbp.college.VO.MenuAndRolesVO;
 import com.lylbp.college.VO.MenuNodeVO;
 import com.lylbp.college.VO.MenuVO;
 import com.lylbp.college.entity.Menu;
-import com.lylbp.college.core.universal.Service;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 菜单 服务类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: MenuService接口
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
-public interface MenuService extends Service<Menu> {
+public interface MenuService extends IService<Menu> {
     /**
      * 通过参数获取列表
      *
@@ -55,7 +58,7 @@ public interface MenuService extends Service<Menu> {
      * @param isValid
      * @return
      */
-    Integer updateIsValidByMenuId(String menuId, Boolean isValid);
+    Boolean updateIsValidByMenuId(String menuId, Boolean isValid);
 
     /**
      * 根据菜单id检测数据是否存

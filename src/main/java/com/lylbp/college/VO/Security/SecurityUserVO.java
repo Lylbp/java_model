@@ -2,6 +2,7 @@ package com.lylbp.college.VO.Security;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @Date 2020/5/11 上午10:43
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class SecurityUserVO implements UserDetails, Serializable {
     /**
      * 用户id

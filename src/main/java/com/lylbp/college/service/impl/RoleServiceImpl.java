@@ -8,28 +8,27 @@ import com.lylbp.college.entity.Role;
 import com.lylbp.college.enums.ResResultEnum;
 import com.lylbp.college.mapper.RoleMapper;
 import com.lylbp.college.service.RoleService;
-import com.lylbp.college.core.universal.AbstractService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 角色 服务实现类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: RoleService接口实现类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @Service
-public class RoleServiceImpl extends AbstractService<Role> implements RoleService {
-    @Resource
-    private RoleMapper roleMapper;
-
+public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
     @Override
-    public Integer insertOrUpdate(Role role) {
+    public Boolean insertOrUpdate(Role role) {
         String roleId = role.getRoleId();
-        Role dbRole = selectById(roleId);
+        Role dbRole = getById(roleId);
 
         //数据验证
         String roleName = role.getRoleName();
@@ -39,28 +38,28 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
             //role不能重复
             if (ObjectUtil.isNotEmpty(roleVOS)) throw new ResResultException(ResResultEnum.ROLE_NAME_EXIT);
             role.setRoleId(IdUtil.simpleUUID());
-            return insert(role);
+            return save(role);
         } else {
             //role不能重复
             if ((roleVOS.size() == 1 && roleVOS.get(0).getRoleId().equals(roleId)) || roleVOS.size() == 0){
-                return update(role);
+                return updateById(role);
             }
             throw new ResResultException(ResResultEnum.ROLE_NAME_EXIT);
         }
     }
 
     @Override
-    public Integer updateIsValidByRoleId(String roleId, Boolean isValid) {
-        Role role = selectById(roleId);
-        if (ObjectUtil.isEmpty(role)) return 0;
+    public Boolean updateIsValidByRoleId(String roleId, Boolean isValid) {
+        Role role = getById(roleId);
+        if (ObjectUtil.isEmpty(role)) return false;
         role.setIsValid(isValid);
 
-        return update(role);
+        return updateById(role);
     }
 
     @Override
     public List<RoleVO> getListByParams(Map<String, Object> params) {
-        return roleMapper.queryByParams(params);
+        return getBaseMapper().queryByParams(params);
     }
 
     @Override
@@ -84,8 +83,9 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
 
     @Override
     public Role isExistByRoleId(String roleId) {
-        Role role = selectById(roleId);
+        Role role = getById(roleId);
         if (ObjectUtil.isNotEmpty(role) && role.getIsValid()) return role;
+
 
         return null;
     }
@@ -98,5 +98,4 @@ public class RoleServiceImpl extends AbstractService<Role> implements RoleServic
 
         return list;
     }
-
 }

@@ -1,25 +1,28 @@
 package com.lylbp.college.service;
 
-import com.lylbp.college.VO.TDarAdminUserVO;
-import com.lylbp.college.entity.TDarAdminUser;
-import com.lylbp.college.core.universal.Service;
+import com.lylbp.college.VO.AdminVO;
+import com.lylbp.college.entity.Admin;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 后台管理员 服务类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: TDarAdminUserService接口
- * @date 2020/05/22 15:57
+ * @since 2020-06-02
  */
-public interface TDarAdminUserService extends Service<TDarAdminUser> {
+public interface AdminService extends IService<Admin> {
     /**
      * 新增或编辑
      *
      * @param adminUser
      * @return
      */
-    Integer insertOrUpdate(TDarAdminUser adminUser);
+    Boolean insertOrUpdate(Admin adminUser);
 
 
     /**
@@ -28,7 +31,7 @@ public interface TDarAdminUserService extends Service<TDarAdminUser> {
      * @param params
      * @return
      */
-    List<TDarAdminUserVO> getListByParams(Map<String, Object> params);
+    List<AdminVO> getListByParams(Map<String, Object> params);
 
     /**
      * 通过phone获取列表
@@ -36,7 +39,7 @@ public interface TDarAdminUserService extends Service<TDarAdminUser> {
      * @param phone
      * @return
      */
-    List<TDarAdminUserVO> getListByPhone(String phone);
+    List<AdminVO> getListByPhone(String phone);
 
     /**
      * 通过查询参数获取信息
@@ -44,7 +47,7 @@ public interface TDarAdminUserService extends Service<TDarAdminUser> {
      * @param params
      * @return
      */
-    TDarAdminUserVO getOneByParams(Map<String, Object> params);
+    AdminVO getOneByParams(Map<String, Object> params);
 
     /**
      * 通过手机号获取信息
@@ -52,7 +55,7 @@ public interface TDarAdminUserService extends Service<TDarAdminUser> {
      * @param phone
      * @return
      */
-    TDarAdminUserVO getOneByPhone(String phone);
+    AdminVO getOneByPhone(String phone);
 
     /**
      * 通过用户id获取信息
@@ -60,7 +63,7 @@ public interface TDarAdminUserService extends Service<TDarAdminUser> {
      * @param userId
      * @return
      */
-    TDarAdminUserVO getOneByUserId(String userId);
+    AdminVO getOneByUserId(String userId);
 
     /**
      * 通过用户id批量修改是否有效
@@ -74,7 +77,7 @@ public interface TDarAdminUserService extends Service<TDarAdminUser> {
      * @param userId
      * @return
      */
-    Integer updateStatusByUserId(String userId);
+    Boolean updateStatusByUserId(String userId);
 
     /**
      * 通过userId获取信息
@@ -82,5 +85,5 @@ public interface TDarAdminUserService extends Service<TDarAdminUser> {
      * @param userId
      * @return
      */
-    TDarAdminUser isExistByUserId(String userId);
+    Admin isExistByUserId(String userId);
 }

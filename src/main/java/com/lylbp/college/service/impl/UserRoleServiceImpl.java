@@ -5,33 +5,31 @@ import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.college.VO.RoleVO;
 import com.lylbp.college.VO.UserRoleVO;
 import com.lylbp.college.core.exception.ResResultException;
+import com.lylbp.college.entity.UserRole;
 import com.lylbp.college.enums.ResResultEnum;
 import com.lylbp.college.mapper.UserRoleMapper;
-import com.lylbp.college.entity.UserRole;
 import com.lylbp.college.service.UserRoleService;
-import com.lylbp.college.core.universal.AbstractService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 用户与角色关系 服务实现类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: UserRoleService接口实现类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @Service
-public class UserRoleServiceImpl extends AbstractService<UserRole> implements UserRoleService {
-
-    @Resource
-    private UserRoleMapper userRoleMapper;
-
+public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements UserRoleService {
     @Override
-    public Integer insertOrUpdate(UserRole userRole) {
+    public Boolean insertOrUpdate(UserRole userRole) {
         String userRoleId = userRole.getUserRoleId();
-        UserRole dbUserRole = selectById(userRoleId);
+        UserRole dbUserRole = getById(userRoleId);
         //通过角色id与用户id获取所有的数据
         List<UserRoleVO> list = getListByUserIdAndRoleId(userRole.getUserId(), userRole.getRoleId());
 
@@ -39,11 +37,11 @@ public class UserRoleServiceImpl extends AbstractService<UserRole> implements Us
             //数据验证---同一用户下不能有重复的角色
             if (ObjectUtil.isNotEmpty(list)) throw new ResResultException(ResResultEnum.USER_ROLE_EXIT);
             userRole.setUserRoleId(IdUtil.simpleUUID());
-            return insert(userRole);
+            return save(userRole);
         } else {
             //数据验证---同一用户下不能有重复的角色
             if (list.size() == 1 && userRoleId.equals(list.get(0).getUserRoleId())) {
-                return update(userRole);
+                return updateById(userRole);
             }
 
             throw new ResResultException(ResResultEnum.USER_ROLE_EXIT);
@@ -52,7 +50,7 @@ public class UserRoleServiceImpl extends AbstractService<UserRole> implements Us
 
     @Override
     public List<UserRoleVO> getListByParams(Map<String, Object> params) {
-        return userRoleMapper.queryByParams(params);
+        return getBaseMapper().queryByParams(params);
     }
 
     @Override
@@ -66,31 +64,31 @@ public class UserRoleServiceImpl extends AbstractService<UserRole> implements Us
 
     @Override
     public Integer batchInsert(List<Object> userRoles) {
-        return userRoleMapper.batchInsert(userRoles);
+        return getBaseMapper().batchInsert(userRoles);
     }
 
     @Override
     public List<RoleVO> getUserHasAssignRoleList(String userId, Map<String, Object> params) {
-        return userRoleMapper.getUserHasAssignRoleList(userId, params);
+        return getBaseMapper().getUserHasAssignRoleList(userId, params);
     }
 
     @Override
     public List<RoleVO> getUserNoAssignRoleList(String userId, Map<String, Object> params) {
-        return userRoleMapper.getUserNoAssignRoleList(userId, params);
+        return getBaseMapper().getUserNoAssignRoleList(userId, params);
     }
 
     @Override
     public Integer updateIsValidByUserIdAndRoleIdList(String userId, List<String> roleIdList, Boolean isValid) {
-        return userRoleMapper.updateIsValidByUserIdAndRoleIdList(userId, roleIdList,  isValid);
+        return getBaseMapper().updateIsValidByUserIdAndRoleIdList(userId, roleIdList, isValid);
     }
 
     @Override
     public Integer updateIsValidByUserId(String userId, Boolean isValid) {
-        return userRoleMapper.updateIsValidByUserId(userId, isValid);
+        return getBaseMapper().updateIsValidByUserId(userId, isValid);
     }
 
     @Override
     public Integer updateIsValidByRoleId(String roleId, Boolean isValid) {
-        return userRoleMapper.updateIsValidByRoleId(roleId, isValid);
+        return getBaseMapper().updateIsValidByRoleId(roleId, isValid);
     }
 }

@@ -5,8 +5,8 @@ spring:
     active: mysql
 
   #查询数据是否去掉null
-#  jackson:
-#    default-property-inclusion: non_null
+  #  jackson:
+  #    default-property-inclusion: non_null
 
   #mvc相关配置
   mvc:
@@ -31,13 +31,27 @@ spring:
 logging.config:
   classpath: logback-spring.xml
 
-
-#mapper配置
-mapper:
-  mappers: com.lylbp.college.core.universal.Mapper
-
-#mybatis配置
-mybatis:
+# MyBatis
+mybatis-plus:
   configuration:
+    #开启Mybatis下划线命名转驼峰命名
     map-underscore-to-camel-case: true
+  #实体扫描，多个package用逗号或者分号分隔
+  type-aliases-package: com.lylbp.college.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    db-config:
+      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+      id-type: UUID
+      #字段策略 0:"忽略判断",1:"非 NULL 判断",2:"非空判断"
+      field-strategy: not_empty
+      select-strategy: not_empty
+      #驼峰下划线转换
+      db-column-underline: true
+      refresh-mapper: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #数据库类型
+      db-type: mysql
 

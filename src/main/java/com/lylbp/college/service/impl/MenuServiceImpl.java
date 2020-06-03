@@ -7,12 +7,12 @@ import com.lylbp.college.VO.MenuAndRolesVO;
 import com.lylbp.college.VO.MenuNodeVO;
 import com.lylbp.college.VO.MenuVO;
 import com.lylbp.college.core.exception.ResResultException;
+import com.lylbp.college.entity.Menu;
 import com.lylbp.college.enums.ResResultEnum;
 import com.lylbp.college.mapper.MenuMapper;
-import com.lylbp.college.entity.Menu;
 import com.lylbp.college.service.MenuRoleService;
 import com.lylbp.college.service.MenuService;
-import com.lylbp.college.core.universal.AbstractService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,22 +22,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 菜单 服务实现类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: MenuService接口实现类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @Service
-public class MenuServiceImpl extends AbstractService<Menu> implements MenuService {
-
-    @Resource
-    private MenuMapper menuMapper;
-
+public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
     @Resource
     private MenuRoleService menuRoleService;
 
     @Override
     public List<MenuVO> getListByParams(Map<String, Object> params) {
-        return menuMapper.queryByParams(params);
+        return getBaseMapper().queryByParams(params);
     }
 
     @Override
@@ -61,14 +60,14 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
             if (ObjectUtil.isEmpty(pMenu)) throw new ResResultException(ResResultEnum.PARENT_MENU_NOT_EXIT);
         }
 
-        Menu dbMenu = selectById(menuId);
+        Menu dbMenu = getById(menuId);
         if (ObjectUtil.isEmpty(dbMenu)) {
             menuId = IdUtil.simpleUUID();
             menu.setMenuId(menuId);
             menu.setIsValid(true);
-            insert(menu);
+            save(menu);
         } else {
-            update(menu);
+            updateById(menu);
             //解除原有菜单关系
             menuRoleService.updateIsValidByMenuId(menuId, false);
         }
@@ -82,21 +81,17 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     @Override
     public Boolean checkHasSonByMenuId(String menuId) {
         List<MenuVO> sonListByMenuId = getSonListByMenuId(menuId);
-        if (ObjectUtil.isEmpty(sonListByMenuId)) {
-            return false;
-        }
-
-        return true;
+        return !ObjectUtil.isEmpty(sonListByMenuId);
     }
 
     @Override
-    public Integer updateIsValidByMenuId(String menuId, Boolean isValid) {
+    public Boolean updateIsValidByMenuId(String menuId, Boolean isValid) {
         Boolean hasSon = checkHasSonByMenuId(menuId);
         if (!hasSon) {
-            Menu menu = selectById(menuId);
+            Menu menu = getById(menuId);
             menu.setIsValid(isValid);
 
-            return update(menu);
+            return updateById(menu);
         }
 
         throw new ResResultException(ResResultEnum.MENU_HAS_SON_CAN_NOT_DELETE);
@@ -104,7 +99,7 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
 
     @Override
     public Menu checkIsExitByMenuId(String menuId) {
-        Menu menu = selectById(menuId);
+        Menu menu = getById(menuId);
         if (ObjectUtil.isNotEmpty(menu) && menu.getIsValid()) return menu;
 
         return null;
@@ -112,14 +107,14 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
 
     @Override
     public List<MenuAndRolesVO> getMenuAndRolesVOByParams(Map<String, Object> params) {
-        return menuMapper.queryMenuAndRolesVOByParams(params);
+        return getBaseMapper().queryMenuAndRolesVOByParams(params);
     }
 
     @Override
     public MenuAndRolesVO getOneMenuAndRolesVOByParams(Map<String, Object> params) {
         MenuAndRolesVO menuAndRolesVO = null;
         List<MenuAndRolesVO> list = getMenuAndRolesVOByParams(params);
-        if (ObjectUtil.isNotEmpty(list)){
+        if (ObjectUtil.isNotEmpty(list)) {
             menuAndRolesVO = list.get(0);
         }
         return menuAndRolesVO;
@@ -128,13 +123,13 @@ public class MenuServiceImpl extends AbstractService<Menu> implements MenuServic
     @Override
     public MenuAndRolesVO getOneMenuAndRolesVOByMenuId(String menuId) {
         HashMap<String, Object> params = new HashMap<>();
-        params.put("menuId",menuId);
+        params.put("menuId", menuId);
         return getOneMenuAndRolesVOByParams(params);
     }
 
     @Override
     public List<MenuVO> getSecurityMenuByUserId(String userId) {
-        return menuMapper.getSecurityMenuByUserId(userId);
+        return getBaseMapper().getSecurityMenuByUserId(userId);
     }
 
     @Override

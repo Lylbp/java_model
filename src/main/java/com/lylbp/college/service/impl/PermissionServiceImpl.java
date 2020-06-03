@@ -2,6 +2,7 @@ package com.lylbp.college.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lylbp.college.VO.PermissionVO;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.exception.ResResultException;
@@ -10,25 +11,23 @@ import com.lylbp.college.entity.Permission;
 import com.lylbp.college.enums.ResResultEnum;
 import com.lylbp.college.mapper.PermissionMapper;
 import com.lylbp.college.service.PermissionService;
-import com.lylbp.college.core.universal.AbstractService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 权限 服务实现类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: PermissionService接口实现类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @Service
-public class PermissionServiceImpl extends AbstractService<Permission> implements PermissionService {
-
-    @Resource
-    private PermissionMapper permissionMapper;
-
+public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
     @Override
     public List<Permission> getAllAllPermissionByAnnotation() {
         AnnotationUtil annotationUtil = new AnnotationUtil();
@@ -56,34 +55,34 @@ public class PermissionServiceImpl extends AbstractService<Permission> implement
     public void installPermissionList(List<Permission> permissions) {
         for (Permission permission : permissions) {
             String permissionUrl = permission.getPermissionUrl();
-            Permission dbPermission = selectBy("permissionUrl", permissionUrl);
+            Permission dbPermission = getOne(new LambdaQueryWrapper<Permission>().eq(Permission::getPermissionUrl, permissionUrl));
             permission.setIsValid(true);
-            if (ObjectUtil.isEmpty(dbPermission)){
+            if (ObjectUtil.isEmpty(dbPermission)) {
                 permission.setPermissionId(IdUtil.simpleUUID());
-                insert(permission);
-            }else {
-                update(permission);
+                save(permission);
+            } else {
+                updateById(permission);
             }
         }
     }
 
     @Override
     public List<PermissionVO> getPermissionByParams(Map<String, Object> params) {
-        return permissionMapper.queryByParams(params);
+        return getBaseMapper().queryByParams(params);
     }
 
     @Override
-    public Integer updateIsValidByPermissionId(String permissionId, Boolean isValid) {
-        Permission permission = selectById(permissionId);
-        if (ObjectUtil.isEmpty(permission)) return 0;
+    public Boolean updateIsValidByPermissionId(String permissionId, Boolean isValid) {
+        Permission permission = getById(permissionId);
+        if (ObjectUtil.isEmpty(permission)) return false;
         permission.setIsValid(isValid);
 
-        return update(permission);
+        return updateById(permission);
     }
 
     @Override
     public Permission isExitByPermissionId(String permissionId) {
-        Permission permission = selectById(permissionId);
+        Permission permission = getById(permissionId);
         if (ObjectUtil.isNotEmpty(permission) && permission.getIsValid()) return permission;
 
         return null;

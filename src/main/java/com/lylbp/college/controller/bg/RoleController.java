@@ -1,5 +1,6 @@
 package com.lylbp.college.controller.bg;
 
+
 import cn.hutool.core.bean.BeanUtil;
 import com.lylbp.college.DTO.RoleEditDTO;
 import com.lylbp.college.DTO.RoleQueryDTO;
@@ -14,15 +15,22 @@ import com.lylbp.college.service.UserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
+ * <p>
+ * 角色 前端控制器
+ * </p>
+ *
  * @author weiwenbin
- * @Description: role类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @RestController
 @RequestMapping("/bg/role")
@@ -83,5 +91,5 @@ public class RoleController {
 
         return ResResultUtil.success();
     }
-
 }
+

@@ -3,6 +3,7 @@ package com.lylbp.college.VO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
@@ -14,6 +15,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 public class LabelVO {
     @ApiModelProperty(value = "标签码", required = true)
     private String code;

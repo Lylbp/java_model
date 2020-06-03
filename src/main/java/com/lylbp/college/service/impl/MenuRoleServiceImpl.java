@@ -9,7 +9,7 @@ import com.lylbp.college.entity.Role;
 import com.lylbp.college.enums.ResResultEnum;
 import com.lylbp.college.mapper.MenuRoleMapper;
 import com.lylbp.college.service.MenuRoleService;
-import com.lylbp.college.core.universal.AbstractService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lylbp.college.service.RoleService;
 import org.springframework.stereotype.Service;
 
@@ -18,22 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-* @Description: MenuPermissionService接口实现类
-* @author weiwenbin
-* @date 2020/05/11 09:13
-*/
+ * <p>
+ * 菜单与角色关系 服务实现类
+ * </p>
+ *
+ * @author weiwenbin
+ * @since 2020-06-02
+ */
 @Service
-public class MenuRoleServiceImpl extends AbstractService<MenuRole> implements MenuRoleService {
-
-    @Resource
-    private MenuRoleMapper menuRoleMapper;
-
+public class MenuRoleServiceImpl extends ServiceImpl<MenuRoleMapper, MenuRole> implements MenuRoleService {
     @Resource
     private RoleService roleService;
 
     @Override
     public Integer updateIsValidByMenuId(String menuId, Boolean isValid) {
-        return menuRoleMapper.updateIsValidByMenuId(menuId, isValid);
+        return getBaseMapper().updateIsValidByMenuId(menuId, isValid);
     }
 
     @Override
@@ -53,11 +52,11 @@ public class MenuRoleServiceImpl extends AbstractService<MenuRole> implements Me
             list.add(menuRole);
         });
 
-        return menuRoleMapper.batchInsert(list);
+        return getBaseMapper().batchInsert(list);
     }
 
     @Override
     public List<RoleVO> getListByMenuId(String menuId) {
-        return menuRoleMapper.queryRoleListByMenuId(menuId);
+        return getBaseMapper().queryRoleListByMenuId(menuId);
     }
 }

@@ -1,7 +1,9 @@
 package com.lylbp.college.controller.bg;
 
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.github.pagehelper.PageHelper;
 import com.lylbp.college.DTO.MenuEditDTO;
 import com.lylbp.college.DTO.MenuQueryDTO;
 import com.lylbp.college.VO.MenuAndRolesVO;
@@ -17,27 +19,29 @@ import com.lylbp.college.enums.ResResultEnum;
 import com.lylbp.college.service.MenuRoleService;
 import com.lylbp.college.service.MenuService;
 import com.lylbp.college.service.TokenService;
-import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
 /**
-* @Description: MenuController类
-* @author weiwenbin
-* @date 2020/05/11 09:13
-*/
+ * <p>
+ * 菜单 前端控制器
+ * </p>
+ *
+ * @author weiwenbin
+ * @since 2020-06-02
+ */
 @RestController
 @RequestMapping("/bg/menu")
 @Api(tags = "后台管理-RBAC-菜单相关")
 public class MenuController {
-
     @Resource
     private MenuService menuService;
 
@@ -120,5 +124,5 @@ public class MenuController {
 
         return ResResultUtil.success(menuNodeVOS);
     }
-
 }
+

@@ -1,25 +1,32 @@
 package com.lylbp.college.controller.bg;
 
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.college.DTO.*;
+import com.lylbp.college.DTO.UserAssignRoleQueryDTO;
+import com.lylbp.college.DTO.UserRoleBatchDeleteDTO;
+import com.lylbp.college.DTO.UserRoleBatchEditDTO;
 import com.lylbp.college.VO.RoleVO;
 import com.lylbp.college.VO.UserRoleVO;
 import com.lylbp.college.core.annotation.CheckPermission;
-import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.entity.ResResult;
+import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.ResResultUtil;
 import com.lylbp.college.entity.UserRole;
 import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.service.AdminService;
 import com.lylbp.college.service.RolePermissionService;
 import com.lylbp.college.service.RoleService;
-import com.lylbp.college.service.TDarAdminUserService;
 import com.lylbp.college.service.UserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -27,13 +34,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 用户与角色关系 前端控制器
+ * </p>
+ *
  * @author weiwenbin
- * @Description: UserRoleController类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @RestController
 @RequestMapping("/bg/userRole")
-@Api(tags = "后台管理-RBAC-用户分配角色相关")
+@Api(tags = "后台管理-RBAC-用户与角色关系相关")
 public class UserRoleController {
     @Resource
     private UserRoleService userRoleService;
@@ -42,7 +52,7 @@ public class UserRoleController {
     private RoleService roleService;
 
     @Resource
-    private TDarAdminUserService tDarAdminUserService;
+    private AdminService adminService;
 
     @Resource
     private RolePermissionService rolePermissionService;
@@ -76,7 +86,7 @@ public class UserRoleController {
     public ResResult batchInsert(@RequestBody UserRoleBatchEditDTO userRoleBatchEditDTO) {
         List<String> roleIds = userRoleBatchEditDTO.getRoleIds();
         String userId = userRoleBatchEditDTO.getUserId();
-        if (ObjectUtil.isEmpty(tDarAdminUserService.isExistByUserId(userId))) {
+        if (ObjectUtil.isEmpty(adminService.isExistByUserId(userId))) {
             throw new ResResultException(ResResultEnum.ADMIN_USER_NO_EXIST);
         }
 
@@ -150,3 +160,4 @@ public class UserRoleController {
         return ResResultUtil.success();
     }
 }
+

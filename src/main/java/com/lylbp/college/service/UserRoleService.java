@@ -3,24 +3,27 @@ package com.lylbp.college.service;
 import com.lylbp.college.VO.RoleVO;
 import com.lylbp.college.VO.UserRoleVO;
 import com.lylbp.college.entity.UserRole;
-import com.lylbp.college.core.universal.Service;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 用户与角色关系 服务类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: UserRoleService接口
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
-public interface UserRoleService extends Service<UserRole> {
+public interface UserRoleService extends IService<UserRole> {
     /**
      * 添加或编辑
      *
      * @param userRole
      * @return
      */
-    Integer insertOrUpdate(UserRole userRole);
+    Boolean insertOrUpdate(UserRole userRole);
 
     /**
      * 通过用户id以及角色id批量修改is_valid字段
@@ -69,6 +72,7 @@ public interface UserRoleService extends Service<UserRole> {
 
     /**
      * 批量插入
+     *
      * @param userRoles
      * @return
      */

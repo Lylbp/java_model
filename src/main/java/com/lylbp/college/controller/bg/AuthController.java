@@ -8,9 +8,12 @@ import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.MD5Util;
 import com.lylbp.college.core.utils.ResResultUtil;
-import com.lylbp.college.entity.TDarAdminUser;
+import com.lylbp.college.entity.Admin;
 import com.lylbp.college.enums.ResResultEnum;
 import com.lylbp.college.service.*;
+import com.lylbp.college.core.entity.ResResult;
+import com.lylbp.college.service.AdminService;
+import com.lylbp.college.service.TokenService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 
 /**
@@ -35,7 +39,7 @@ public class AuthController {
     private AuthService authService;
 
     @Resource
-    private TDarAdminUserService tDarAdminUserService;
+    private AdminService adminService;
 
     @PostMapping("/login")
     @ApiOperation("后台用户登录")

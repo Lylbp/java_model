@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lylbp.college.mapper.RolePermissionMapper">
+
+    <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lylbp.college.entity.RolePermission">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <result column="role_permission_id" jdbcType="VARCHAR" property="rolePermissionId"/>
-        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
-        <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
-        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
+        <id column="role_permission_id" property="rolePermissionId"/>
+        <result column="role_id" property="roleId"/>
+        <result column="permission_id" property="permissionId"/>
+        <result column="is_valid" property="isValid"/>
     </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        role_permission_id, role_id, permission_id, is_valid
+    </sql>
 
     <resultMap id="SecurityQueryListMap" type="com.lylbp.college.VO.Security.SecurityRolePermissionVO"
                extends="BaseResultMap">
@@ -144,7 +148,8 @@
         FROM `permission` t
         <where>
             AND t.is_valid = 1
-            AND NOt EXISTS (SELECT 1 FROM `role_permission` rp WHERE rp.permission_id = t.permission_id AND rp.is_valid =
+            AND NOt EXISTS (SELECT 1 FROM `role_permission` rp WHERE rp.permission_id = t.permission_id AND rp.is_valid
+            =
             1 AND role_id = #{roleId})
             <if test="params.permissionNameLike != '' and params.permissionNameLike != null">
                 AND t.permission_name LIKE CONCAT('%', #{params.permissionNameLike}, '%')

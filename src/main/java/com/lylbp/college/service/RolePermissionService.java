@@ -3,7 +3,7 @@ package com.lylbp.college.service;
 import com.lylbp.college.VO.PermissionVO;
 import com.lylbp.college.VO.RolePermissionVO;
 import com.lylbp.college.entity.RolePermission;
-import com.lylbp.college.core.universal.Service;
+import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.security.access.ConfigAttribute;
 
 import java.util.Collection;
@@ -12,18 +12,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 角色与权限关系 服务类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: RolePermissionService接口
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
-public interface RolePermissionService extends Service<RolePermission> {
+public interface RolePermissionService extends IService<RolePermission> {
     /**
      * 添加或编辑
      *
      * @param rolePermission
      * @return
      */
-    Integer insertOrUpdate(RolePermission rolePermission);
+    Boolean insertOrUpdate(RolePermission rolePermission);
 
     /**
      * 批量新增
@@ -40,7 +43,7 @@ public interface RolePermissionService extends Service<RolePermission> {
      * @param isValid
      * @return
      */
-    Integer updateIsValidByRolePermissionId(String rolePermissionId, Boolean isValid);
+    Boolean updateIsValidByRolePermissionId(String rolePermissionId, Boolean isValid);
 
     /**
      * 通过角色id更改是否有效
@@ -102,7 +105,7 @@ public interface RolePermissionService extends Service<RolePermission> {
      * @param params
      * @return
      */
-    HashMap<String, Collection<ConfigAttribute>>  getSecurityByParams(Map<String, Object> params);
+    HashMap<String, Collection<ConfigAttribute>> getSecurityByParams(Map<String, Object> params);
 
     /**
      * 删除redis中的权限数据

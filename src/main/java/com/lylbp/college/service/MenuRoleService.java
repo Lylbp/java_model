@@ -2,16 +2,19 @@ package com.lylbp.college.service;
 
 import com.lylbp.college.VO.RoleVO;
 import com.lylbp.college.entity.MenuRole;
-import com.lylbp.college.core.universal.Service;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
 /**
-* @Description: MenuPermissionService接口
-* @author weiwenbin
-* @date 2020/05/11 09:13
-*/
-public interface MenuRoleService extends Service<MenuRole> {
+ * <p>
+ * 菜单与角色关系 服务类
+ * </p>
+ *
+ * @author weiwenbin
+ * @since 2020-06-02
+ */
+public interface MenuRoleService extends IService<MenuRole> {
     /**
      * 根据菜单id修改is_valid
      *

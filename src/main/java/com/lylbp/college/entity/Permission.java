@@ -1,39 +1,56 @@
 package com.lylbp.college.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableField;
+
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
-
-@Table(name = "permission")
+/**
+ * <p>
+ * 权限
+ * </p>
+ *
+ * @author weiwenbin
+ * @since 2020-06-02
+ */
 @Data
-public class Permission {
-    /**
-     * 权限id
-     */
-    @Id
-    @Column(name = "permission_id")
-    @ApiModelProperty("权限id")
+@EqualsAndHashCode(callSuper = false)
+@TableName("permission")
+@ApiModel(value = "Permission对象", description = "权限")
+public class Permission extends Model<Permission> {
+
+    private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value = "权限id")
+    @TableId(value = "permission_id", type = IdType.ASSIGN_UUID)
     private String permissionId;
 
-    /**
-     * 权限名称
-     */
-    @Column(name = "permission_name")
-    @ApiModelProperty("权限名称")
+    @ApiModelProperty(value = "名称")
+    @TableField("permission_name")
     private String permissionName;
 
-    /**
-     * 权限url
-     */
-    @Column(name = "permission_url")
-    @ApiModelProperty("权限url")
+    @ApiModelProperty(value = "url")
+    @TableField("permission_url")
     private String permissionUrl;
 
-    /**
-     * 是否有效
-     */
-    @Column(name = "is_valid")
-    @ApiModelProperty("是否有效")
+    @ApiModelProperty(value = "是否有效")
+    @TableField("is_valid")
+    @TableLogic
     private Boolean isValid;
+
+
+    @Override
+    protected Serializable pkVal() {
+        return this.permissionId;
+    }
+
 }

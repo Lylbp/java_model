@@ -1,5 +1,6 @@
 package com.lylbp.college.controller.bg;
 
+
 import cn.hutool.core.bean.BeanUtil;
 import com.lylbp.college.DTO.PermissionQueryDTO;
 import com.lylbp.college.VO.PermissionVO;
@@ -11,15 +12,23 @@ import com.lylbp.college.service.PermissionService;
 import com.lylbp.college.service.RolePermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 权限 前端控制器
+ * </p>
+ *
  * @author weiwenbin
- * @Description: PermissionController类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @RestController
 @RequestMapping("/bg/permission")
@@ -63,3 +72,4 @@ public class PermissionController {
 //        return ResResultUtil.success();
 //    }
 }
+

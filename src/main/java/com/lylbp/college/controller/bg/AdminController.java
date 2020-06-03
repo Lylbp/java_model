@@ -1,17 +1,18 @@
 package com.lylbp.college.controller.bg;
 
+
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
 import com.lylbp.college.DTO.AdminUserEditDTO;
 import com.lylbp.college.DTO.AdminUserQueryDTO;
-import com.lylbp.college.VO.TDarAdminUserVO;
+import com.lylbp.college.VO.AdminVO;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.entity.PageResResult;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.utils.ResResultUtil;
-import com.lylbp.college.entity.TDarAdminUser;
+import com.lylbp.college.entity.Admin;
 import com.lylbp.college.enums.ResResultEnum;
-import com.lylbp.college.service.TDarAdminUserService;
-import com.github.pagehelper.PageHelper;
+import com.lylbp.college.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,16 +24,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 后台管理员 前端控制器
+ * </p>
+ *
  * @author weiwenbin
- * @Description: TDarAdminUserController类
- * @date 2020/05/22 15:57
+ * @since 2020-06-02
  */
 @RestController
 @RequestMapping("/bg/adminUser")
 @Api(tags = "后台管理-后台管理员相关")
-public class TDarAdminUserController {
+public class AdminController {
     @Resource
-    private TDarAdminUserService tDarAdminUserService;
+    private AdminService adminService;
 
     @Value("${super-admin-id}")
     private String superAdminUserId;
@@ -40,13 +44,13 @@ public class TDarAdminUserController {
     @PostMapping(value = "/getList")
     @ApiOperation("后台管理员-获取列表")
     @CheckPermission(descrption = "后台管理员-获取列表")
-    public ResResult<PageResResult<TDarAdminUserVO>> getList(@RequestBody AdminUserQueryDTO query,
-                                                             @RequestParam(defaultValue = "0") Integer page,
-                                                             @RequestParam(defaultValue = "0") Integer size) {
+    public ResResult<PageResResult<AdminVO>> getList(@RequestBody AdminUserQueryDTO query,
+                                                     @RequestParam(defaultValue = "0") Integer page,
+                                                     @RequestParam(defaultValue = "0") Integer size) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
 
         PageHelper.startPage(page, size);
-        List<TDarAdminUserVO> list = tDarAdminUserService.getListByParams(params);
+        List<AdminVO> list = adminService.getListByParams(params);
 
         return ResResultUtil.makePageRsp(list);
     }
@@ -54,8 +58,8 @@ public class TDarAdminUserController {
     @PostMapping(value = "/getInfoByUserID")
     @ApiOperation("后台管理员-通过用户id获取详情")
     @CheckPermission(descrption = "后台管理员-通过用户id获取详情")
-    public ResResult<TDarAdminUserVO> getInfoByUserID(@RequestBody String userId) {
-        TDarAdminUserVO tDarAdminUserVO = tDarAdminUserService.getOneByUserId(userId);
+    public ResResult<AdminVO> getInfoByUserID(@RequestBody String userId) {
+        AdminVO tDarAdminUserVO = adminService.getOneByUserId(userId);
 
         return ResResultUtil.success(tDarAdminUserVO);
     }
@@ -64,9 +68,9 @@ public class TDarAdminUserController {
     @ApiOperation("后台管理员-新增或编辑")
     @CheckPermission(descrption = "后台管理员-新增或编辑")
     public ResResult edit(@RequestBody @Validated AdminUserEditDTO adminUserEditDTO) {
-        TDarAdminUser adminUser = new TDarAdminUser();
-        BeanUtil.copyProperties(adminUserEditDTO, adminUser);
-        tDarAdminUserService.insertOrUpdate(adminUser);
+        Admin admin = new Admin();
+        BeanUtil.copyProperties(adminUserEditDTO, admin);
+        adminService.insertOrUpdate(admin);
 
         return ResResultUtil.success();
     }
@@ -76,7 +80,7 @@ public class TDarAdminUserController {
     @CheckPermission(descrption = "后台管理员-批量删除")
     public ResResult batchDeleteByUserIds(@RequestBody List<String> userIdList) {
         if (userIdList.contains(superAdminUserId)) {
-            TDarAdminUser supperAdmin = tDarAdminUserService.selectById(superAdminUserId);
+            Admin supperAdmin = adminService.getById(superAdminUserId);
             String content = String.format(
                     ResResultEnum.ACTION_ADMIN_USER_IS_SUPPER.getMsg() + "[用户名:%s,账号:%s]",
                     supperAdmin.getUserName(),
@@ -85,7 +89,7 @@ public class TDarAdminUserController {
             return ResResultUtil.makeRsp(ResResultEnum.ACTION_ADMIN_USER_IS_SUPPER.getCode(), content);
         }
 
-        tDarAdminUserService.updateIsValidByUserIds(userIdList, false);
+        adminService.updateIsValidByUserIds(userIdList, false);
 
         return ResResultUtil.success();
     }
@@ -97,9 +101,9 @@ public class TDarAdminUserController {
         if (userId.equals(superAdminUserId)) {
             return ResResultUtil.makeRsp(ResResultEnum.ACTION_ADMIN_USER_IS_SUPPER);
         }
-
-        tDarAdminUserService.updateStatusByUserId(userId);
+        adminService.updateStatusByUserId(userId);
 
         return ResResultUtil.success();
     }
 }
+

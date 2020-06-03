@@ -2,17 +2,20 @@ package com.lylbp.college.service;
 
 import com.lylbp.college.VO.PermissionVO;
 import com.lylbp.college.entity.Permission;
-import com.lylbp.college.core.universal.Service;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 权限 服务类
+ * </p>
+ *
  * @author weiwenbin
- * @Description: PermissionService接口
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
-public interface PermissionService extends Service<Permission> {
+public interface PermissionService extends IService<Permission> {
     /**
      * 获取所有加了注解的函数列表
      *
@@ -41,7 +44,7 @@ public interface PermissionService extends Service<Permission> {
      * @param permissionId
      * @return
      */
-    Integer updateIsValidByPermissionId(String permissionId, Boolean isValid);
+    Boolean updateIsValidByPermissionId(String permissionId, Boolean isValid);
 
     /**
      * 根据权限id判断数据是否存在

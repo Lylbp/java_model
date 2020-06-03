@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lylbp.college.mapper.PermissionMapper">
+
+    <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lylbp.college.entity.Permission">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <result column="permission_id" jdbcType="VARCHAR" property="permissionId"/>
-        <result column="permission_name" jdbcType="VARCHAR" property="permissionName"/>
-        <result column="permission_url" jdbcType="VARCHAR" property="permissionUrl"/>
-        <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
+        <id column="permission_id" property="permissionId" />
+        <result column="permission_name" property="permissionName" />
+        <result column="permission_url" property="permissionUrl" />
+        <result column="is_valid" property="isValid" />
     </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        permission_id, permission_name, permission_url, is_valid
+    </sql>
 
     <resultMap id="PermissionVOMap" type="com.lylbp.college.VO.PermissionVO" extends="BaseResultMap"></resultMap>
 

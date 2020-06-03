@@ -1,14 +1,17 @@
 package com.lylbp.college.controller.bg;
 
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.college.DTO.*;
+import com.lylbp.college.DTO.RoleAssignPermissionQueryDTO;
+import com.lylbp.college.DTO.RolePermissionBatchDeleteDTO;
+import com.lylbp.college.DTO.RolePermissionBatchEditDTO;
 import com.lylbp.college.VO.PermissionVO;
 import com.lylbp.college.VO.RolePermissionVO;
 import com.lylbp.college.core.annotation.CheckPermission;
-import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.entity.ResResult;
+import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.ResResultUtil;
 import com.lylbp.college.entity.RolePermission;
 import com.lylbp.college.enums.ResResultEnum;
@@ -18,20 +21,28 @@ import com.lylbp.college.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
+ * 角色与权限关系 前端控制器
+ * </p>
+ *
  * @author weiwenbin
- * @Description: RolePermissionController类
- * @date 2020/05/11 09:13
+ * @since 2020-06-02
  */
 @RestController
 @RequestMapping("/bg/rolePermission")
-@Api(tags = "后台管理-RBAC-角色分配权限相关")
+@Api(tags = "后台管理-RBAC-角色与权限关系相关")
 public class RolePermissionController {
     @Resource
     private RolePermissionService rolePermissionService;
@@ -42,7 +53,7 @@ public class RolePermissionController {
     @Resource
     private RoleService roleService;
 
-//    @PostMapping("/edit")
+    //    @PostMapping("/edit")
 //    @ApiOperation("角色权限-添加或编辑")
 //    public ResResult insert(@RequestBody RolePermissionEditDTO rolePermissionEditDTO) {
 //        RolePermission rolePermission = new RolePermission();
@@ -150,3 +161,4 @@ public class RolePermissionController {
         return ResResultUtil.success(list);
     }
 }
+

@@ -1,39 +1,56 @@
 package com.lylbp.college.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableField;
+
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import javax.persistence.*;
-
-@Table(name = "role_permission")
+/**
+ * <p>
+ * 角色与权限关系
+ * </p>
+ *
+ * @author weiwenbin
+ * @since 2020-06-02
+ */
 @Data
-public class RolePermission {
-    /**
-     * 角色与权限关系id
-     */
-    @Id
-    @Column(name = "role_permission_id")
-    @ApiModelProperty("角色与权限关系id")
+@EqualsAndHashCode(callSuper = false)
+@TableName("role_permission")
+@ApiModel(value = "RolePermission对象", description = "角色与权限关系")
+public class RolePermission extends Model<RolePermission> {
+
+    private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value = "角色权限id")
+    @TableId(value = "role_permission_id", type = IdType.ASSIGN_UUID)
     private String rolePermissionId;
 
-    /**
-     * 角色id
-     */
-    @Column(name = "role_id")
-    @ApiModelProperty("角色id")
+    @ApiModelProperty(value = "角色id")
+    @TableField("role_id")
     private String roleId;
 
-    /**
-     * 权限id
-     */
-    @Column(name = "permission_id")
-    @ApiModelProperty("权限id")
+    @ApiModelProperty(value = "权限id")
+    @TableField("permission_id")
     private String permissionId;
 
-    /**
-     * 是否有效
-     */
-    @Column(name = "is_valid")
-    @ApiModelProperty("是否有效")
+    @ApiModelProperty(value = "是否有效")
+    @TableField("is_valid")
+    @TableLogic
     private Boolean isValid;
+
+
+    @Override
+    protected Serializable pkVal() {
+        return this.rolePermissionId;
+    }
+
 }
