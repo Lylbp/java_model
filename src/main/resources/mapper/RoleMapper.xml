@@ -12,10 +12,6 @@
 
     <resultMap id="RoleVOMap" type="com.lylbp.college.VO.RoleVO" extends="BaseResultMap"></resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        role_id, role_name, role_description, is_valid
-    </sql>
 
 
     <select id="queryByParams" resultType="com.lylbp.college.VO.RoleVO">

@@ -10,11 +10,6 @@
         <result column="is_valid" property="isValid" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        permission_id, permission_name, permission_url, is_valid
-    </sql>
-
     <resultMap id="PermissionVOMap" type="com.lylbp.college.VO.PermissionVO" extends="BaseResultMap"></resultMap>
 
     <select id="queryByParams" resultType="com.lylbp.college.VO.PermissionVO">

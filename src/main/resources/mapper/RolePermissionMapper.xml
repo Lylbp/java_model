@@ -10,11 +10,6 @@
         <result column="is_valid" property="isValid"/>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        role_permission_id, role_id, permission_id, is_valid
-    </sql>
-
     <resultMap id="SecurityQueryListMap" type="com.lylbp.college.VO.Security.SecurityRolePermissionVO"
                extends="BaseResultMap">
         <association property="permission" columnPrefix="p_"

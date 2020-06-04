@@ -10,11 +10,6 @@
         <result column="is_valid" property="isValid" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        menu_permission_id, menu_id, role_id, is_valid
-    </sql>
-
     <insert id="batchInsert">
         INSERT INTO menu_role (menu_permission_id,menu_id, role_id, is_valid)
         VALUES

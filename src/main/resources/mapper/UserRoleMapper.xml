@@ -10,12 +10,6 @@
         <result column="is_valid" property="isValid" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        user_role_id, user_id, role_id, is_valid
-    </sql>
-
-
     <resultMap id="QueryByParams" type="com.lylbp.college.VO.UserRoleVO" extends="BaseResultMap">
         <association property="roleVO" columnPrefix="r_"
                      resultMap="com.lylbp.college.mapper.RoleMapper.RoleVOMap"
