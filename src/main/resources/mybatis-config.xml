@@ -7,45 +7,45 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/> <!-- 开启Mybatis下划线命名转驼峰命名 -->
     </settings>
 
-    <typeHandlers>
-        <typeHandler jdbcType="DECIMAL" javaType="java.math.BigDecimal"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectBigDecimalTypeHandler"/>
+<!--    <typeHandlers>-->
+<!--        <typeHandler jdbcType="DECIMAL" javaType="java.math.BigDecimal"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectBigDecimalTypeHandler"/>-->
 
-        <typeHandler jdbcType="NUMERIC" javaType="java.math.BigDecimal"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectBigDecimalTypeHandler"/>
+<!--        <typeHandler jdbcType="NUMERIC" javaType="java.math.BigDecimal"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectBigDecimalTypeHandler"/>-->
 
-        <typeHandler jdbcType="BOOLEAN" javaType="java.lang.Boolean"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectBooleanTypeHandler"/>
+<!--        <typeHandler jdbcType="BOOLEAN" javaType="java.lang.Boolean"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectBooleanTypeHandler"/>-->
 
-        <typeHandler jdbcType="DOUBLE" javaType="java.lang.Double"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectDoubleTypeHandler"/>
+<!--        <typeHandler jdbcType="DOUBLE" javaType="java.lang.Double"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectDoubleTypeHandler"/>-->
 
-        <typeHandler jdbcType="FLOAT" javaType="java.lang.Float"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectFloatTypeHandler"/>
+<!--        <typeHandler jdbcType="FLOAT" javaType="java.lang.Float"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectFloatTypeHandler"/>-->
 
-        <typeHandler jdbcType="INTEGER" javaType="java.lang.Integer"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectIntegerTypeHandler"/>
+<!--        <typeHandler jdbcType="INTEGER" javaType="java.lang.Integer"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectIntegerTypeHandler"/>-->
 
-        <typeHandler jdbcType="TINYINT" javaType="java.lang.Integer"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectIntegerTypeHandler"/>
+<!--        <typeHandler jdbcType="TINYINT" javaType="java.lang.Integer"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectIntegerTypeHandler"/>-->
 
-        <typeHandler jdbcType="SMALLINT" javaType="java.lang.Integer"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectIntegerTypeHandler"/>
+<!--        <typeHandler jdbcType="SMALLINT" javaType="java.lang.Integer"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectIntegerTypeHandler"/>-->
 
-        <typeHandler jdbcType="BIGINT" javaType="java.lang.Long"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectLongTypeHandler"/>
+<!--        <typeHandler jdbcType="BIGINT" javaType="java.lang.Long"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectLongTypeHandler"/>-->
 
-        <typeHandler jdbcType="CHAR" javaType="java.lang.String"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectStringTypeHandler"/>
+<!--        <typeHandler jdbcType="CHAR" javaType="java.lang.String"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectStringTypeHandler"/>-->
 
-        <typeHandler jdbcType="VARCHAR" javaType="java.lang.String"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectStringTypeHandler"/>
+<!--        <typeHandler jdbcType="VARCHAR" javaType="java.lang.String"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectStringTypeHandler"/>-->
 
-        <typeHandler jdbcType="LONGVARCHAR" javaType="java.lang.String"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectStringTypeHandler"/>
+<!--        <typeHandler jdbcType="LONGVARCHAR" javaType="java.lang.String"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectStringTypeHandler"/>-->
 
-        <typeHandler jdbcType="TIMESTAMP" javaType="java.util.Date"
-                     handler="com.lylbp.college.core.handler.mybatis.ProjectDateTypeHandler"/>
-    </typeHandlers>
+<!--        <typeHandler jdbcType="TIMESTAMP" javaType="java.util.Date"-->
+<!--                     handler="com.lylbp.college.core.handler.mybatis.ProjectDateTypeHandler"/>-->
+<!--    </typeHandlers>-->
 
 </configuration>

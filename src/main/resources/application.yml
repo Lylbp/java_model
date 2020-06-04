@@ -4,11 +4,11 @@ spring:
   profiles:
     active: mysql
   jackson:
-    #查询数据是否去掉null(已经查字段A值为null 已配置typeHandler会把null变为""  若sql未查询A字段则在这里会被去除)
+    #查询数据是否去掉null(因为自定义了configureMessageConverters所以这里不配)
     #    default-property-inclusion: non_null
-    #配置时间格式化
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
+    #配置时间格式化(因为自定义了configureMessageConverters所以这里不配)
+    #date-format: yyyy-MM-dd HH:mm:ss
+    #time-zone: GMT+8
 
   #mvc相关配置
   mvc:

@@ -7,6 +7,7 @@ import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.JwtUtil;
 import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.service.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class TokenServiceImpl implements TokenService {
-    @Resource
+    @Autowired
     private HttpServletRequest request;
 
     @Override
