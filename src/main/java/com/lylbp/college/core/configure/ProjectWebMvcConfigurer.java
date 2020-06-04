@@ -19,8 +19,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class ProjectWebMvcConfigurer implements WebMvcConfigurer {
     @Bean
-    public ApiInterceptor getApiInterceptor(){
-        return  new ApiInterceptor();
+    public ApiInterceptor getApiInterceptor() {
+        return new ApiInterceptor();
     }
 
     @Bean
@@ -29,9 +29,10 @@ public class ProjectWebMvcConfigurer implements WebMvcConfigurer {
     }
 
     @Bean
-    public ApiFilter getApiFilter(){
-        return  new ApiFilter();
+    public ApiFilter getApiFilter() {
+        return new ApiFilter();
     }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 多个拦截器组成一个拦截器链
@@ -39,7 +40,7 @@ public class ProjectWebMvcConfigurer implements WebMvcConfigurer {
         // excludePathPatterns 用户排除拦截
         registry.addInterceptor(getApiInterceptor())
                 .addPathPatterns("/user/**")
-                .excludePathPatterns("/bg/**","/public/**","/user/login","/user/register");
+                .excludePathPatterns("/bg/**", "/public/**", "/user/login", "/user/register");
     }
 
     @Bean
@@ -55,7 +56,7 @@ public class ProjectWebMvcConfigurer implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("doc.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
-                registry.addResourceHandler("/**")
+        registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/static/");
     }
 }
