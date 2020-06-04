@@ -3,10 +3,12 @@ spring:
   #配置文件相关配置
   profiles:
     active: mysql
-
-  #查询数据是否去掉null
-  #  jackson:
-  #    default-property-inclusion: non_null
+  jackson:
+    #查询数据是否去掉null(已经查字段A值为null 已配置typeHandler会把null变为""  若sql未查询A字段则在这里会被去除)
+    #    default-property-inclusion: non_null
+    #配置时间格式化
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
   #mvc相关配置
   mvc:
@@ -33,25 +35,26 @@ logging.config:
 
 # MyBatis
 mybatis-plus:
-  configuration:
-    #开启Mybatis下划线命名转驼峰命名
-    map-underscore-to-camel-case: true
   #实体扫描，多个package用逗号或者分号分隔
   type-aliases-package: com.lylbp.college.entity
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapper-locations: classpath:mapper/*.xml
+  # 通用枚举的扫描,支持统配符 * 或者 ; 分割
+  type-enums-package: com.lylbp.college.enums
+  # mybatis-config.xml配置文件地址
+  config-location: classpath:mybatis-config.xml
+  #全局配置
   global-config:
+    #数据库配置
     db-config:
-      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+      #主键类型
       id-type: UUID
-      #字段策略 0:"忽略判断",1:"非 NULL 判断",2:"非空判断"
-      field-strategy: not_empty
       select-strategy: not_empty
-      #驼峰下划线转换
-      db-column-underline: true
-      refresh-mapper: true
       #数据库大写下划线转换
-      #capital-mode: true
-      #数据库类型
-      db-type: mysql
-
+      capital-mode: true
+      #全局逻辑删除字段值 如果实体类上有 @TableLogic 则以实体上的为准，忽略全局。
+      logic-delete-field: is_valid
+      #逻辑已删除值（默认为1）
+      logic-delete-value: 0
+      #逻辑未删除值（默认为0）
+      logic-not-delete-value: 1

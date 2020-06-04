@@ -5,14 +5,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import com.lylbp.college.enums.GenderEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -50,6 +49,10 @@ public class Admin extends Model<Admin> {
     @TableField("pwd")
     private String pwd;
 
+    @ApiModelProperty(value = "性别")
+    @TableField("gender")
+    private GenderEnum gender;
+
     @ApiModelProperty(value = "账号状态 是否启用。0 ：禁用；1：启用")
     @TableField("account_status")
     private Boolean accountStatus;
@@ -62,7 +65,6 @@ public class Admin extends Model<Admin> {
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
     private Date createTime;
-
 
     @Override
     protected Serializable pkVal() {

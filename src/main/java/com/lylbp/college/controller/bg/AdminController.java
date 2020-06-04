@@ -11,7 +11,8 @@ import com.lylbp.college.core.entity.PageResResult;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.utils.ResResultUtil;
 import com.lylbp.college.entity.Admin;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
+import com.lylbp.college.enums.GenderEnum;
 import com.lylbp.college.service.AdminService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,7 +70,8 @@ public class AdminController {
     @CheckPermission(descrption = "后台管理员-新增或编辑")
     public ResResult edit(@RequestBody @Validated AdminUserEditDTO adminUserEditDTO) {
         Admin admin = new Admin();
-        BeanUtil.copyProperties(adminUserEditDTO, admin);
+        BeanUtil.copyProperties(adminUserEditDTO, admin, "gender");
+        admin.setGender(GenderEnum.getEnumByCode(adminUserEditDTO.getGender()));
         adminService.insertOrUpdate(admin);
 
         return ResResultUtil.success();
@@ -88,8 +90,7 @@ public class AdminController {
             );
             return ResResultUtil.makeRsp(ResResultEnum.ACTION_ADMIN_USER_IS_SUPPER.getCode(), content);
         }
-
-        adminService.updateIsValidByUserIds(userIdList, false);
+        adminService.removeByIds(userIdList);
 
         return ResResultUtil.success();
     }

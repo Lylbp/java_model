@@ -1,17 +1,13 @@
 package com.lylbp.college.controller.bg;
 
-import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.college.DTO.AdminLoginDTO;
-import com.lylbp.college.DTO.ChangePassWdDTO;
 import com.lylbp.college.VO.Security.SecurityUserVO;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.MD5Util;
 import com.lylbp.college.core.utils.ResResultUtil;
-import com.lylbp.college.entity.Admin;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.service.*;
-import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.service.AdminService;
 import com.lylbp.college.service.TokenService;
 import io.swagger.annotations.Api;

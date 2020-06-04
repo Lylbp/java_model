@@ -2,7 +2,6 @@ package com.lylbp.college.controller.bg;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.college.DTO.RoleAssignPermissionQueryDTO;
 import com.lylbp.college.DTO.RolePermissionBatchDeleteDTO;
@@ -14,7 +13,7 @@ import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.ResResultUtil;
 import com.lylbp.college.entity.RolePermission;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.service.PermissionService;
 import com.lylbp.college.service.RolePermissionService;
 import com.lylbp.college.service.RoleService;

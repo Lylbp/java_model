@@ -3,7 +3,7 @@ package com.lylbp.college.core.security;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.college.VO.Security.SecurityUserVO;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;

@@ -1,6 +1,9 @@
-package com.lylbp.college.enums;
+package com.lylbp.college.core.enums;
 
+import com.lylbp.college.core.interfaces.IBaseEnum;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 @Getter
 public enum ResResultEnum {
@@ -27,10 +30,10 @@ public enum ResResultEnum {
     NO_LOGIN(2002, "登录凭证已失效"),
     ACCOUNT_DISABLE(2003, "您的账号已被禁用"),
     ACCOUNT_LOGIN_ERR(2004, "账号或密码错误"),
-    CODE_LOGIN_ERR(2005,"验证码错误"),
-    USER_PASSWORD_ERROR(2006,"您的密码不能少于六位"),
-    USER_PHONE_ERROR(2007,"您的手机号格式不正确"),
-    CONFIRM_PASSWORD_ERR(2007,"两次密码输入不一致"),
+    CODE_LOGIN_ERR(2005, "验证码错误"),
+    USER_PASSWORD_ERROR(2006, "您的密码不能少于六位"),
+    USER_PHONE_ERROR(2007, "您的手机号格式不正确"),
+    CONFIRM_PASSWORD_ERR(2007, "两次密码输入不一致"),
     /**
      * ===========================RBAC相关===============================
      */
@@ -66,5 +69,13 @@ public enum ResResultEnum {
     ResResultEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
+    }
+
+    public static String getValueByCode(Integer pCode) {
+        ResResultEnum resultEnum = Arrays.stream(ResResultEnum.values()).filter(resResultEnum -> {
+            return resResultEnum.getCode().equals(pCode);
+        }).findFirst().orElse(null);
+
+        return null != resultEnum ? resultEnum.getMsg() : "";
     }
 }

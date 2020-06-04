@@ -5,7 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.lylbp.college.core.constant.ProjectConstant;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.JwtUtil;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.service.TokenService;
 import org.springframework.stereotype.Service;
 

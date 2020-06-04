@@ -15,7 +15,7 @@ import com.lylbp.college.core.entity.PageResResult;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.utils.ResResultUtil;
 import com.lylbp.college.entity.Menu;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.service.MenuRoleService;
 import com.lylbp.college.service.MenuService;
 import com.lylbp.college.service.TokenService;

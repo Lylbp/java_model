@@ -2,7 +2,7 @@ package com.lylbp.college.core.utils;
 
 
 import com.lylbp.college.core.exception.ResResultException;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.springframework.util.StringUtils;

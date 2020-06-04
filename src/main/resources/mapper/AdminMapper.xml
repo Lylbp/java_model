@@ -4,20 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lylbp.college.entity.Admin">
-        <id column="user_id" property="userId" />
-        <result column="phone" property="phone" />
-        <result column="user_name" property="userName" />
-        <result column="pwd" property="pwd" />
-        <result column="account_status" property="accountStatus" />
-        <result column="is_valid" property="isValid" />
-        <result column="create_time" property="createTime" />
+        <id column="user_id" property="userId"/>
+        <result column="phone" property="phone"/>
+        <result column="user_name" property="userName"/>
+        <result column="pwd" property="pwd"/>
+        <result column="gender" property="gender"/>
+        <result column="account_status" property="accountStatus"/>
+        <result column="is_valid" property="isValid"/>
+        <result column="create_time" property="createTime"/>
     </resultMap>
-
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        user_id, phone, user_name, pwd, account_status, is_valid, create_time
-    </sql>
-
 
     <update id="updateIsValidByUserIds">
         UPDATE admin SET is_valid = #{isValid}
@@ -49,6 +44,7 @@
         t.user_id,
         t.user_name,
         t.phone,
+        t.gender,
         t.account_status,
         t.is_valid,
         t.create_time
@@ -70,6 +66,10 @@
 
             <if test="params.userNameLike != null and params.userNameLike != ''">
                 AND t.user_name like CONCAT('%',#{params.userNameLike},'%')
+            </if>
+
+            <if test="params.gender != null and params.gender != ''">
+                AND t.gender = #{params.gender}
             </if>
 
             <if test="params.accountStatus != null and params.accountStatus != ''">

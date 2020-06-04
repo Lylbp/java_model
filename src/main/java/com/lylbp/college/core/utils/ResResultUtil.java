@@ -3,13 +3,11 @@ package com.lylbp.college.core.utils;
 import com.lylbp.college.core.entity.PageResResult;
 import com.lylbp.college.core.entity.ResResult;
 import com.github.pagehelper.PageInfo;
-import com.lylbp.college.enums.ResResultEnum;
-
+import com.lylbp.college.core.enums.ResResultEnum;
 import java.util.List;
 
 public class ResResultUtil {
-
-    private final static String SUCCESS = "success";
+    private ResResultUtil() {}
 
     public static <T> ResResult<T> makeRsp(int code, String msg) {
         return new ResResult<T>().setCode(code).setMsg(msg);
@@ -38,9 +36,12 @@ public class ResResultUtil {
     }
 
 
-
     public static <T> ResResult<T> error() {
         return new ResResult<T>().setCode(ResResultEnum.SYSTEM_ERR.getCode()).setMsg(ResResultEnum.SYSTEM_ERR.getMsg());
+    }
+
+    public static <T> ResResult<T> error(ResResultEnum responseEnum) {
+        return new ResResult<T>().setCode(responseEnum.getCode()).setMsg(responseEnum.getMsg());
     }
 
     public static <T> ResResult<T> error(T data) {

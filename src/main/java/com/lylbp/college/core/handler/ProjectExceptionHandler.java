@@ -1,9 +1,9 @@
-package com.lylbp.college.core.handle;
+package com.lylbp.college.core.handler;
 
 
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.ResResultUtil;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,13 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionHandle {
+public class ProjectExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public Object handle(Exception e, HttpServletRequest request) {
         log.error("request url is {}", request.getRequestURI());
-        log.error("exception handle catch exception", e);
+        log.error("exception handler catch exception", e);
         //参数验证异常捕捉
         if (e instanceof MethodArgumentNotValidException) {
             MethodArgumentNotValidException mException = (MethodArgumentNotValidException) e;

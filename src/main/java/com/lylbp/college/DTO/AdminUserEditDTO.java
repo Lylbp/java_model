@@ -18,7 +18,7 @@ public class AdminUserEditDTO {
     private String userId;
 
     @ApiModelProperty("账号")
-    @Pattern(regexp = RegexUtil.MOBILE,message = "手机号格式错误")
+    @Pattern(regexp = RegexUtil.MOBILE, message = "手机号格式错误")
     private String phone;
 
     @ApiModelProperty("用户名")
@@ -26,7 +26,11 @@ public class AdminUserEditDTO {
     @Length(min = 2, max = 30, message = "用户名长度[2-30]")
     private String userName;
 
+    @ApiModelProperty("性别 1:男 2:女")
+    @Pattern(regexp = RegexUtil.INTEGER, message = "性别错误")
+    private String gender;
+
     @ApiModelProperty("账号状态 是否启用 0:禁用；1:启用")
-    @Pattern(regexp = RegexUtil.INTEGER,message = "账号状态错误")
+    @Pattern(regexp = RegexUtil.INTEGER, message = "账号状态错误")
     private String accountStatus;
 }

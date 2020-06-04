@@ -1,13 +1,12 @@
 package com.lylbp.college.service.impl;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.college.VO.AdminVO;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.MD5Util;
 import com.lylbp.college.entity.Admin;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.mapper.AdminMapper;
 import com.lylbp.college.service.AdminService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 public class NewCrossDomainInterceptor implements HandlerInterceptor {
 
     /**
-     * Pre handle.
+     * Pre handler.
      * 拦截每个请求     在请求处理之前进行调用（Controller方法调用之前
      *
      * @param request  the request

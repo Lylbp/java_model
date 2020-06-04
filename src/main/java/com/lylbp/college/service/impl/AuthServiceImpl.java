@@ -3,7 +3,7 @@ package com.lylbp.college.service.impl;
 import com.lylbp.college.VO.Security.SecurityRoleVO;
 import com.lylbp.college.VO.Security.SecurityUserVO;
 import com.lylbp.college.core.exception.ResResultException;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.mapper.UserRoleMapper;
 import com.lylbp.college.service.AuthService;
 import com.lylbp.college.mapper.AdminMapper;

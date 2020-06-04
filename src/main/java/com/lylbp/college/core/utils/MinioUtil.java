@@ -1,7 +1,7 @@
 package com.lylbp.college.core.utils;
 
 import com.lylbp.college.core.exception.ResResultException;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;

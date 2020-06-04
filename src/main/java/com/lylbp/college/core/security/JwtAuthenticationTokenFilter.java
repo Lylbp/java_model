@@ -3,7 +3,7 @@ package com.lylbp.college.core.security;
 import cn.hutool.core.util.ArrayUtil;
 import com.lylbp.college.VO.Security.SecurityUserVO;
 import com.lylbp.college.core.constant.ProjectConstant;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.service.TokenService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDeniedException;

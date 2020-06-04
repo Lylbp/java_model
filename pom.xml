@@ -63,18 +63,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-generator</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>2.0.1</version>
-        </dependency>
-
         <!-- aop -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,6 +76,7 @@
             <artifactId>poi</artifactId>
             <version>4.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
@@ -110,7 +99,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.4.0</version>
+            <version>3.10.3</version>
         </dependency>
 
         <!--常用库依赖 -->
@@ -146,7 +135,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.2</version>
+            <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
 
@@ -154,14 +143,14 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>4.6.7</version>
+            <version>5.3.5</version>
         </dependency>
 
         <!--分页依赖 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.13</version>
         </dependency>
 
         <!--swagger -->
@@ -190,7 +179,7 @@
             <version>1.2.22</version>
         </dependency>
 
-        <!-- minio https://docs.minio.io/cn/java-client-quickstart-guide.html -->
+        <!-- minio -->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
@@ -218,6 +207,7 @@
             <artifactId>jpush-client</artifactId>
             <version>3.3.10</version>
         </dependency>
+
         <!-- 极光 Java client 的公共封装开发包，必须依赖 -->
         <dependency>
             <groupId>cn.jpush.api</groupId>

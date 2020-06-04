@@ -1,4 +1,4 @@
-package com.lylbp.college.VO;
+package com.lylbp.college.core.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

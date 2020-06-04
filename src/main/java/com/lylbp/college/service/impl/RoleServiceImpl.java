@@ -1,11 +1,10 @@
 package com.lylbp.college.service.impl;
 
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.college.VO.RoleVO;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.entity.Role;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.mapper.RoleMapper;
 import com.lylbp.college.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

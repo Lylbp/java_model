@@ -1,6 +1,6 @@
 package com.lylbp.college.core.exception;
 
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import lombok.Getter;
 
 /**

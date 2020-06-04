@@ -1,6 +1,5 @@
 package com.lylbp.college.service.impl;
 
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.lylbp.college.VO.PermissionVO;
@@ -8,7 +7,7 @@ import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.AnnotationUtil;
 import com.lylbp.college.entity.Permission;
-import com.lylbp.college.enums.ResResultEnum;
+import com.lylbp.college.core.enums.ResResultEnum;
 import com.lylbp.college.mapper.PermissionMapper;
 import com.lylbp.college.service.PermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
