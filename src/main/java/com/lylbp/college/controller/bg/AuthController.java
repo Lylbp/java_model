@@ -34,9 +34,6 @@ public class AuthController {
     @Resource
     private AuthService authService;
 
-    @Resource
-    private AdminService adminService;
-
     @PostMapping("/login")
     @ApiOperation("后台用户登录")
     public ResResult<String> login(@RequestBody @Validated AdminLoginDTO adminLoginDTO){
