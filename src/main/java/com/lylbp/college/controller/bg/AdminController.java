@@ -102,6 +102,7 @@ public class AdminController {
         if (userId.equals(superAdminUserId)) {
             return ResResultUtil.makeRsp(ResResultEnum.ACTION_ADMIN_USER_IS_SUPPER);
         }
+
         adminService.updateStatusByUserId(userId);
 
         return ResResultUtil.success();
