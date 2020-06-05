@@ -4,6 +4,7 @@ package com.lylbp.college.controller.bg;
 import cn.hutool.core.bean.BeanUtil;
 import com.lylbp.college.DTO.PermissionQueryDTO;
 import com.lylbp.college.VO.PermissionVO;
+import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.utils.ResResultUtil;
@@ -33,7 +34,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/bg/permission")
 @Api(tags = "后台管理-RBAC-权限相关")
-public class PermissionController {
+public class PermissionController extends BaseController {
     @Resource
     private PermissionService permissionService;
 

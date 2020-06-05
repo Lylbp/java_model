@@ -10,6 +10,7 @@ import com.lylbp.college.VO.MenuAndRolesVO;
 import com.lylbp.college.VO.MenuNodeVO;
 import com.lylbp.college.VO.MenuVO;
 import com.lylbp.college.VO.Security.SecurityUserVO;
+import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.entity.PageResResult;
 import com.lylbp.college.core.entity.ResResult;
@@ -41,7 +42,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/bg/menu")
 @Api(tags = "后台管理-RBAC-菜单相关")
-public class MenuController {
+public class MenuController extends BaseController {
     @Resource
     private MenuService menuService;
 

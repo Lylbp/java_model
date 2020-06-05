@@ -8,6 +8,7 @@ import com.lylbp.college.DTO.UserRoleBatchDeleteDTO;
 import com.lylbp.college.DTO.UserRoleBatchEditDTO;
 import com.lylbp.college.VO.RoleVO;
 import com.lylbp.college.VO.UserRoleVO;
+import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.exception.ResResultException;
@@ -43,7 +44,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/bg/userRole")
 @Api(tags = "后台管理-RBAC-用户与角色关系相关")
-public class UserRoleController {
+public class UserRoleController extends BaseController {
     @Resource
     private UserRoleService userRoleService;
 

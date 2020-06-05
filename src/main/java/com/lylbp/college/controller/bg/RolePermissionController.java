@@ -8,6 +8,7 @@ import com.lylbp.college.DTO.RolePermissionBatchDeleteDTO;
 import com.lylbp.college.DTO.RolePermissionBatchEditDTO;
 import com.lylbp.college.VO.PermissionVO;
 import com.lylbp.college.VO.RolePermissionVO;
+import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.exception.ResResultException;
@@ -42,7 +43,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/bg/rolePermission")
 @Api(tags = "后台管理-RBAC-角色与权限关系相关")
-public class RolePermissionController {
+public class RolePermissionController extends BaseController {
     @Resource
     private RolePermissionService rolePermissionService;
 

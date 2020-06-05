@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.lylbp.college.DTO.AdminUserEditDTO;
 import com.lylbp.college.DTO.AdminUserQueryDTO;
 import com.lylbp.college.VO.AdminVO;
+import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.entity.PageResResult;
 import com.lylbp.college.core.entity.ResResult;
@@ -35,7 +36,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/bg/adminUser")
 @Api(tags = "后台管理-后台管理员相关")
-public class AdminController {
+public class AdminController extends BaseController {
     @Resource
     private AdminService adminService;
 

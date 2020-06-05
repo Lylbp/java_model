@@ -5,6 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.lylbp.college.DTO.RoleEditDTO;
 import com.lylbp.college.DTO.RoleQueryDTO;
 import com.lylbp.college.VO.RoleVO;
+import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.utils.ResResultUtil;
@@ -35,7 +36,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/bg/role")
 @Api(tags = "后台管理-RBAC-角色相关")
-public class RoleController {
+public class RoleController extends BaseController {
     @Resource
     private RoleService roleService;
 

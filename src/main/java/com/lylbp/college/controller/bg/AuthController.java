@@ -2,6 +2,7 @@ package com.lylbp.college.controller.bg;
 
 import com.lylbp.college.DTO.AdminLoginDTO;
 import com.lylbp.college.VO.Security.SecurityUserVO;
+import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.entity.ResResult;
 import com.lylbp.college.core.exception.ResResultException;
 import com.lylbp.college.core.utils.MD5Util;
@@ -27,7 +28,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/bg/auth")
 @Api(tags = "后台管理-登录相关")
-public class AuthController {
+public class AuthController extends BaseController {
     @Resource
     private TokenService tokenService;
 
