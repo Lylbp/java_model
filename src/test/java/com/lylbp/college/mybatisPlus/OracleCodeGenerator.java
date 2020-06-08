@@ -12,14 +12,14 @@ import com.lylbp.college.mybatisPlus.util.CommonUtils;
 public class OracleCodeGenerator {
     public static void main(String[] args) {
         DbType dbType = DbType.ORACLE;
-        String dbUrl = "jdbc:oracle:thin:@localhost:1521:orcl";
-        String username = "dbUsername";
-        String password = "dbPassword";
-        String driver = "oracle.jdbc.OracleDriver";
+        String dbUrl = "jdbc:oracle:thin:@192.168.1.151:1521:cdb1";
+        String username = "C##dar";
+        String password = "1qaz2wsx";
+        String driver = "oracle.jdbc.driver.OracleDriver";
         // 表前缀，生成的实体类，不含前缀
-        String[] tablePrefixes = {};
+        String[] tablePrefixes = {"T_S_"};
         // 表名，为空，生成所有的表
-        String[] tableNames = {};
+        String[] tableNames = {"T_S_LOG"};
         // 字段前缀
         String[] fieldPrefixes = {};
         CommonUtils.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);

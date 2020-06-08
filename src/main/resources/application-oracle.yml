@@ -20,7 +20,6 @@ spring:
     password: 1qaz2wsx
     #oracle数据库url
     url: jdbc:oracle:thin:@192.168.1.151:1521:cdb1
-
 #日志地址 (注意!!! 需要配置自己的日志地址)
 path.log: /Library/WebServer/log
 
