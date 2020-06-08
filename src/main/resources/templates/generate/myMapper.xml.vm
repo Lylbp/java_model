@@ -38,13 +38,17 @@
 
     <!-- 通用查询语句 -->
     <sql id="Base_Where_List">
-        t.${cfg.FieldlogicDeleteName} = 1
         #foreach($field in ${table.fields})
+            #if(${field.columnName} == ${cfg.FieldlogicDeleteName})
+                t.${cfg.FieldlogicDeleteName} = 1
+            #end
+
             #if(${field.keyFlag})
                 <if test="params.containsKey('${field.propertyName}')">
                     AND t.${field.columnName} = #{params.${field.propertyName}}
                 </if>
             #end
+
             #if(!${field.keyFlag} && ${field.columnName} != ${cfg.FieldlogicDeleteName})
                 <if test="params.${field.propertyName} != null and params.${field.propertyName} != ''">
                     AND t.${field.columnName} = #{params.${field.propertyName}}
