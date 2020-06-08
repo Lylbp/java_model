@@ -3,7 +3,7 @@ package com.lylbp.college.controller.bg;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.college.DTO.RoleAssignPermissionQueryDTO;
+import com.lylbp.college.QO.RoleAssignPermissionQO;
 import com.lylbp.college.DTO.RolePermissionBatchDeleteDTO;
 import com.lylbp.college.DTO.RolePermissionBatchEditDTO;
 import com.lylbp.college.VO.PermissionVO;
@@ -140,7 +140,7 @@ public class RolePermissionController extends BaseController {
     @PostMapping("/getRoleNoAssignPermissionList")
     @ApiOperation("RBAC-角色权限-根据角色id获取未分配权限列表")
     @CheckPermission(descrption = "RBAC-角色权限-根据角色id获取未分配权限列表")
-    public ResResult<List<PermissionVO>> getRoleNoAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQueryDTO query) {
+    public ResResult<List<PermissionVO>> getRoleNoAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQO query) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
         params.remove("roleId");
         List<PermissionVO> list = rolePermissionService.getRoleNoAssignPermissionList(query.getRoleId(), params);
@@ -152,7 +152,7 @@ public class RolePermissionController extends BaseController {
     @PostMapping("/getRoleHasAssignPermissionList")
     @ApiOperation("RBAC-角色权限-根据角色id获取已分配权限列表")
     @CheckPermission(descrption = "RBAC-角色权限-根据角色id获取已分配权限列表")
-    public ResResult<List<PermissionVO>> getRoleHasAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQueryDTO query) {
+    public ResResult<List<PermissionVO>> getRoleHasAssignPermissionList(@RequestBody @Validated RoleAssignPermissionQO query) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
         params.remove("roleId");
         List<PermissionVO> list = rolePermissionService.getRoleHasAssignPermissionList(query.getRoleId(), params);

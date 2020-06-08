@@ -10,7 +10,6 @@ import com.lylbp.college.mybatisPlus.util.CommonUtils;
  * @since 2019-04-17 10:33
  */
 public class OracleCodeGenerator {
-
     public static void main(String[] args) {
         DbType dbType = DbType.ORACLE;
         String dbUrl = "jdbc:oracle:thin:@localhost:1521:orcl";
@@ -23,14 +22,6 @@ public class OracleCodeGenerator {
         String[] tableNames = {};
         // 字段前缀
         String[] fieldPrefixes = {};
-//        // 基础包名
-//        String packageName = "com.example.module.db";
-//        //作者
-//        String author = "weiwenbin";
-//        //输出目录
-//        String outputDir = "/Library/WebServer/java_project/java_model/src/main/java";
-//        //Controller父类
-//        String superControllerClass = "com.lylbp.college.controller.BaseController";
         CommonUtils.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);
     }
 

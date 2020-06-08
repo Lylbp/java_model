@@ -1,4 +1,4 @@
-package com.lylbp.college.DTO;
+package com.lylbp.college.QO;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
  * @Date 2020/5/29 上午9:34
  */
 @Data
-public class AdminUserQueryDTO {
+public class AdminQO {
     @ApiModelProperty("手机号模糊查询 传空串此条件不生效")
     String phoneLike;
 

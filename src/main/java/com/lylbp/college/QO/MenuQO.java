@@ -1,4 +1,4 @@
-package com.lylbp.college.DTO;
+package com.lylbp.college.QO;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
  * @Date 2020/5/19 上午8:58
  */
 @Data
-public class MenuQueryDTO {
+public class MenuQO {
     @ApiModelProperty(value = "菜单名称模糊查询 传空串此条件不生效", required = true)
     private String menuNameLike;
 

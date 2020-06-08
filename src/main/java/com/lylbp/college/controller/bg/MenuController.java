@@ -5,7 +5,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.lylbp.college.DTO.MenuEditDTO;
-import com.lylbp.college.DTO.MenuQueryDTO;
+import com.lylbp.college.QO.MenuQO;
 import com.lylbp.college.VO.MenuAndRolesVO;
 import com.lylbp.college.VO.MenuNodeVO;
 import com.lylbp.college.VO.MenuVO;
@@ -99,11 +99,11 @@ public class MenuController extends BaseController {
     @PostMapping("/getList")
     @ApiOperation("RBAC-菜单-菜单列表")
     @CheckPermission(descrption = "RBAC-菜单-菜单列表")
-    public ResResult<PageResResult<MenuAndRolesVO>> getList(@RequestBody MenuQueryDTO menuQueryDTO,
+    public ResResult<PageResResult<MenuAndRolesVO>> getList(@RequestBody MenuQO menuQO,
                                                             @RequestParam(defaultValue = "0") Integer page,
                                                             @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
-        Map<String, Object> params = BeanUtil.beanToMap(menuQueryDTO);
+        Map<String, Object> params = BeanUtil.beanToMap(menuQO);
         List<MenuAndRolesVO> list = menuService.getMenuAndRolesVOByParams(params);
 
         return ResResultUtil.makePageRsp(list);

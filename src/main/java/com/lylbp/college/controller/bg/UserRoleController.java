@@ -3,7 +3,7 @@ package com.lylbp.college.controller.bg;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.college.DTO.UserAssignRoleQueryDTO;
+import com.lylbp.college.QO.UserAssignRoleQO;
 import com.lylbp.college.DTO.UserRoleBatchDeleteDTO;
 import com.lylbp.college.DTO.UserRoleBatchEditDTO;
 import com.lylbp.college.VO.RoleVO;
@@ -125,10 +125,10 @@ public class UserRoleController extends BaseController {
     @PostMapping("/getRoleAssignData")
     @ApiOperation("RBAC-用户角色-根据用户id获得已分配角色列表")
     @CheckPermission(descrption = "RBAC-用户角色-根据用户id获得已分配角色列表")
-    public ResResult<List<RoleVO>> getUserHasAssignRoleList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
-        Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQueryDTO);
+    public ResResult<List<RoleVO>> getUserHasAssignRoleList(@RequestBody @Validated UserAssignRoleQO userAssignRoleQO) {
+        Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQO);
         params.remove("userId");
-        List<RoleVO> list = userRoleService.getUserHasAssignRoleList(userAssignRoleQueryDTO.getUserId(), params);
+        List<RoleVO> list = userRoleService.getUserHasAssignRoleList(userAssignRoleQO.getUserId(), params);
 
         return ResResultUtil.success(list);
     }
@@ -136,10 +136,10 @@ public class UserRoleController extends BaseController {
     @ApiOperation("RBAC-用户角色-根据用户id获得未分配角色列表")
     @PostMapping("/getUserNoAssignRoleList")
     @CheckPermission(descrption = "RBAC-用户角色-根据用户id获得未分配角色列表")
-    public ResResult<List<RoleVO>> getUserNoAssignRoleList(@RequestBody @Validated UserAssignRoleQueryDTO userAssignRoleQueryDTO) {
-        Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQueryDTO);
+    public ResResult<List<RoleVO>> getUserNoAssignRoleList(@RequestBody @Validated UserAssignRoleQO userAssignRoleQO) {
+        Map<String, Object> params = BeanUtil.beanToMap(userAssignRoleQO);
         params.remove("userId");
-        List<RoleVO> list = userRoleService.getUserNoAssignRoleList(userAssignRoleQueryDTO.getUserId(), params);
+        List<RoleVO> list = userRoleService.getUserNoAssignRoleList(userAssignRoleQO.getUserId(), params);
 
         return ResResultUtil.success(list);
     }

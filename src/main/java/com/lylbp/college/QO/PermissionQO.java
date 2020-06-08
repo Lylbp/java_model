@@ -1,4 +1,4 @@
-package com.lylbp.college.DTO;
+package com.lylbp.college.QO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel
-public class PermissionQueryDTO {
+public class PermissionQO {
     @ApiModelProperty(value = "名称模糊查询 传空串此条件不生效", required = true)
     private String permissionNameLike;
 

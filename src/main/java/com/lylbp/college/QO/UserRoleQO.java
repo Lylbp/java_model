@@ -1,18 +1,15 @@
-package com.lylbp.college.DTO;
+package com.lylbp.college.QO;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-
 /**
  * @Author weiwenbin
- * @Date 2020/5/18 下午5:04
+ * @Date 2020/5/18 上午8:40
  */
 @Data
-public class UserAssignRoleQueryDTO {
-    @ApiModelProperty(value = "用户id 此参数必须传", required = true)
-    @NotBlank
+public class UserRoleQO {
+    @ApiModelProperty(value = "用户id查询 传空串此条件不生效", required = true)
     private String userId;
 
     @ApiModelProperty(value = "角色名称模糊查询 传空串此条件不生效", required = true)

@@ -2,7 +2,7 @@ package com.lylbp.college.controller.bg;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import com.lylbp.college.DTO.PermissionQueryDTO;
+import com.lylbp.college.QO.PermissionQO;
 import com.lylbp.college.VO.PermissionVO;
 import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
@@ -58,8 +58,8 @@ public class PermissionController extends BaseController {
     @PostMapping("/getAll")
     @ApiOperation("RBAC-权限-所有权限列表")
     @CheckPermission(descrption = "RBAC-权限-所有权限列表")
-    public ResResult<List<PermissionVO>> getAll(@RequestBody PermissionQueryDTO permissionQueryDTO) {
-        Map<String, Object> params = BeanUtil.beanToMap(permissionQueryDTO);
+    public ResResult<List<PermissionVO>> getAll(@RequestBody PermissionQO permissionQO) {
+        Map<String, Object> params = BeanUtil.beanToMap(permissionQO);
         List<PermissionVO> list = permissionService.getPermissionByParams(params);
 
         return ResResultUtil.success(list);

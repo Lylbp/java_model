@@ -1,4 +1,4 @@
-package com.lylbp.college.DTO;
+package com.lylbp.college.QO;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
  * @Date 2020/5/18 下午5:04
  */
 @Data
-public class RoleAssignPermissionQueryDTO {
+public class RoleAssignPermissionQO {
     @ApiModelProperty(value = "角色id 此参数必须传", required = true)
     @NotBlank
     private String roleId;

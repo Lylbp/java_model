@@ -20,7 +20,7 @@ public class MySQLCodeGenerator {
         // 表前缀，生成的实体类，不含前缀
         String[] tablePrefixes = {""};
         // 表名，为空，生成所有的表
-        String[] tableNames = {"area"};
+        String[] tableNames = {""};
         // 字段前缀
         String[] fieldPrefixes = {};
         CommonUtils.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);

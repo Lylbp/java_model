@@ -4,7 +4,7 @@ package com.lylbp.college.controller.bg;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.lylbp.college.DTO.AdminUserEditDTO;
-import com.lylbp.college.DTO.AdminUserQueryDTO;
+import com.lylbp.college.QO.AdminQO;
 import com.lylbp.college.VO.AdminVO;
 import com.lylbp.college.controller.BaseController;
 import com.lylbp.college.core.annotation.CheckPermission;
@@ -46,7 +46,7 @@ public class AdminController extends BaseController {
     @PostMapping(value = "/getList")
     @ApiOperation("后台管理员-获取列表")
     @CheckPermission(descrption = "后台管理员-获取列表")
-    public ResResult<PageResResult<AdminVO>> getList(@RequestBody AdminUserQueryDTO query,
+    public ResResult<PageResResult<AdminVO>> getList(@RequestBody AdminQO query,
                                                      @RequestParam(defaultValue = "0") Integer page,
                                                      @RequestParam(defaultValue = "0") Integer size) {
         Map<String, Object> params = BeanUtil.beanToMap(query);
