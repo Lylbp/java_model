@@ -1,0 +1,88 @@
+package ${package.Controller};
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import ${cfg.VOPackage}.${entity}VO;
+import ${cfg.QOPackage}.${entity}QO;
+import ${cfg.DTOPackage}.${entity}DTO;
+import org.springframework.web.bind.annotation.RequestMapping;
+import io.swagger.annotations.*;
+import org.springframework.validation.annotation.*;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.constraints.*;
+import com.lylbp.college.core.entity.PageResResult;
+import com.lylbp.college.core.entity.ResResult;
+import com.lylbp.college.core.utils.ResResultUtil;
+import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+@Api(tags = "$!{table.comment}")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+    @Resource
+    private ${table.serviceName}  service;
+
+    @PostMapping(value = "/getList")
+    @ApiOperation("获取${entity}VO对象列表")
+    public ResResult<PageResResult<${entity}VO>> getList(@RequestBody ${entity}QO query,
+    @RequestParam(defaultValue = "0") Integer page,@RequestParam(defaultValue = "0") Integer size) {
+            Map<String, Object> params = BeanUtil.beanToMap(query);
+
+            PageHelper.startPage(page, size);
+            List<${entity}VO> list = service.get${entity}VOListByParams(params);
+
+            return ResResultUtil.makePageRsp(list);
+    }
+
+    @PostMapping(value = "/edit")
+    @ApiOperation("添加或编辑")
+    public ResResult edit(@RequestBody @Validated ${entity}DTO dto) {
+        ${entity} entity = new ${entity}();
+        BeanUtil.copyProperties(dto, entity);
+        service.edit(entity);
+
+        return ResResultUtil.success();
+    }
+
+    @PostMapping(value = "/batchDeleteByIds")
+    @ApiOperation("通过主键批量删除")
+    public ResResult batchDeleteByUserIds(@RequestBody @NotNull List<String> idList) {
+        service.removeByIds(idList);
+        return ResResultUtil.success();
+    }
+}
+
+#end

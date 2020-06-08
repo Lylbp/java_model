@@ -9,7 +9,7 @@ import com.lylbp.college.mybatisPlus.util.CommonUtils;
  * @author Erwin Feng
  * @since 2019-04-17 10:33
  */
-public class MySQL8CodeGenerator {
+public class MySQLCodeGenerator {
 
     public static void main(String[] args) {
         DbType dbType = DbType.MYSQL;
@@ -20,18 +20,10 @@ public class MySQL8CodeGenerator {
         // 表前缀，生成的实体类，不含前缀
         String[] tablePrefixes = {""};
         // 表名，为空，生成所有的表
-//        String[] tableNames = {"admin", "menu","menu_role","permission","role","role_permission","user_role"};
-        String[] tableNames = {};
+        String[] tableNames = {"area"};
         // 字段前缀
         String[] fieldPrefixes = {};
-        // 基础包名
-        String packageName = "com.lylbp.college";
-        //作者
-        String author = "weiwenbin";
-        //输出目录
-        String outputDir = "/Library/WebServer/java_project/java_model/src/main/java";
-
-        CommonUtils.execute(author, outputDir, dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, packageName, fieldPrefixes);
+        CommonUtils.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);
     }
 
 }

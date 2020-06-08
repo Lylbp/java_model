@@ -4,8 +4,6 @@ import com.lylbp.college.VO.PermissionVO;
 import com.lylbp.college.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;

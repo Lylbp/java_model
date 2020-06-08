@@ -1,0 +1,62 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${cfg.VOPackage}.${entity}VO;
+import ${superServiceClassPackage};
+
+import java.util.List;
+import java.util.Map;
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+        /**
+         * 新增或编辑
+         *
+         * @param entity
+         * @return
+         */
+        Boolean edit(${entity} entity);
+
+        /**
+         * 通过查询参数获取列表
+         *
+         * @param params 参数
+         * @return
+         */
+        List<${entity}VO> get${entity}VOListByParams(Map<String, Object> params);
+
+        /**
+         * 通过查询参数获取单个${entity}VO对象
+         *
+         * @param params 参数
+         * @return
+         */
+        ${entity}VO getOne${entity}VOByParams(Map<String, Object> params);
+
+        /**
+         * 通过字段名称与值获取单个${entity}VO对象
+         *
+         * @param columnName 名称
+         * @param columnValue 值
+         * @return
+         */
+        ${entity}VO getOne${entity}VOBy(String columnName, Object columnValue);
+
+        /**
+         * 通过主键判断是否存在
+         *
+         * @param id 主键
+         * @return
+         */
+        Boolean isExist(String id);
+}
+#end

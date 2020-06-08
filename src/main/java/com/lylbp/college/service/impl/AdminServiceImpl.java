@@ -74,7 +74,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public AdminVO getOneByParams(Map<String, Object> params) {
         AdminVO tDarAdminUserVO = null;
-        List<AdminVO> list = getBaseMapper().queryByParams(params);
+        List<AdminVO> list = getListByParams(params);
         if (ObjectUtil.isNotEmpty(list)){
             tDarAdminUserVO = list.get(0);
         }

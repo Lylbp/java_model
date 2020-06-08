@@ -23,13 +23,15 @@ public class OracleCodeGenerator {
         String[] tableNames = {};
         // 字段前缀
         String[] fieldPrefixes = {};
-        // 基础包名
-        String packageName = "com.example.module.db";
-        //作者
-        String author = "weiwenbin";
-        //输出目录
-        String outputDir = "/Library/WebServer/java_project/java_model/src/main/java";
-        CommonUtils.execute(author, outputDir, dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, packageName, fieldPrefixes);
+//        // 基础包名
+//        String packageName = "com.example.module.db";
+//        //作者
+//        String author = "weiwenbin";
+//        //输出目录
+//        String outputDir = "/Library/WebServer/java_project/java_model/src/main/java";
+//        //Controller父类
+//        String superControllerClass = "com.lylbp.college.controller.BaseController";
+        CommonUtils.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);
     }
 
 }

@@ -4,8 +4,6 @@ import com.lylbp.college.VO.RoleVO;
 import com.lylbp.college.entity.MenuRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import org.mapstruct.Mapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 

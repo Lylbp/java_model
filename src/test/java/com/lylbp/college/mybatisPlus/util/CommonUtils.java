@@ -1,5 +1,6 @@
 package com.lylbp.college.mybatisPlus.util;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -9,16 +10,14 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.lylbp.college.mybatisPlus.Config;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * @author Erwin Feng
- * @since 2019-04-17 12:04
- */
 public class CommonUtils {
 
     /**
@@ -41,11 +40,15 @@ public class CommonUtils {
                 ;
     }
 
-    // 配置
-    private static GlobalConfig globalConfig(String author, String outputDir) {
+    /**
+     * 全局配置对象
+     *
+     * @return GlobalConfig
+     */
+    private static GlobalConfig globalConfig() {
         return new GlobalConfig()
-                .setAuthor(author)
-                .setOutputDir(outputDir)
+                .setAuthor(Config.AUTHOR)
+                .setOutputDir(Config.OUT_OUT_DIR)
                 .setFileOverride(true) // 是否覆盖已有文件
                 .setOpen(false) // 是否打开输出目录
                 .setDateType(DateType.TIME_PACK) // 时间采用java 8，（操作工具类：JavaLib => DateTimeUtils）
@@ -53,6 +56,7 @@ public class CommonUtils {
                 .setEnableCache(false)// XML 二级缓存
                 .setBaseResultMap(true)// XML ResultMap
                 .setBaseColumnList(true)// XML columList
+                .setEnableCache(false)// XML enableCache
                 .setKotlin(false) //是否生成 kotlin 代码
                 // 自定义文件命名，注意 %s 会自动填充表实体属性！
                 .setEntityName(Config.FILE_NAME_MODEL)
@@ -66,7 +70,14 @@ public class CommonUtils {
                 ;
     }
 
-
+    /**
+     * 策略配置对象
+     *
+     * @param tablePrefixes 表前缀
+     * @param tableNames    表前缀
+     * @param fieldPrefixes 字段前缀
+     * @return StrategyConfig
+     */
     private static StrategyConfig strategyConfig(String[] tablePrefixes, String[] tableNames, String[] fieldPrefixes) {
         return new StrategyConfig()
                 .setCapitalMode(true) // 全局大写命名 ORACLE 注意
@@ -87,71 +98,124 @@ public class CommonUtils {
                 ;
     }
 
-    // 包信息配置
-    private static PackageConfig packageConfig(String packageName) {
-        String projectPath = System.getProperty("user.dir");
+    /**
+     * 包配置对象
+     *
+     * @return PackageConfig
+     */
+    private static PackageConfig packageConfig() {
         return new PackageConfig()
-                .setParent(packageName)
+                .setParent(Config.PACKAGE_NAME)
                 .setController(Config.PACKAGE_NAME_CONTROLLER)
                 .setEntity(Config.PACKAGE_NAME_MODEL)
                 .setMapper(Config.PACKAGE_NAME_DAO)
-                .setXml(projectPath + Config.RESOURCES_PATH + Config.PACKAGE_NAME_XML)
+                .setXml(Config.PROJECT_PATH + Config.RESOURCES_PATH + Config.PACKAGE_NAME_XML)
                 .setService(Config.PACKAGE_NAME_SERVICE)
                 .setServiceImpl(Config.PACKAGE_NAME_SERVICE_IMPL)
                 ;
     }
 
     /**
+     * 自定义配置对象
      *
-     * @param packageConfig
-     * @return
+     * @param injectionConfig 表配置
+     * @return InjectionConfig
      */
-    private static InjectionConfig injectionConfig(final PackageConfig packageConfig) {
-        InjectionConfig injectionConfig = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                // to do nothing
-            }
-        };
-
-        // 自定义输出配置
+    private static InjectionConfig injectionConfig(InjectionConfig injectionConfig) {
+        // 自定义输出Mapper配置
         List<FileOutConfig> fileOutConfigList = new ArrayList<FileOutConfig>();
-        fileOutConfigList.add(new FileOutConfig("/templates/mapper.xml.vm") {
+        fileOutConfigList.add(new FileOutConfig("/templates/generate/myMapper.xml.vm") {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                // 自定义输入文件名称
-                String projectPath = System.getProperty("user.dir");
-                if (StringUtils.isEmpty(packageConfig.getModuleName())) {
-                    return projectPath + Config.RESOURCES_PATH + Config.PACKAGE_NAME_XML + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
-                } else {
-                    return projectPath + Config.RESOURCES_PATH + Config.PACKAGE_NAME_XML + "/" + packageConfig.getModuleName() + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
-                }
+                return Config.PROJECT_PATH + Config.RESOURCES_PATH + Config.PACKAGE_NAME_XML + "/" + tableInfo.getXmlName() + StringPool.DOT_XML;
             }
         });
+
+        // 自定义输出VO配置
+        fileOutConfigList.add(new FileOutConfig("/templates/generate/entity.vo.java.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return Config.PROJECT_PATH + Config.CODE_PATH + Config.PACKAGE_NAME_VO + "/" + tableInfo.getEntityName() + "VO.java";
+            }
+        });
+
+        // 自定义输出QO配置
+        fileOutConfigList.add(new FileOutConfig("/templates/generate/entity.qo.java.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return Config.PROJECT_PATH + Config.CODE_PATH + Config.PACKAGE_NAME_QO + "/" + tableInfo.getEntityName() + "QO.java";
+            }
+        });
+
+        // 自定义输出DTO配置
+        fileOutConfigList.add(new FileOutConfig("/templates/generate/entity.dto.java.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return Config.PROJECT_PATH + Config.CODE_PATH + Config.PACKAGE_NAME_DTO + "/" + tableInfo.getEntityName() + "DTO.java";
+            }
+        });
+
         injectionConfig.setFileOutConfigList(fileOutConfigList);
 
         return injectionConfig;
     }
 
-
-    public static void execute(String author, String outputDir, DbType dbType, String dbUrl, String username, String password, String driver,
-                               String[] tablePrefixes, String[] tableNames, String packageName, String[] fieldPrefixes) {
-        GlobalConfig globalConfig = globalConfig(author, outputDir);
+    /**
+     * 执行
+     *
+     * @param dbType                数据库类型
+     * @param dbUrl                 数据库地址
+     * @param username              数据库用户名
+     * @param password              数据库密码
+     * @param driver                数据库驱动
+     * @param tablePrefixes         表前缀
+     * @param tableNames            表明
+     * @param fieldPrefixes         字段前缀
+     */
+    public static void execute(DbType dbType, String dbUrl, String username, String password, String driver,
+                               String[] tablePrefixes, String[] tableNames, String[] fieldPrefixes) {
+        GlobalConfig globalConfig = globalConfig();
         DataSourceConfig dataSourceConfig = dataSourceConfig(dbType, dbUrl, username, password, driver);
 
         // 策略配置
         StrategyConfig strategyConfig = strategyConfig(tablePrefixes, tableNames, fieldPrefixes);
+        // 策略配置--controller父类
+        if (ObjectUtil.isNotEmpty(Config.SUPER_CONTROLLER_CLASS)){
+            strategyConfig.setSuperControllerClass(Config.SUPER_CONTROLLER_CLASS);
+        }
         //包信息配置
-        PackageConfig packageConfig = packageConfig(packageName);
+        PackageConfig packageConfig = packageConfig();
         // 自定义配置
-        InjectionConfig injectionConfig = injectionConfig(packageConfig);
+        InjectionConfig injectionConfig = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("VOPackage", packageConfig.getParent() + "." + Config.PACKAGE_NAME_VO);
+                map.put("QOPackage", packageConfig.getParent() + "." + Config.PACKAGE_NAME_QO);
+                map.put("DTOPackage", packageConfig.getParent() + "." + Config.PACKAGE_NAME_DTO);
+                map.put("DBType", dbType.getDb());
+                map.put("FieldlogicDeleteName", Config.FIELD_LOGIC_DELETE_NAME);
+                this.setMap(map);
+            }
+        };
+        injectionConfig = injectionConfig(injectionConfig);
+
+        TemplateConfig tc = new TemplateConfig();
+        tc.setMapper("/templates/generate/myMapper.java.vm");
+        tc.setService("/templates/generate/myService.java.vm");
+        tc.setServiceImpl("/templates/generate/myServiceImpl.java.vm");
+        tc.setController("/templates/generate/myController.java.vm");
+
         new AutoGenerator()
                 .setGlobalConfig(globalConfig)
                 .setDataSource(dataSourceConfig)
                 .setStrategy(strategyConfig)
                 .setPackageInfo(packageConfig)
                 .setCfg(injectionConfig)
+                .setTemplateEngine(new VelocityTemplateEngine())
+                .setTemplate(tc)
                 .execute();
     }
+
 
 }

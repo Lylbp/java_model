@@ -32,3 +32,4 @@ build/
 .vscode/
 
 src/main/resources/application-mysql.yml
+src/main/java/com/lylbp/college/Library
