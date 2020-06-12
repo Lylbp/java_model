@@ -18,9 +18,9 @@ public class MySQLCodeGenerator {
         String password = "root";
         String driver = "com.mysql.cj.jdbc.Driver";
         // 表前缀，生成的实体类，不含前缀
-        String[] tablePrefixes = {""};
+        String[] tablePrefixes = {"t_dar_"};
         // 表名，为空，生成所有的表
-        String[] tableNames = {""};
+        String[] tableNames = {"area"};
         // 字段前缀
         String[] fieldPrefixes = {};
         CommonUtils.execute(dbType, dbUrl, username, password, driver, tablePrefixes, tableNames, fieldPrefixes);

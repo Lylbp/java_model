@@ -51,7 +51,7 @@ public class CommonUtils {
                 .setOutputDir(Config.OUT_OUT_DIR)
                 .setFileOverride(true) // 是否覆盖已有文件
                 .setOpen(false) // 是否打开输出目录
-                .setDateType(DateType.TIME_PACK) // 时间采用java 8，（操作工具类：JavaLib => DateTimeUtils）
+                .setDateType(DateType.ONLY_DATE) // 时间采用java 8，（操作工具类：JavaLib => DateTimeUtils）
                 .setActiveRecord(true)// 不需要ActiveRecord特性的请改为false
                 .setEnableCache(false)// XML 二级缓存
                 .setBaseResultMap(true)// XML ResultMap
@@ -109,7 +109,7 @@ public class CommonUtils {
                 .setController(Config.PACKAGE_NAME_CONTROLLER)
                 .setEntity(Config.PACKAGE_NAME_MODEL)
                 .setMapper(Config.PACKAGE_NAME_DAO)
-                .setXml(Config.PROJECT_PATH + Config.RESOURCES_PATH + Config.PACKAGE_NAME_XML)
+//                .setXml(Config.PROJECT_PATH + Config.RESOURCES_PATH + Config.PACKAGE_NAME_XML)
                 .setService(Config.PACKAGE_NAME_SERVICE)
                 .setServiceImpl(Config.PACKAGE_NAME_SERVICE_IMPL)
                 ;
