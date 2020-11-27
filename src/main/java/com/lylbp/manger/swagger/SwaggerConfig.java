@@ -30,14 +30,14 @@ public class SwaggerConfig {
     SwaggerProperties swaggerProperties;
 
     @Bean
-    public Docket bg() {
+    public Docket defaultApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo("后台", "后台", "1.0","韦文彬"))
+                .apiInfo(apiInfo("默认", "默认", "1.0","韦文彬"))
                 .enable(swaggerProperties.getEnabled())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller.bg"))
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller"))
                 .build()
-                .groupName("后台")
+                .groupName("默认")
                 .pathMapping("/");
     }
 
