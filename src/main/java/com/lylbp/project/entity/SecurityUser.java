@@ -19,7 +19,7 @@ import java.util.*;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-A@AllArgsConstructor
+@AllArgsConstructor
 @NoArgsConstructor
 public class SecurityUser implements UserDetails, Serializable {
     @ApiModelProperty("账号是否为超级管理员")
