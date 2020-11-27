@@ -9,9 +9,9 @@ spring:
     #oracle驱动
     driver-class-name: oracle.jdbc.driver.OracleDriver
     #oracle数据库用户名
-    username: C##dar
+    username:
     #oracle数据库密码
-    password: 1qaz2wsx
+    password:
     #oracle数据库url
     url: jdbc:oracle:thin:@192.168.1.151:1521:cdb1
   #redis配置（无则不配）
