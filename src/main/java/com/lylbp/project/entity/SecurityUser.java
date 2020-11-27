@@ -19,9 +19,12 @@ import java.util.*;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
+A@AllArgsConstructor
 @NoArgsConstructor
 public class SecurityUser implements UserDetails, Serializable {
+    @ApiModelProperty("账号是否为超级管理员")
+    private Boolean isSupperAdmin;
+
     @ApiModelProperty("用户权限地址集合")
     private List<PermissionAuthority> authorities;
 
@@ -38,13 +41,6 @@ public class SecurityUser implements UserDetails, Serializable {
     @Override
     public String getUsername() {
         return "admin";
-    }
-
-    /**
-     * 账号是否为超级管理员
-     */
-    public boolean isSupperAdmin() {
-        return false;
     }
 
     /**

@@ -25,7 +25,7 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<PermissionAuthority> permissionAuthorities = new ArrayList<>();
-        return new SecurityUser(permissionAuthorities);
+        return new SecurityUser(false, permissionAuthorities);
     }
 
     @Override
