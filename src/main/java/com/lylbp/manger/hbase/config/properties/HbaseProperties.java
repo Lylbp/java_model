@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * habse的配置项
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/9/1 上午11:28
  */
 @ConfigurationProperties(prefix = "hbase")

@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 动态权限决策管理器，用于判断用户是否有访问权限
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/11 下午2:47
  */
 @Component

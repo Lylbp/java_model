@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 /**
  * 标签实体
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020-03-24 16:31
  */
 @Data

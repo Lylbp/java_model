@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/8/31 上午10:25
  */
 public interface RedisService {

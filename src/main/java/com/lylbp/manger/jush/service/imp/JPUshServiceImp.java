@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/28 上午9:50
  */
 public class JPUshServiceImp implements JPUshService {

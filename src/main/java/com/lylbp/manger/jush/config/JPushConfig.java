@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/28 上午9:32
  */
 @Data

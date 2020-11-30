@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * UserDetailsService
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/6/30 下午5:25
  */
 @Service

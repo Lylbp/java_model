@@ -9,7 +9,7 @@ import com.lylbp.manger.jush.config.JPushConfig;
 import java.util.Map;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/28 上午9:50
  */
 

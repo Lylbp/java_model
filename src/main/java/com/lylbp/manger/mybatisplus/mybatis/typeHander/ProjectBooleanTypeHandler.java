@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/6/3 下午4:42
  */
 public class ProjectBooleanTypeHandler extends BaseTypeHandler<Boolean>{

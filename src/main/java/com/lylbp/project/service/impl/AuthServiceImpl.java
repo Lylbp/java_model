@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * @Author weiwenbin
- * @Date: 2020/11/26 下午1:14
+ * @author weiwenbin
+ * @date 2020/11/26 下午1:14
  */
 @Service
 public class AuthServiceImpl implements AuthService {

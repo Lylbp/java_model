@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020-03-12 16:49
  */
 @Slf4j

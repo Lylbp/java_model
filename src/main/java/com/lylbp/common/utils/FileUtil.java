@@ -13,7 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020-03-31 09:53
  */
 public class FileUtil {

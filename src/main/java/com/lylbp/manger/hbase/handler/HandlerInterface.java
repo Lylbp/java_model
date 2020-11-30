@@ -7,7 +7,7 @@ import org.apache.hadoop.hbase.client.Result;
 /**
  * 处理器接口
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/11/4 上午9:25
  */
 public interface HandlerInterface<T> {

@@ -16,7 +16,7 @@ import java.io.IOException;
 /**
  * habse的配置文件
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/11/2 上午10:49
  */
 @Configuration

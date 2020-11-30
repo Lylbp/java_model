@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 已认证用户访问无权限接口处理
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/11 下午11:14
  */
 public class ProjectAccessDeniedHandler implements AccessDeniedHandler {

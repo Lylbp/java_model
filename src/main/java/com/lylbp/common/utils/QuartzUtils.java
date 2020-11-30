@@ -11,7 +11,7 @@ import org.quartz.impl.matchers.GroupMatcher;
 /**
  * Quartz工具类
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date : 2020/10/16 下午4:57
  */
 @Slf4j

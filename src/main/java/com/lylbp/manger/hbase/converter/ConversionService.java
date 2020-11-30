@@ -3,7 +3,7 @@ package com.lylbp.manger.hbase.converter;
 /**
  * 转换服务接口
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/11/3 下午3:41
  */
 public interface ConversionService {

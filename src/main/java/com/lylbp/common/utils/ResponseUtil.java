@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/12 上午11:46
  */
 public class ResponseUtil {

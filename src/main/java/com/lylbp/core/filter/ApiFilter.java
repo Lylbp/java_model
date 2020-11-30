@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * 过滤器
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020-03-13 13:03
  */
 @Configuration

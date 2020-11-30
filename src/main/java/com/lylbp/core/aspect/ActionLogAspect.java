@@ -17,7 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020-03-29 17:20
  */
 @Aspect

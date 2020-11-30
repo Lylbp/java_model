@@ -3,7 +3,7 @@ package com.lylbp.manger.jush.enums;
 import lombok.Getter;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/28 下午2:45
  */
 @Getter

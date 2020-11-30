@@ -19,7 +19,7 @@ import java.lang.reflect.Method;
 /**
  * 字段映射关系
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/11/4 上午11:14
  */
 @Slf4j

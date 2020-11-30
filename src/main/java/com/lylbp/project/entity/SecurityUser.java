@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/6/30 下午4:43
  */
 @Data

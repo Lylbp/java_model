@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * token生成与解析工具依赖于JwtUtil
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/7/9 上午10:46
  */
 public class TokenUtil {

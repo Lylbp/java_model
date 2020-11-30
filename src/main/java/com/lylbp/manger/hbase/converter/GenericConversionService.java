@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 一般的转换服务
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/11/3 下午3:43
  */
 @Data

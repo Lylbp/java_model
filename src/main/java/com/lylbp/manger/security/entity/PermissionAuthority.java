@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/6/30 下午4:43
  */
 @Data

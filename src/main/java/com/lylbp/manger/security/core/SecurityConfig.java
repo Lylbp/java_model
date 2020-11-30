@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 /**
  * springsecurity 配置文件
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/7/1 上午11:18
  */
 @Configuration

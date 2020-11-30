@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/28 上午10:03
  */
 @Component

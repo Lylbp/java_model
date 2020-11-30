@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * hbase表注解
  * 必写
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020-11-01 12:09
  */
 @Target(ElementType.TYPE)

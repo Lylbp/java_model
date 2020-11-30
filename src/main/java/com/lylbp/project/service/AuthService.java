@@ -5,7 +5,7 @@ import com.lylbp.project.entity.SecurityUser;
 /**
  * 登录相关
  *
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/6/30 下午5:27
  */
 public interface AuthService {

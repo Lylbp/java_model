@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * @Author weiwenbin
+ * @author weiwenbin
  * @Date 2020/5/26 下午3:20
  */
 public class PDFUtil {
