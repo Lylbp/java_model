@@ -1,4 +1,4 @@
-//package com.lylbp.manger.mybatisPlus.mybatisPlus.metaHandler;
+//package com.lylbp.manger.mybatisplus.mybatisplus.metaHandler;
 //
 //import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 //import ProjectConstant;
