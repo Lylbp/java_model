@@ -2,7 +2,7 @@
 spring:
   #配置文件相关配置
   profiles:
-    active: oracle
+    active: mysql
     #jackson:
     #查询数据是否去掉null(因为自定义了configureMessageConverters所以这里不配)
     #    default-property-inclusion: non_null
@@ -51,6 +51,16 @@ spring:
             #指定线程优先级
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
+
+  activiti:
+    #自动检查、部署流程定义文件
+    check-process-definitions: false
+    # 检测身份信息表是否存在
+    db-identity-used: false
+    #自动更新数据库结构
+    database-schema-update: true
+#    #流程定义文件存放目录
+#    process-definition-location-prefix: classpath:/processes/
 
 # MyBatis
 mybatis-plus:

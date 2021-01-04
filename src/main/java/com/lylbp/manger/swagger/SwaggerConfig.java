@@ -41,6 +41,18 @@ public class SwaggerConfig {
                 .pathMapping("/");
     }
 
+    @Bean
+    public Docket activity() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("activityDemo", "activityDemo", "1.0", "韦文彬"))
+                .enable(swaggerProperties.getEnabled())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manger.activity.demo.controller"))
+                .build()
+                .groupName("activityDemo")
+                .pathMapping("/");
+    }
+
     private ApiInfo apiInfo(String name, String description, String version, String contactName) {
         Contact contact = new Contact(contactName, "", "");
         return new ApiInfoBuilder().title(name).description(description).version(version).contact(contact).build();
