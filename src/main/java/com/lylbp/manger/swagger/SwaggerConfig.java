@@ -53,6 +53,19 @@ public class SwaggerConfig {
                 .pathMapping("/");
     }
 
+
+    @Bean
+    public Docket minio() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("minioDemo", "minioDemo", "1.0", "韦文彬"))
+                .enable(swaggerProperties.getEnabled())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manger.minio.demo.controller"))
+                .build()
+                .groupName("minioDemo")
+                .pathMapping("/");
+    }
+
     private ApiInfo apiInfo(String name, String description, String version, String contactName) {
         Contact contact = new Contact(contactName, "", "");
         return new ApiInfoBuilder().title(name).description(description).version(version).contact(contact).build();
