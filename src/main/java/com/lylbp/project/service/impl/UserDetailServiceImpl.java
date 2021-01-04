@@ -3,7 +3,7 @@ package com.lylbp.project.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.lylbp.common.constant.ProjectConstant;
 import com.lylbp.common.utils.TokenUtil;
-import com.lylbp.manager.security.MyUserDetailsService;
+import com.lylbp.manager.security.interfaces.MyUserDetailsService;
 import com.lylbp.manager.security.entity.PermissionAuthority;
 import com.lylbp.project.entity.SecurityUser;
 import org.springframework.security.access.ConfigAttribute;
