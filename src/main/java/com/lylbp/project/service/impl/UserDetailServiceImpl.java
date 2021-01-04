@@ -1,10 +1,10 @@
 package com.lylbp.project.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.lylbp.core.constant.ProjectConstant;
+import com.lylbp.common.constant.ProjectConstant;
 import com.lylbp.common.utils.TokenUtil;
-import com.lylbp.manger.security.MyUserDetailsService;
-import com.lylbp.manger.security.entity.PermissionAuthority;
+import com.lylbp.manager.security.MyUserDetailsService;
+import com.lylbp.manager.security.entity.PermissionAuthority;
 import com.lylbp.project.entity.SecurityUser;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ import java.util.*;
  * UserDetailsService
  *
  * @author weiwenbin
- * @Date 2020/6/30 下午5:25
+ * @date 2020/6/30 下午5:25
  */
 @Service
 public class UserDetailServiceImpl implements MyUserDetailsService {

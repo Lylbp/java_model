@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * 系统配置
  *
  * @author weiwenbin
- * @Date 2020/9/1 上午11:28
+ * @date 2020/9/1 上午11:28
  */
 @ConfigurationProperties(prefix = "project")
 @Component

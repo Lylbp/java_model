@@ -16,7 +16,7 @@ import java.util.*;
 
 /**
  * @author weiwenbin
- * @Date 2020/5/14 下午5:31
+ * @date 2020/5/14 下午5:31
  */
 @Component
 public class AnnotationUtil {

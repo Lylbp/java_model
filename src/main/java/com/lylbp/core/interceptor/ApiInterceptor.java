@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 拦截器
  * @author weiwenbin
- * @Date 2020-03-13 12:09
+ * @date 2020-03-13 12:09
  */
 public class ApiInterceptor implements HandlerInterceptor {
     /**

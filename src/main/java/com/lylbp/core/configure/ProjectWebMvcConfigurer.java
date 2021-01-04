@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * ProjectWebMvcConfigurer
  *
  * @author weiwenbin
- * @Date 2020-03-12 16:49
+ * @date 2020-03-12 16:49
  */
 @Slf4j
 @Configuration

@@ -1,9 +1,9 @@
 package com.lylbp.common.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.lylbp.core.entity.ResResult;
-import com.lylbp.core.entity.DataPage;
-import com.lylbp.core.entity.PageResResult;
+import com.lylbp.common.entity.ResResult;
+import com.lylbp.common.entity.DataPage;
+import com.lylbp.common.entity.PageResResult;
 import com.lylbp.common.enums.ResResultEnum;
 
 /**

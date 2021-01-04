@@ -8,7 +8,7 @@ import java.io.IOException;
 
 /**
  * @author weiwenbin
- * @Date 2020/5/12 上午11:46
+ * @date 2020/5/12 上午11:46
  */
 public class ResponseUtil {
     private final static Logger logger = LoggerFactory.getLogger(ResponseUtil.class);

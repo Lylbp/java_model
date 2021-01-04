@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * @author weiwenbin
- * @Date 2020-2-12 10:43
+ * @date 2020-2-12 10:43
  */
 @Slf4j
 public class JwtUtil {

@@ -12,7 +12,7 @@ import org.quartz.impl.matchers.GroupMatcher;
  * Quartz工具类
  *
  * @author weiwenbin
- * @Date : 2020/10/16 下午4:57
+ * @date : 2020/10/16 下午4:57
  */
 @Slf4j
 public class QuartzUtils {

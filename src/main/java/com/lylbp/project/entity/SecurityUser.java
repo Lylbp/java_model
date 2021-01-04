@@ -1,6 +1,6 @@
 package com.lylbp.project.entity;
 
-import com.lylbp.manger.security.entity.PermissionAuthority;
+import com.lylbp.manager.security.entity.PermissionAuthority;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +14,12 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
+ * UserDetails实现类
+ * 需要根据业务注入对应的用户实体并完善getPassword、getUsername。
+ * 可查看对应示例: https://github.com/Lylbp/java_model_simple
+ *
  * @author weiwenbin
- * @Date 2020/6/30 下午4:43
+ * @date 2020/6/30 下午4:43
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

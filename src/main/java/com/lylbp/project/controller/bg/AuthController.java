@@ -1,7 +1,7 @@
 package com.lylbp.project.controller.bg;
 
-import com.lylbp.core.constant.ProjectConstant;
-import com.lylbp.core.entity.ResResult;
+import com.lylbp.common.constant.ProjectConstant;
+import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.common.utils.TokenUtil;
 import com.lylbp.project.entity.SecurityUser;
@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 
 /**
  * @author weiwenbin
- * @Date 2020/7/1 下午2:38
+ * @date 2020/7/1 下午2:38
  */
 @RestController
 @RequestMapping("/bg/auth")

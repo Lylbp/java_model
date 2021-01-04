@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author weiwenbin
- * @Date 2019-12-04 10:43
+ * @date 2019-12-04 10:43
  */
 public class RegexUtil {
     // ------------------常量定义

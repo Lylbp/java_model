@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * 标签实体
  *
  * @author weiwenbin
- * @Date 2020-03-24 16:31
+ * @date 2020-03-24 16:31
  */
 @Data
 @AllArgsConstructor

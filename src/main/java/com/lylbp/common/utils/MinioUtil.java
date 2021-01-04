@@ -1,6 +1,6 @@
 package com.lylbp.common.utils;
 
-import com.lylbp.core.exception.ResResultException;
+import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.enums.ResResultEnum;
 import io.minio.MinioClient;
 import io.minio.errors.*;
@@ -17,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author weiwenbin
- * @Date 2020-03-23 14:32
+ * @date 2020-03-23 14:32
  */
 @Slf4j
 public class MinioUtil {
