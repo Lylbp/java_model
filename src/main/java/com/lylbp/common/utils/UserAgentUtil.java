@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 /**
  * 获取客户端设备信息
  *
- * @author llmoe
+ * @author weiwenbin
  */
 public class UserAgentUtil {
     private final UserAgent userAgent;
@@ -92,9 +92,9 @@ public class UserAgentUtil {
             }
             // 使用代理，则获取第一个IP地址
             if (!isBlankIp(ip)) {
-                if(ip.length() > 15){
+                if (ip.length() > 15) {
                     ip = ip.split(",")[0];
-                }else if ("127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip)) {
+                } else if ("127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip)) {
                     //根据网卡取本机配置的IP
                     InetAddress inet = null;
                     try {

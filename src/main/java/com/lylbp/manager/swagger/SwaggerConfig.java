@@ -26,7 +26,7 @@ public class SwaggerConfig {
     @Bean
     public Docket defaultApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo("默认", "默认", "1.0","韦文彬"))
+                .apiInfo(apiInfo("默认", "默认", "韦文彬"))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.project.controller"))
                 .build()
@@ -37,7 +37,7 @@ public class SwaggerConfig {
     @Bean
     public Docket activity() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo("activityDemo", "activityDemo", "1.0", "韦文彬"))
+                .apiInfo(apiInfo("activityDemo", "activityDemo", "韦文彬"))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.activity.demo.controller"))
                 .build()
@@ -49,7 +49,7 @@ public class SwaggerConfig {
     @Bean
     public Docket minio() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo("minioDemo", "minioDemo", "1.0", "韦文彬"))
+                .apiInfo(apiInfo("minioDemo", "minioDemo", "韦文彬"))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.minio.demo.controller"))
                 .build()
@@ -57,8 +57,8 @@ public class SwaggerConfig {
                 .pathMapping("/");
     }
 
-    private ApiInfo apiInfo(String name, String description, String version, String contactName) {
+    private ApiInfo apiInfo(String name, String description, String contactName) {
         Contact contact = new Contact(contactName, "", "");
-        return new ApiInfoBuilder().title(name).description(description).version(version).contact(contact).build();
+        return new ApiInfoBuilder().title(name).description(description).contact(contact).build();
     }
 }

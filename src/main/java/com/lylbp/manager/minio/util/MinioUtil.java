@@ -1,7 +1,8 @@
-package com.lylbp.common.utils;
+package com.lylbp.manager.minio.util;
 
 import com.lylbp.common.exception.ResResultException;
 import com.lylbp.common.enums.ResResultEnum;
+import com.lylbp.common.utils.FileUtil;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * MinioUtil
+ *
  * @author weiwenbin
  * @date 2020-03-23 14:32
  */
@@ -57,7 +60,7 @@ public class MinioUtil {
         try {
             inputStream = file.getInputStream();
             //文件contentType
-            String contentType = StringUtil.getContentType(fileName);
+            String contentType = FileUtil.getContentType(fileName);
             // 检查存储桶是否已经存在
             boolean isExist = client.bucketExists(bucketName);
             if (!isExist) {
@@ -89,7 +92,7 @@ public class MinioUtil {
             inputStream = new FileInputStream(file);
             String fileName = file.getName();
             //文件contentType
-            String contentType = StringUtil.getContentType(fileName);
+            String contentType = FileUtil.getContentType(fileName);
             // 检查存储桶是否已经存在
             boolean isExist = client.bucketExists(bucketName);
             if (!isExist) {
@@ -152,7 +155,7 @@ public class MinioUtil {
     public static void outImgByStream(MinioClient client, String bucketName, String filePath, HttpServletResponse response) {
         String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
         //文件contentType
-        String contentType = StringUtil.getContentType(fileName);
+        String contentType = FileUtil.getContentType(fileName);
         try {
             client.statObject(bucketName, filePath);
             String objUrl = presignedGetObject(client, bucketName, filePath);
@@ -164,9 +167,7 @@ public class MinioUtil {
             long fileSize = urlConnection.getContentLengthLong();
 
             FileUtil.outByStream(urlConnection.getInputStream(), contentType, fileName, fileSize, response);
-        } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException | InvalidKeyException | ErrorResponseException | NoResponseException | InternalException e) {
-            throw new ResResultException(ResResultEnum.RESOURCE_NOT_EXIT);
-        } catch (XmlPullParserException e) {
+        } catch (IOException | InvalidBucketNameException | NoSuchAlgorithmException | InsufficientDataException | InvalidKeyException | ErrorResponseException | NoResponseException | InternalException | XmlPullParserException e) {
             throw new ResResultException(ResResultEnum.RESOURCE_NOT_EXIT);
         }
     }
