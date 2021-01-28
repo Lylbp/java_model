@@ -41,6 +41,10 @@ public class ResResultUtil {
         return new ResResult<T>().setCode(ResResultEnum.SUCCESS.getCode()).setMsg(ResResultEnum.SUCCESS.getMsg()).setData(data);
     }
 
+    public static <T> ResResult<T> success(T data, String msg) {
+        return new ResResult<T>().setCode(ResResultEnum.SUCCESS.getCode()).setMsg(msg).setData(data);
+    }
+
 
     public static <T> ResResult<T> error() {
         return new ResResult<T>().setCode(ResResultEnum.SYSTEM_ERR.getCode()).setMsg(ResResultEnum.SYSTEM_ERR.getMsg());
