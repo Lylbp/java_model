@@ -45,6 +45,16 @@ public class SwaggerConfig {
                 .pathMapping("/");
     }
 
+    @Bean
+    public Docket es() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("esDemo", "esDemo", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.elasticsearch.demo.controller"))
+                .build()
+                .groupName("esDemo")
+                .pathMapping("/");
+    }
 
     @Bean
     public Docket minio() {

@@ -32,10 +32,4 @@ public class AuthController {
         String token = TokenUtil.createToken(securityUser, ProjectConstant.JWT_EXPIRE_TIME);
         return ResResultUtil.success(token);
     }
-
-    @PostMapping("/A")
-    @ApiOperation("测试")
-    public ResResult<String> a() {
-        return ResResultUtil.success("测试！");
-    }
 }

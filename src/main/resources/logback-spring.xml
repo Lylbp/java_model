@@ -15,7 +15,7 @@
     <!-- 配置日志文件大小 -->
     <property name="logSize" value="50MB" />
     <!-- 设置日志保留的时间，单位为天 -->
-    <property name="maxHistory" value="100" />
+    <property name="maxHistory" value="1" />
 
 
     <!-- 彩色日志 -->
