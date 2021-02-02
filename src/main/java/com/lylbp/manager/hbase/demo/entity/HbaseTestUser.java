@@ -1,4 +1,4 @@
-package com.lylbp.manager.hbase.Demo.entity;
+package com.lylbp.manager.hbase.demo.entity;
 
 import com.lylbp.manager.hbase.annotion.HColumn;
 import com.lylbp.manager.hbase.annotion.HRowKey;

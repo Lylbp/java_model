@@ -1,4 +1,4 @@
-package com.lylbp.manager.hbase.Demo.qo;
+package com.lylbp.manager.hbase.demo.qo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

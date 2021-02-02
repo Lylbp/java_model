@@ -67,6 +67,17 @@ public class SwaggerConfig {
                 .pathMapping("/");
     }
 
+    @Bean
+    public Docket hbaseDemo() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("hbaseDemo", "hbaseDemo", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.hbase.demo.controller"))
+                .build()
+                .groupName("hbaseDemo")
+                .pathMapping("/");
+    }
+
     private ApiInfo apiInfo(String name, String description, String contactName) {
         Contact contact = new Contact(contactName, "", "");
         return new ApiInfoBuilder().title(name).description(description).contact(contact).build();

@@ -1,4 +1,4 @@
-package com.lylbp.manager.hbase.Demo.controller;
+package com.lylbp.manager.hbase.demo.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
@@ -9,10 +9,11 @@ import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.manager.elasticsearch.demo.entity.ESTestUser;
 import com.lylbp.manager.elasticsearch.demo.qo.TestUserQO;
 import com.lylbp.manager.elasticsearch.demo.service.TestUserService;
-import com.lylbp.manager.hbase.Demo.entity.HbaseTestUser;
+import com.lylbp.manager.hbase.demo.entity.HbaseTestUser;
 import com.lylbp.manager.hbase.handler.exception.HandlerException;
 import com.lylbp.manager.hbase.handler.exception.HbaseAnnotationException;
 import com.lylbp.manager.hbase.service.HBaseBeanService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,8 @@ import java.util.stream.Collectors;
  * @author weiwenbin
  */
 @Slf4j
-@RestController
 @RequestMapping("/test/hbase")
+@RestController
 public class HbaseTestController {
     @Resource
     private HBaseBeanService<HbaseTestUser> hbaseService;
@@ -41,6 +42,7 @@ public class HbaseTestController {
     private final static String TABLE_NAME = "test_user";
 
     @GetMapping("/createTable")
+    @ApiOperation("创建表")
     public ResResult<Boolean> createTable() throws Exception {
         ArrayList<String> list = new ArrayList<>();
         list.add("info");
@@ -49,18 +51,20 @@ public class HbaseTestController {
     }
 
     @GetMapping("/createTableByEntity")
+    @ApiOperation("通过实体注解创建表")
     public ResResult<Boolean> createTableByEntity() throws Exception {
         return ResResultUtil.success(hbaseService.createTable(HbaseTestUser.class));
     }
 
-//
+
 //    @GetMapping("/dropTable")
+//    @ApiOperation("删除表")
 //    public ResResult<Boolean> dropTable() throws Exception {
-//        return ResResultUtil.success(hbaseService.dropTable(tableName));
+//        return ResResultUtil.success(hbaseService.dropTable(hbaseService.getTableName(TABLE_NAME)));
 //    }
 
     @PostMapping("/toPageBean")
-    @ResponseBody
+    @ApiOperation("es与hbase配合查询分页数据")
     public ResResult<PageResResult<HbaseTestUser>> toPageBean(@RequestBody TestUserQO qo,
                                                               @RequestParam(defaultValue = "1") Integer current,
                                                               @RequestParam(defaultValue = "10") Integer size)
@@ -80,6 +84,7 @@ public class HbaseTestController {
 
     @GetMapping("/toPut")
     @Transactional(rollbackFor = Exception.class)
+    @ApiOperation("插入数据")
     public ResResult<Boolean> toPut() throws IOException, HandlerException, HbaseAnnotationException, InstantiationException {
         List<HbaseTestUser> hbaseTestUserList = new ArrayList<>();
         List<ESTestUser> esTestUserList = new ArrayList<>();
@@ -105,6 +110,7 @@ public class HbaseTestController {
     }
 
     @GetMapping("/delete")
+    @ApiOperation("删除数据")
     public ResResult<Boolean> delete() throws Throwable {
         List<HbaseTestUser> data = hbaseService.eGetPageData(HbaseTestUser.class, null, null);
         List<String> rowKeyList = data.stream().map(HbaseTestUser::getRowKey).collect(Collectors.toList());
