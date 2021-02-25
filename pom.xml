@@ -345,6 +345,12 @@
             <artifactId>batik-codec</artifactId>
             <version>1.7</version>
         </dependency>
+
+        <!-- kafka -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
         <!-- 自己添加的依赖结束 -->
 
         <dependency>

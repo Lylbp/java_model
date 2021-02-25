@@ -89,6 +89,17 @@ public class SwaggerConfig {
                 .pathMapping("/");
     }
 
+    @Bean
+    public Docket kafkaDemo() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo("kafkaDemo", "kafkaDemo", "韦文彬"))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.lylbp.manager.kafka.demo.controller"))
+                .build()
+                .groupName("kafkaDemo")
+                .pathMapping("/");
+    }
+
     private ApiInfo apiInfo(String name, String description, String contactName) {
         Contact contact = new Contact(contactName, "", "");
         return new ApiInfoBuilder().title(name).description(description).contact(contact).build();
