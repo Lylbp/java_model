@@ -1,78 +1,113 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Test My WebSocket</title>
+    <title th:text="${name}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" th:src="@{/js/jquery_v3.3.1.js}"></script>
 </head>
-
-
 <body>
-TestWebSocket
-<input  id="text" type="text" />
-<button onclick="send()">SEND MESSAGE</button>
-<button onclick="closeWebSocket()">CLOSE</button>
-<div id="message"></div>
-</body>
-
+<div>
+    ws连接地址:<input type="text" id="wsUrl" style="width: 300px"><br/>
+    当前用户:<input type="text" id="currentUser"><br/>
+    <button onclick="connectWs()">连接ws</button>
+    <br/>
+    <br/>
+    发给:<input type="text" id="toUser"><br/>
+    消息:<input type="text" id="msgInput" style="width: 400px;"><br/>
+    推送类型:<input type="text" id="pushType" style="width: 400px;"><br/>
+    <input type="submit" value="Start" onclick="start()"/>
+</div>
+<div id="messages"></div>
 <script type="text/javascript">
-    var websocket = null;
+    var webSocket;
 
+    function connectWs() {
+        var wsUrl = $('#wsUrl').val();
+        var userName = $('#currentUser').val();
+        if (wsUrl == '') {
+            alert("ws连接地址不能为空");
+            return;
+        }
 
-    //判断当前浏览器是否支持WebSocket
-    if('WebSocket' in window){
-        //连接WebSocket节点
-        websocket = new WebSocket("ws://localhost:8072/webSocket/001");
-    }
-    else{
-        alert('Not support websocket')
-    }
+        if (userName == '') {
+            alert("当前用户不能为空");
+            return;
+        }
+        webSocket = new WebSocket(wsUrl + userName);
 
+        webSocket.onerror = function (event) {
+            onError(event)
+        };
 
-    //连接发生错误的回调方法
-    websocket.onerror = function(){
-        setMessageInnerHTML("error");
-    };
+        webSocket.onopen = function (event) {
+            onOpen(event)
+        };
 
-
-    //连接成功建立的回调方法
-    websocket.onopen = function(event){
-        setMessageInnerHTML("open");
-    }
-
-
-    //接收到消息的回调方法
-    websocket.onmessage = function(event){
-        setMessageInnerHTML(event.data);
-    }
-
-
-    //连接关闭的回调方法
-    websocket.onclose = function(){
-        setMessageInnerHTML("close");
+        webSocket.onmessage = function (event) {
+            onMessage(event)
+        };
     }
 
+    function onMessage(event) {
+        var msg =  event.data
+        // var msgJson = JSON.parse(event.data)
+        document.getElementById('messages').innerHTML += '<br />' + msg;
+    }
 
-    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-    window.onbeforeunload = function(){
-        websocket.close();
+    function onOpen(event) {
+        var userName = $('#currentUser').val();
+        document.getElementById('messages').innerHTML
+            = userName + '连接成功';
+    }
+
+    function onError(event) {
+        var wsUrl = $('#wsUrl').val();
+        var userName = $('#currentUser').val();
+
+        document.getElementById('messages').innerHTML
+            = userName + '已退出连接';
+        if (event.data == undefined || event.data == null){
+            alert(wsUrl+userName+'连接失败');
+        }else {
+            alert(event.data);
+            alert(wsUrl+userName+'连接失败');
+        }
+    }
+
+    function start() {
+        var msg = $('#msgInput').val();
+        var toUser = $('#toUser').val();
+        var pushType = $('#pushType').val();
+        var userName = $('#currentUser').val();
+        if (!toUser || toUser == '') {
+            toUser = "All";
+        }
+        if (msg && msg != '' && toUser && toUser != '') {
+            var map = {};
+            map['from'] = "ping";
+            map['toUser'] = toUser;
+            map['message'] = msg;
+            map['pushType'] = pushType;
+            map['fromUser'] = userName;
+            var jsonStr = JSON.stringify(map);
+            alert(jsonStr);
+            webSocket.send(jsonStr);
+        } else {
+            alert("参数不能为空");
+        }
     }
 
 
-    //将消息显示在网页上
-    function setMessageInnerHTML(innerHTML){
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
-    }
-
-
-    //关闭连接
-    function closeWebSocket(){
-        websocket.close();
-    }
-
-
-    //发送消息
-    function send(){
-        var message = document.getElementById('text').value;
-        websocket.send(message);
+    function randomString(len) {
+        len = len || 32;
+        var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+        var maxPos = $chars.length;
+        var pwd = '';
+        for (i = 0; i < len; i++) {
+            pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        return pwd;
     }
 </script>
+</body>
 </html>

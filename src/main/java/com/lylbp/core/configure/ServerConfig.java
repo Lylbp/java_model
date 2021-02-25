@@ -10,8 +10,8 @@ import java.net.UnknownHostException;
 /**
  * ServerConfig
  *
- * @Author weiwenbin
- * @Date 2020/8/20 下午5:58
+ * @author weiwenbin
+ * @date 2020/8/20 下午5:58
  */
 @Component
 public class ServerConfig implements ApplicationListener<WebServerInitializedEvent> {
