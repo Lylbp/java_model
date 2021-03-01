@@ -46,7 +46,9 @@ https://github.com/Lylbp/mybatis-plus-generator
     cp application-mysql.yml.ref application-mysql.yml
 注意application-mysql.yml不会提交到git中,请将文件中的配置项修改成自己的参数
 
-2.示例使用mysql数据库, 表结构在src/main/resources/java_model1.sql
+2.示例使用mysql数据库, 表结构在src/main/resources/java_model.sql
+3.manager中集成了许多三方如果你本地没有安装该三方的话项目会跑不起来（如hbase），解决方法删除对应的pom依赖、对应的manager、
+以及对应的application配置项目即可
 ```
 
 ### 后端RBAC接口权限管理
