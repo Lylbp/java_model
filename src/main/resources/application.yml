@@ -18,51 +18,6 @@ spring:
       enabled: true
       max-file-size: 500MB
       max-request-size: 500MB
-  quartz:
-    #持久化到数据库
-    job-store-type: jdbc
-    jdbc:
-      initialize-schema: NEVER
-    properties:
-      org:
-        quartz:
-          scheduler:
-            #调度器实例名称
-            instancName: clusteredScheduler
-            #默认主机名和时间戳生成实例ID,可以是任何字符串，但对于所有调度程序来说，必须是唯一的 对应qrtz_scheduler_state INSTANCE_NAME字段
-            instanceId: AUTO
-          jobStore:
-            #调度信息存储处理类
-            class: org.quartz.impl.jdbcjobstore.JobStoreTX
-            #数据库方言(使用完全兼容JDBC的驱动)
-            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-            #数据库表前缀
-            tablePrefix: QRTZ_
-            #是否打开群集功能
-            isClustered: true
-            #设置此实例“检入”*与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度。
-            clusterCheckinInterval: 10000
-            #是否将JobDataMap中的属性转为字符串存储
-            useProperties: false
-          threadPool:
-            #指定线程池实现类，对调度器提供固定大小的线程池
-            class: org.quartz.simpl.SimpleThreadPool
-            #设置并发线程数量
-            threadCount: 10
-            #指定线程优先级
-            threadPriority: 5
-            threadsInheritContextClassLoaderOfInitializingThread: true
-
-  activiti:
-    #自动检查、部署流程定义文件
-    check-process-definitions: false
-    # 检测身份信息表是否存在
-    db-identity-used: false
-    #自动更新数据库结构
-    database-schema-update: true
-#    #流程定义文件存放目录
-#    process-definition-location-prefix: classpath:/processes/
-
 # MyBatis
 mybatis-plus:
   #实体扫描，多个package用逗号或者分号分隔
@@ -71,7 +26,7 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
   # 通用枚举的扫描,支持统配符 * 或者 ; 分割
   type-enums-package: com.lylbp.project.enums
-  # mybatisplus-config.xml配置文件地址
+  # mybatis-plus-config.xml配置文件地址
   config-location: classpath:mybatis-config.xml
   #全局配置
   global-config:
@@ -79,7 +34,8 @@ mybatis-plus:
     db-config:
       #主键类型
       id-type: UUID
-      select-strategy: not_empty
+      #字段策略 IGNORED:"忽略判断", NOT_NULL:"非 NULL 判断", NOT_EMPTY:"非空判断"
+      select-strategy: NOT_EMPTY
       #数据库大写下划线转换
       capital-mode: true
       #全局逻辑删除字段值 如果实体类上有 @TableLogic 则以实体上的为准，忽略全局。
