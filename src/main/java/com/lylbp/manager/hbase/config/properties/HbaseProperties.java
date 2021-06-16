@@ -2,7 +2,6 @@ package com.lylbp.manager.hbase.config.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * habse的配置项
