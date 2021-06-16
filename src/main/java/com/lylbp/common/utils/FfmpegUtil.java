@@ -60,12 +60,12 @@ public class FfmpegUtil {
         commands.add("-y");
         commands.add("-i");
         commands.add(videoPath);
-//        commands.add("-vcodec");
-//        commands.add("copy");
-//        commands.add("-acodec");
-//        commands.add("copy");
-//        commands.add("-vbsf");
-//        commands.add("h264_mp4toannexb");
+        commands.add("-vcodec");
+        commands.add("copy");
+        commands.add("-acodec");
+        commands.add("copy");
+        commands.add("-vbsf");
+        commands.add("h264_mp4toannexb");
         commands.add(savePath);
 
         Process process = startCommand(commands, new ProcessBuilder());
