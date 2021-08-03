@@ -21,15 +21,15 @@ public class WebSocketConfig {
     }
 
 
-    /**
-     * 后端模拟websocket客户端
-     *
-     * @return MyWebSocketClient
-     */
-    @Bean
-    public MyWebSocketClient myWebSocketClient() {
-        String wsUrl = "ws://192.168.150.129:8073/websocket/1624928718196-web-B-1-";
-        URI uri = URI.create(wsUrl);
-        return new MyWebSocketClient(uri);
-    }
+//    /**
+//     * 后端模拟websocket客户端
+//     *
+//     * @return MyWebSocketClient
+//     */
+//    @Bean
+//    public MyWebSocketClient myWebSocketClient() {
+//        String wsUrl = "ws://192.168.150.129:8073/websocket/1624928718196-web-B-1-";
+//        URI uri = URI.create(wsUrl);
+//        return new MyWebSocketClient(uri);
+//    }
 }

@@ -1,7 +1,5 @@
 package com.lylbp.manager.websocket.client;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.lylbp.manager.websocket.PersonBean;
 import lombok.extern.slf4j.Slf4j;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.enums.ReadyState;
@@ -41,18 +39,6 @@ public class MyWebSocketClient extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
-        PersonBean.Person.Builder builder = PersonBean.Person.newBuilder();
-        builder.setAge(15);
-        builder.setName("张三");
-        builder.setGender("男");
-        byte[] bytes = builder.build().toByteArray();
-
-        try {
-            PersonBean.Person person = PersonBean.Person.parseFrom(bytes);
-            System.out.println(person);
-        } catch (InvalidProtocolBufferException e) {
-            e.printStackTrace();
-        }
         heartCheck();
         log.info("与云服务器成功建立WS连接");
     }
