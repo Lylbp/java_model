@@ -28,7 +28,6 @@ import java.util.List;
  * @author weiwenbin
  * @date 2020/12/12 下午3:02
  */
-@Service
 @ConditionalOnProperty(prefix = "minio", name = "enabled")
 @Slf4j
 public class MinioServiceImpl implements MinioService {
