@@ -32,7 +32,8 @@
 
     //心跳检测
     let heartCheck = {
-        timeout: 3000,
+        //五分钟
+        timeout: 300000,
         timeoutObj: null,
         serverTimeoutObj: null,
         start: function () {
@@ -52,10 +53,6 @@
                     webSocket.send(jsonStr);
                     console.log('发送一个心跳成功');
                 }
-                //超时重连
-                self.serverTimeoutObj = setTimeout(function () {
-                    reconnect(wsUrl);
-                }, self.timeout);
             }, this.timeout)
         }
     }
@@ -69,7 +66,7 @@
         //没连接上会一直重连，设置延迟避免请求过多
         tt && clearTimeout(tt);
         tt = setTimeout(function () {
-            console.log('执行重置');
+            console.log('执行重置' + wsUrl);
             createWebSocket(wsUrl, false);
             lockReconnect = false;
         }, 3000);
@@ -88,7 +85,7 @@
             //建立websocket对象
             webSocket = new WebSocket(wsUrl);
         } catch (e) {
-            alert('websocket连接失败');
+            alert('websocket创建连接失败,请查看后台服务');
         }
         //报错触发
         webSocket.onerror = function (event) {
@@ -96,7 +93,12 @@
         };
         //连接触发
         webSocket.onopen = function (event) {
-            onOpen(event)
+            onOpen(event);
+            if (!closeBefore) {
+                $("#messages").append('<br />' + wsUrl + '已自动重连');
+            } else {
+                $("#messages").text($('#currentUser').val() + '连接成功');
+            }
         };
         //接收到信息触发
         webSocket.onmessage = function (event) {
@@ -129,23 +131,24 @@
      * 报错触发
      */
     function onError(event) {
-        const wsUrl = $('#wsUrl').val();
+        let url = $('#url').val();
         let userName = $('#currentUser').val();
-        $("#messages").append('<br />' + userName + '已退出连接');
+        wsUrl = url + userName
         if (event.data === undefined || event.data == null) {
-            alert(wsUrl + userName + '连接失败');
+            alert(wsUrl + '连接失败,正在尝试重连........');
         } else {
             alert(event.data);
-            alert(wsUrl + userName + '连接失败');
+            alert(wsUrl + '连接失败,正在尝试重连........');
         }
-        webSocket.close();
+        reconnect(wsUrl);
     }
 
     /**
      * 关闭触发
      */
     function onClose(event) {
-        console.log("关闭触发")
+        console.log("关闭触发");
+        reconnect(wsUrl);
     }
 
 
@@ -166,7 +169,6 @@
         wsUrl = url + userName;
         //建立websocket对象
         createWebSocket(wsUrl, true);
-        $("#messages").text($('#currentUser').val() + '连接成功');
     });
 
     /**

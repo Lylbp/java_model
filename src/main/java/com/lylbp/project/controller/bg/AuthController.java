@@ -34,7 +34,7 @@ public class AuthController {
         SecurityUser securityUser = authService.login("admin", "admin");
         //token存redis
         String token = TokenUtil.createToken(securityUser, ProjectConstant.JWT_EXPIRE_TIME);
-        redisService.strSet(ProjectConstant.REDIS_USER_TOKEN_PRE + token, token, ProjectConstant.JWT_EXPIRE_TIME);
+        redisService.strSet(authService.getRedisTokenKey(token), token, ProjectConstant.JWT_EXPIRE_TIME);
 
         return ResResultUtil.success(token);
     }

@@ -59,7 +59,7 @@ public class UserDetailServiceImpl implements MyUserDetailsService {
         long currentTime = DateUtil.date().getTime();
         if (expireTime - currentTime < ProjectConstant.JWT_EXPIRE_TIME / 2) {
             token = TokenUtil.createToken(securityUser, ProjectConstant.JWT_EXPIRE_TIME);
-            redisService.strSet(ProjectConstant.REDIS_USER_TOKEN_PRE + auth, token, ProjectConstant.JWT_EXPIRE_TIME);
+            redisService.strSet(authService.getRedisTokenKey(auth), token, ProjectConstant.JWT_EXPIRE_TIME);
         }
 
         return securityUser;

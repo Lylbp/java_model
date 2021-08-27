@@ -29,6 +29,14 @@ public interface AuthService {
     String getRedisToken(String auth);
 
     /**
+     * 获取存储在redis中token对应的key
+     *
+     * @param auth auth
+     * @return String
+     */
+    String getRedisTokenKey(String auth);
+
+    /**
      * 通过请求获取SecurityUser
      *
      * @param request 请求实体

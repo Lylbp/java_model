@@ -96,7 +96,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "kafka", name = "bootstrap-servers")
+    @ConditionalOnProperty(prefix = "spring.kafka", name = "bootstrap-servers")
     public Docket kafkaDemo() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo("kafkaDemo", "kafkaDemo", "韦文彬"))

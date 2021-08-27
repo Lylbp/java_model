@@ -52,17 +52,21 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public String getRedisToken(String auth){
-        //获取redis中的token
-        String redisKey = ProjectConstant.REDIS_USER_TOKEN_PRE + auth;
-        return redisService.strGet(redisKey);
+    public String getRedisToken(String auth) {
+        return redisService.strGet(getRedisTokenKey(auth));
     }
+
+    @Override
+    public String getRedisTokenKey(String auth) {
+        return ProjectConstant.REDIS_USER_TOKEN_PRE + auth;
+    }
+
 
     @Override
     public SecurityUser getUserFromRequest(HttpServletRequest request) {
         //获取redis中的token
         String token = getRedisToken(request.getHeader(ProjectConstant.AUTHENTICATION));
-        if (StrUtil.isEmpty(token)){
+        if (StrUtil.isEmpty(token)) {
             throw new ResResultException(ResResultEnum.NO_LOGIN);
         }
 
