@@ -68,7 +68,7 @@ public class HBaseBeanService<T> {
         try {
             tableExists = hBaseAdmin.tableExists(tableName);
         } catch (IOException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
         }
         return tableExists;
     }

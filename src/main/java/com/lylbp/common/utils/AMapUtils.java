@@ -82,7 +82,7 @@ public class AMapUtils {
             ++GEO_COUNT;
             return geo(address);
         } catch (Exception exception) {
-            log.info(exception.getMessage());
+            log.error(exception.getMessage());
             return null;
         }
     }
@@ -123,7 +123,7 @@ public class AMapUtils {
             ++REG_COUNT;
             return reGeo(location);
         } catch (Exception exception) {
-            log.info(exception.getMessage());
+            log.error(exception.getMessage());
             return null;
         }
     }

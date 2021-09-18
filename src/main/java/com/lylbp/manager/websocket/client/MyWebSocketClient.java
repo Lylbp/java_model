@@ -40,13 +40,13 @@ public class MyWebSocketClient extends WebSocketClient {
     @Override
     public void onOpen(ServerHandshake serverHandshake) {
         heartCheck();
-        log.info("与云服务器成功建立WS连接");
+        log.debug("与云服务器成功建立WS连接");
     }
 
     @Override
     public void onMessage(String s) {
         heartCheck();
-        log.info("-------- 接收到服务端数据： " + s + "--------");
+        log.debug("-------- 接收到服务端数据： " + s + "--------");
         send("发送一个心跳成功");
     }
 

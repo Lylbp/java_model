@@ -30,7 +30,7 @@ import java.util.*;
 @RequestMapping("/test/kafka")
 @Api(tags = "测试kafka")
 @Slf4j
-@ConditionalOnProperty(prefix = "spring.kafka", name = "bootstrap-servers")
+@ConditionalOnProperty(prefix = "spring.kafka", name = "enable", havingValue = "true" )
 public class TestKafkaController {
     @Resource
     private KafkaService kafkaService;
@@ -55,7 +55,7 @@ public class TestKafkaController {
         Optional message = Optional.ofNullable(record.value());
         if (message.isPresent()) {
             Object msg = message.get();
-            log.info("topic_test 消费了： Topic:" + topic + ",Message:" + msg);
+            log.debug("topic_test 消费了： Topic:" + topic + ",Message:" + msg);
             ack.acknowledge();
         }
     }

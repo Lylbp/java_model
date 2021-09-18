@@ -58,6 +58,10 @@ public class ResResultUtil {
         return new ResResult<T>().setCode(ResResultEnum.SYSTEM_ERR.getCode()).setMsg(ResResultEnum.SYSTEM_ERR.getMsg()).setData(data);
     }
 
+    public static <T> ResResult<T> error(T data, String msg) {
+        return new ResResult<T>().setCode(ResResultEnum.SYSTEM_ERR.getCode()).setMsg(msg).setData(data);
+    }
+
 
     public static <T> ResResult<PageResResult<T>> makePageRsp(Page<T> page) {
         return makePageRsp(new PageResResult<T>(page));

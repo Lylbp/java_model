@@ -41,7 +41,6 @@
 //            request.getHeader(ProjectConstant.AUTHENTICATION);
 //            actionId = getActionId();
 //        } catch (Exception exception) {
-//            log.info("不是request请求");
 //            actionId = projectProperties.getSuperAdminId();
 //        }
 //        this.strictInsertFill(metaObject, "createBy", String.class, actionId);
@@ -55,7 +54,6 @@
 //            request.getHeader(ProjectConstant.AUTHENTICATION);
 //            actionId = getActionId();
 //        } catch (Exception exception) {
-//            log.info("不是request请求");
 //            actionId = projectProperties.getSuperAdminId();
 //        }
 //        this.strictUpdateFill(metaObject, "updateBy", String.class, actionId);

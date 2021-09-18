@@ -310,11 +310,11 @@ public class FfmpegUtil {
             Process p = builder.start();
             String errMsg = readErr(p.getErrorStream());
             if (ObjectUtil.isNotEmpty(errMsg)) {
-                log.info(errMsg);
+                log.debug(errMsg);
             }
             return p;
         } catch (IOException e) {
-            log.info(e.getMessage());
+            log.error(e.getMessage());
             throw new RuntimeException(e.getMessage());
         }
     }

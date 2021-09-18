@@ -78,7 +78,7 @@ public class ActionLogAspect {
             //请求参数
             String params = JSON.toJSONString(joinPoint.getArgs(), SerializerFeature.WriteNullStringAsEmpty);
         } catch (Exception exception) {
-            logger.info(exception.getMessage());
+            logger.error(exception.getMessage());
         }
     }
 
