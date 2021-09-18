@@ -127,4 +127,10 @@ security:
     /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,
     classpath:/META-INF/resources/webjars/,classpath:/static/,/v2/**,/error,/csrf/**,/
   #权限管理-security-open为true需配置所有用户都可访问的api路径
-  allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**,
+  allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**
+
+logging:
+  config: classpath:logback-spring.xml
+  #线上环境注释则不打印debug日志
+  level:
+    com.lylbp: DEBUG
