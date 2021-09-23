@@ -180,7 +180,6 @@ security:
   allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**
 
 logging:
-  config: classpath:logback-spring.xml
-  #线上环境注释则不打印debug日志
+  #线上环境配置INFO模式
   level:
-    com.lylbp: DEBUG
+    com.dar: DEBUG

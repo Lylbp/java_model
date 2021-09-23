@@ -4,7 +4,7 @@ package com.lylbp.common.utils;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * srping工具
+ * Spring工具
  *
  * @author weiwnebin
  */

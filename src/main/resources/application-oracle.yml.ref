@@ -98,6 +98,7 @@ project:
 
 #minio
 minio:
+  enabled: false
   accessKey: BCIAIOSFODNN7EXAMPLE
   secretKey: aKalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
   endpoint: http://192.168.1.192:9000/
@@ -109,12 +110,14 @@ hbase:
     quorum: Alex
     property:
       clientPort: 2181
+  enabled: false
 zookeeper:
   znode:
     parent: /hbase
 
 #极光推送配置（无则不配）
 jpush:
+  enabled: false
   appKey: 417f19361216299f3f2c45d0
   masterKey: 40c46b13eaf5f6ea0d307669
 
@@ -130,7 +133,6 @@ security:
   allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**
 
 logging:
-  config: classpath:logback-spring.xml
-  #线上环境注释则不打印debug日志
+  #线上环境配置INFO模式
   level:
-    com.lylbp: DEBUG
+    com.dar: DEBUG
