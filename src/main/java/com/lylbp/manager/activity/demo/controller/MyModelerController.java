@@ -1,6 +1,7 @@
 package com.lylbp.manager.activity.demo.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.lylbp.common.utils.ResResultUtil;
 import com.lylbp.common.entity.DataPage;
 import com.lylbp.common.entity.PageResResult;
@@ -51,14 +52,25 @@ public class MyModelerController {
         return ResResultUtil.success(modelService.createModel(modelName, modelKey, description));
     }
 
-    @GetMapping("/createAndRedirect")
+    @GetMapping("/createAndRedirect/{modelName}/{description}/{modelKey}")
     @ApiOperation("创建流程模型并跳转页面")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "modelName", value = "名称", dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "description", value = "描述", dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "modelKey", value = "模型的key", dataType = "String", paramType = "path"),
+    })
     @ResponseBody
-    public void createAndRedirect() throws IOException {
+    public void createAndRedirect(@PathVariable String modelName, @PathVariable String description, @PathVariable String modelKey) throws IOException {
         //设置一些默认信息
-        String modelName = "new-process";
-        String description = "";
-        String modelKey = "process";
+        if (StrUtil.isEmpty(modelKey)) {
+            modelName = "new-process";
+        }
+        if (StrUtil.isEmpty(description)) {
+            description = "";
+        }
+        if (StrUtil.isEmpty(modelKey)) {
+            modelKey = "process";
+        }
 
         String modelId = modelService.createModel(modelName, modelKey, description);
         response.sendRedirect("/modeler/modeler.html?modelId=" + modelId);
