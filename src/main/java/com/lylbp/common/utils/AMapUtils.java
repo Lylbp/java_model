@@ -9,7 +9,6 @@ import cn.hutool.json.JSONUtil;
 import com.lylbp.common.enums.ResResultEnum;
 import com.lylbp.common.exception.ResResultException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -45,25 +44,17 @@ public class AMapUtils {
      */
     private static Integer ALLOW_MAX = 2;
 
-
     /**
-     * 通过地址获取经维度
+     * 高德地图地理编码
      *
-     * @param address 地址
+     * @param paramMap 参数
      * @return JSONObject
      */
-    public static JSONObject geo(String address) {
-        String key = getKey();
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("key", key);
-        paramMap.put("output", "JSON");
-        paramMap.put("address", address);
-
-
-        String resultJsonStr = HttpUtil.get(GEO_URL, paramMap);
+    public static synchronized JSONObject geo(Map<String, Object> paramMap) {
         JSONObject jsonObject = null;
         try {
             if (GEO_COUNT < ALLOW_MAX) {
+                String resultJsonStr = HttpUtil.get(GEO_URL, paramMap, 3000);
                 jsonObject = checkResultJson(resultJsonStr);
                 if (jsonObject == null) {
                     throw new ResResultException(ResResultEnum.SYSTEM_ERR);
@@ -71,7 +62,7 @@ public class AMapUtils {
             }
             GEO_COUNT = 0;
             if (jsonObject == null || !jsonObject.containsKey("geocodes")) {
-                throw new ResResultException(ResResultEnum.SYSTEM_ERR);
+                return null;
             }
 
             JSONArray geocodes = jsonObject.getJSONArray("geocodes");
@@ -80,31 +71,24 @@ public class AMapUtils {
             return (JSONObject) geocodesObj;
         } catch (ResResultException resResultException) {
             ++GEO_COUNT;
-            return geo(address);
+            return geo(paramMap);
         } catch (Exception exception) {
-            log.error(exception.getMessage());
+            log.error("高德地理编码失败,次数:{},错误信息：{}", GEO_COUNT + 1, exception.getMessage());
             return null;
         }
     }
 
     /**
-     * 通过经维度获取地址
+     * 高德地图逆地理编码
      *
-     * @param location 经维度
+     * @param paramMap 参数
      * @return JSONObject
      */
-    public static JSONObject reGeo(String location) {
-        String key = getKey();
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("key", key);
-        paramMap.put("output", "JSON");
-        paramMap.put("location", location);
-
-        String resultJsonStr = HttpUtil.get(REGEO_URL, paramMap);
+    public static synchronized JSONObject reGeo(Map<String, Object> paramMap) {
         JSONObject jsonObject = null;
-
         try {
             if (REG_COUNT < ALLOW_MAX) {
+                String resultJsonStr = HttpUtil.get(REGEO_URL, paramMap, 3000);
                 jsonObject = checkResultJson(resultJsonStr);
                 if (jsonObject == null) {
                     throw new ResResultException(ResResultEnum.SYSTEM_ERR);
@@ -121,9 +105,9 @@ public class AMapUtils {
             return (JSONObject) object;
         } catch (ResResultException resResultException) {
             ++REG_COUNT;
-            return reGeo(location);
+            return reGeo(paramMap);
         } catch (Exception exception) {
-            log.error(exception.getMessage());
+            log.error("高德逆地理编码失败,次数:{},错误信息：{}", REG_COUNT + 1, exception.getMessage());
             return null;
         }
     }
@@ -135,13 +119,20 @@ public class AMapUtils {
      * @return JSONObject
      */
     public static String[] addressToLocation(String address) {
-        JSONObject geo = geo(address);
-        if (ObjectUtil.isEmpty(geo) || geo.get("location").toString().equals("[]")) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("key", getKey());
+        paramMap.put("output", "JSON");
+        paramMap.put("address", address);
+
+        JSONObject geo = geo(paramMap);
+        try {
+            String location = (String) geo.get("location");
+            return location.split(",");
+        } catch (Exception exception) {
             return null;
         }
-        String location = (String) geo.get("location");
-        return location.split(",");
     }
+
 
     /**
      * 通过经维度获取地址
@@ -150,15 +141,29 @@ public class AMapUtils {
      * @return JSONObject
      */
     public static String locationToAddress(String location) {
-        JSONObject reGod = reGeo(location);
-        if (ObjectUtil.isEmpty(reGod)) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("key", getKey());
+        paramMap.put("output", "JSON");
+        paramMap.put("location", location);
+
+        JSONObject reGod = reGeo(paramMap);
+        try {
+            return ObjectUtil.isEmpty(reGod) ? null : (String) reGod.get("formatted_address");
+        } catch (Exception exception) {
             return null;
         }
-        return (String) reGod.get("formatted_address");
+    }
+
+    public static String getKey() {
+        List<String> keyList = Arrays.asList(KEY_STR.split(","));
+        return keyList.get((int) RandomUtil.randomLong(0, keyList.size()));
     }
 
 
-    private static JSONObject checkResultJson(String resultJsonStr) {
+    public static JSONObject checkResultJson(String resultJsonStr) {
+        if (null == resultJsonStr) {
+            return null;
+        }
         JSONObject jsonObject = JSONUtil.parseObj(resultJsonStr);
         if (!jsonObject.containsKey("status")) {
             return null;
@@ -172,10 +177,5 @@ public class AMapUtils {
         return jsonObject;
     }
 
-    private static String getKey() {
-        List<String> keyList = Arrays.asList(KEY_STR.split(","));
-        return keyList.get((int) RandomUtil.randomLong(0, keyList.size()));
-//        return "2827f349d589423decf94590f7a48df4";
-    }
-
 }
+
