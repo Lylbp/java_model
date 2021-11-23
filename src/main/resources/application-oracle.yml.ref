@@ -125,11 +125,11 @@ jpush:
 security:
   #是否开启
   enabled: true
-  #权限管理security-open为true需配置所有用户都可访问的静态资源路径
+  #权限管理-enabled为true需配置所有用户都可访问的静态资源路径
   allow-static: /**/*.js,/**/*.css,/**/*.html,/**/*.txt,/**/*.jpg,/**/*.png,/**/*.pdf,/**/*.mp4,/**/*.mp3,/hls/**,
     /favicon.ico,/doc.html,/webjars/**,/webjars/**,/swagger-resources/**,/*/api-docs,classpath:/META-INF/resources/,
     classpath:/META-INF/resources/webjars/,classpath:/static/,/v2/**,/error,/csrf/**,/
-  #权限管理-security-open为true需配置所有用户都可访问的api路径
+  #权限管理-enabled为true需配置所有用户都可访问的api路径
   allow-api: /public/**,/test/**,/bg/auth/login,/bg/auth/changePassWd,/modeler/**,/myModeler/**,/demo/**,/websocket/**
 
 logging:
