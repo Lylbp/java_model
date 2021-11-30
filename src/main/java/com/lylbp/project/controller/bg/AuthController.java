@@ -1,5 +1,6 @@
 package com.lylbp.project.controller.bg;
 
+import com.lylbp.common.annotation.ActionLog;
 import com.lylbp.common.constant.ProjectConstant;
 import com.lylbp.common.entity.ResResult;
 import com.lylbp.common.utils.ResResultUtil;
@@ -30,6 +31,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @ApiOperation("后台用户登录")
+    @ActionLog(description = "后台用户登录")
     public ResResult<String> login() {
         SecurityUser securityUser = authService.login("admin", "admin");
         //token存redis

@@ -135,4 +135,4 @@ security:
 logging:
   #线上环境配置INFO模式
   level:
-    com.dar: DEBUG
+    com.lylbp: DEBUG
