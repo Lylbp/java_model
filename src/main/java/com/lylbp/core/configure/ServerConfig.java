@@ -4,8 +4,11 @@ import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 /**
  * ServerConfig
@@ -18,17 +21,36 @@ public class ServerConfig implements ApplicationListener<WebServerInitializedEve
     private int serverPort;
 
     public String getUrl() {
-        InetAddress address;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
-            return "";
-        }
-        return "http://" + address.getHostAddress() + ":" + this.serverPort;
+        return "http://" + getIpAddress() + ":" + this.serverPort;
     }
 
     @Override
     public void onApplicationEvent(WebServerInitializedEvent event) {
         this.serverPort = event.getWebServer().getPort();
+    }
+
+
+    public String getIpAddress() {
+        try {
+            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+            InetAddress ip;
+            while (allNetInterfaces.hasMoreElements()) {
+                NetworkInterface netInterface =  allNetInterfaces.nextElement();
+                if (netInterface.isLoopback() || netInterface.isVirtual() || !netInterface.isUp()) {
+                    continue;
+                }
+
+                Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    ip = addresses.nextElement();
+                    if (ip instanceof Inet4Address) {
+                        return ip.getHostAddress();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            return "";
+        }
+        return "";
     }
 }
